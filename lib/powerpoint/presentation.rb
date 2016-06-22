@@ -46,6 +46,10 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendWhatNext.new(presentation: self, title: title, content: content)
     end
 
+    def add_ff_trend_heading_text_slide(title, content)
+      @slides << Powerpoint::Slide::FFHeadingText.new(presentation: self, title: title, content: content)
+    end
+
     def save(path)
       Dir.mktmpdir do |dir|
         extract_path = "#{dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"

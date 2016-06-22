@@ -10,6 +10,7 @@ require 'powerpoint/presentation'
 
 require 'powerpoint/slide/ff_trend_intro'
 require 'powerpoint/slide/ff_trend_what_next'
+require 'powerpoint/slide/ff_trend_heading_text'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
