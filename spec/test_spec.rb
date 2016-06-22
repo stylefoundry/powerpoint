@@ -4,6 +4,7 @@ describe 'Powerpoint parsing a sample PPTX file' do
   before(:all) do 
     @deck = Powerpoint::Presentation.new
     @deck.add_intro 'Bicycle Of the Mind', 'created by Steve Jobs'
+    @deck.add_ff_trend_intro_slide 'Cashless Society', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_textual_slide 'Why Mac?', ['Its cool!', 'Its light!']
     @deck.add_textual_slide 'Why Iphone?', ['Its fast!', 'Its cheap!']
     @deck.add_pictorial_slide 'JPG Logo', 'samples/images/sample_png.png'
