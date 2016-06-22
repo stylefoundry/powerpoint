@@ -7,7 +7,9 @@ require 'powerpoint/slide/text_picture_split'
 require 'powerpoint/slide/picture_description'
 require 'powerpoint/compression'
 require 'powerpoint/presentation'
+
 require 'powerpoint/slide/ff_trend_intro'
+require 'powerpoint/slide/ff_trend_what_next'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)

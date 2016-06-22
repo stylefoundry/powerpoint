@@ -42,6 +42,10 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: coords)
     end
 
+    def add_ff_trend_what_next_slide(title, content = {})
+      @slides << Powerpoint::Slide::FFTrendWhatNext.new(presentation: self, title: title, content: content)
+    end
+
     def save(path)
       Dir.mktmpdir do |dir|
         extract_path = "#{dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"
