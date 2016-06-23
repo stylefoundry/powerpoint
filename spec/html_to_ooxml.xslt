@@ -29,6 +29,12 @@
 
   <xsl:template match="p">
     <a:p>
+      <a:pPr marL="0" indent="0">
+        <a:spcAft>
+          <a:spcPts val="600"/>
+        </a:spcAft>
+        <a:buNone/>
+      </a:pPr>
       <xsl:call-template name="text-alignment" />
       <xsl:apply-templates />
     </a:p>
@@ -270,6 +276,7 @@
             <a:u a:val="single"/>
           </a:rPr>
         </xsl:if>
+        <a:rPr lang="en-GB" sz="1800" dirty="0" smtClean="0"/>
         <a:t xml:space="preserve"><xsl:value-of select="."/></a:t>
       </a:r>
     </xsl:if>

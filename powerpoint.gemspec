@@ -29,4 +29,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rubyzip', '~> 1'
   spec.add_dependency 'fastimage', '~> 1'
   spec.add_dependency 'nokogiri'
-end
+end 
