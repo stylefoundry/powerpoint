@@ -8,6 +8,7 @@ def html_to_ooxml(html)
   result = Htmltoooxml::Document.new().transform_doc_xml(source, false)
   result.gsub!(/\s*<!--(.*?)-->\s*/m, '')
   result = remove_declaration(result)
+  puts result
   result
 end
 

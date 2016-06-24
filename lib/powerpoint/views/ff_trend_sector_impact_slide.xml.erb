@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sld
+    xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+    xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+    xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+    <p:cSld>
+        <p:spTree>
+            <p:nvGrpSpPr>
+                <p:cNvPr id="1" name=""/>
+                <p:cNvGrpSpPr/>
+                <p:nvPr/>
+            </p:nvGrpSpPr>
+            <p:grpSpPr>
+                <a:xfrm>
+                    <a:off x="0" y="0"/>
+                    <a:ext cx="0" cy="0"/>
+                    <a:chOff x="0" y="0"/>
+                    <a:chExt cx="0" cy="0"/>
+                </a:xfrm>
+            </p:grpSpPr>
+            <p:sp>
+                <p:nvSpPr>
+                    <p:cNvPr id="2" name="Content Placeholder 1"/>
+                    <p:cNvSpPr>
+                        <a:spLocks noGrp="1"/>
+                    </p:cNvSpPr>
+                    <p:nvPr>
+                        <p:ph idx="1"/>
+                    </p:nvPr>
+                </p:nvSpPr>
+                <p:spPr>
+                    <a:xfrm>
+                        <a:off x="250826" y="873126"/>
+                        <a:ext cx="8642348" cy="5111749"/>
+                    </a:xfrm>
+                </p:spPr>
+                <p:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <%  content.each do |sector| %>
+                    <a:p>
+                        <a:pPr>
+                            <a:spcBef>
+                                <a:spcPts val="0"/>
+                            </a:spcBef>
+                            <a:spcAft>
+                                <a:spcPts val="600"/>
+                            </a:spcAft>
+
+                        </a:pPr>
+                        <a:r>
+                            <a:rPr lang="en-GB" b="1" dirty="0" smtClean="0"/>
+                            <a:t><%= sector[1]["title"] %></a:t>
+                        </a:r>
+                    </a:p>
+                    <%= html_to_ooxml(sector[1]["items"]["impactTextInput"]["value"]) %>
+                    <% end %>
+                    <!--
+                    <a:p>
+                        <a:pPr>
+                            <a:spcBef>
+                                <a:spcPts val="0"/>
+                            </a:spcBef>
+                            <a:spcAft>
+                                <a:spcPts val="600"/>
+                            </a:spcAft>
+                            <a:buNone/>
+                        </a:pPr>
+                        <a:r>
+                            <a:rPr lang="en-GB" b="1" dirty="0" smtClean="0"/>
+                            <a:t>Digital</a:t>
+                        </a:r>
+                        <a:endParaRPr lang="en-GB" b="1" dirty="0" smtClean="0"/>
+                    </a:p>
+                    <a:p>
+                        <a:pPr>
+                            <a:spcBef>
+                                <a:spcPts val="0"/>
+                            </a:spcBef>
+                            <a:spcAft>
+                                <a:spcPts val="600"/>
+                            </a:spcAft>
+                        </a:pPr>
+                        <a:r>
+                            <a:rPr lang="en-GB" dirty="0" smtClean="0"/>
+                            <a:t>Consumer facing technology will be key to ensuring that cashless innovations keep up with consumer demand for speed, convenience and control. Importantly, consumers will seek technology that is capable of aggregating all of their spending and payment options, whilst fluidly switching across device or AI assistant. </a:t>
+                        </a:r>
+                    </a:p>
+                    <a:p>
+                        <a:pPr>
+                            <a:spcBef>
+                                <a:spcPts val="0"/>
+                            </a:spcBef>
+                            <a:spcAft>
+                                <a:spcPts val="600"/>
+                            </a:spcAft>
+                            <a:buNone/>
+                        </a:pPr>
+                        <a:r>
+                            <a:rPr lang="en-GB" b="1" dirty="0" smtClean="0"/>
+                            <a:t>Financial Services</a:t>
+                        </a:r>
+                    </a:p>
+                    <a:p>
+                        <a:pPr>
+                            <a:spcBef>
+                                <a:spcPts val="0"/>
+                            </a:spcBef>
+                            <a:spcAft>
+                                <a:spcPts val="600"/>
+                            </a:spcAft>
+                        </a:pPr>
+                        <a:r>
+                            <a:rPr lang="en-GB" dirty="0" smtClean="0"/>
+                            <a:t>Banks either need to lead innovation or partner with third party contactless providers to ensure that their customers can always have early access to the newest payment options. Furthermore, due to the legacy of trust that banks hold, they may be instrumental in promoting consumer uptake of contactless services, either by improving or verifying safety or promoting the simplicity and security of payments compared to more traditional payment options and may be fundamental to facilitating cross border and social media payments.</a:t>
+                        </a:r>
+                    </a:p>
+                    //-->
+                </p:txBody>
+            </p:sp>
+            <p:sp>
+                <p:nvSpPr>
+                    <p:cNvPr id="3" name="Text Placeholder 2"/>
+                    <p:cNvSpPr>
+                        <a:spLocks noGrp="1"/>
+                    </p:cNvSpPr>
+                    <p:nvPr>
+                        <p:ph type="body" sz="quarter" idx="10"/>
+                    </p:nvPr>
+                </p:nvSpPr>
+                <p:spPr/>
+                <p:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                        <a:endParaRPr lang="en-GB"/>
+                    </a:p>
+                </p:txBody>
+            </p:sp>
+            <p:sp>
+                <p:nvSpPr>
+                    <p:cNvPr id="4" name="Title 3"/>
+                    <p:cNvSpPr>
+                        <a:spLocks noGrp="1"/>
+                    </p:cNvSpPr>
+                    <p:nvPr>
+                        <p:ph type="title"/>
+                    </p:nvPr>
+                </p:nvSpPr>
+                <p:spPr/>
+                <p:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                        <a:r>
+                            <a:rPr lang="en-GB" dirty="0" smtClean="0"/>
+                            <a:t>Sector Implications</a:t>
+                        </a:r>
+                        <a:endParaRPr lang="en-GB" dirty="0"/>
+                    </a:p>
+                </p:txBody>
+            </p:sp>
+        </p:spTree>
+    </p:cSld>
+    <p:clrMapOvr>
+        <a:masterClrMapping/>
+    </p:clrMapOvr>
+    <p:transition/>
+</p:sld>
