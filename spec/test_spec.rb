@@ -9,12 +9,11 @@ describe 'Powerpoint parsing a sample PPTX file' do
     @html_content = html_to_ooxml("<p>Test paragraph 1</p><p>Test paragraph 2</p><p><ul><li>list 1</li><li>List 2</li></ul></p> <p>A <b>bold</b> word</p>")
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
     @deck = Powerpoint::Presentation.new
-    @deck.add_intro 'Test Presentation', 'created automagically'
     @deck.add_ff_trend_intro_slide 'Cashless Society', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
-    @deck.add_ff_trend_what_next_slide 'What will happen next', @what_content
-    @deck.add_ff_trend_heading_text_slide 'Test Header', @html_content
-    @deck.add_ff_trend_three_row_text_slide 'What to do', @three_col_content
-    @deck.add_ff_trend_sector_impact_slide 'Sector Impact', @sector_content
+    @deck.add_ff_what_next_slide 'What will happen next', @what_content
+    @deck.add_ff_heading_text_slide 'Test Header', @html_content
+    @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
+    @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
     @deck.save 'samples/pptx/sample.pptx' # Examine the PPTX file
   end
 

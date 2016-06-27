@@ -39,22 +39,28 @@ module Powerpoint
     end
 
     def add_ff_trend_intro_slide(title, subtitle, image_path, coords = {})
-      @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: coords)
+      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
+      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: coords)
+      if existing_intro_slide
+        @slides[@slides.index(existing_intro_slide)] = slide
+      else
+        @slides.insert 0, slide
+      end
     end
 
-    def add_ff_trend_what_next_slide(title, content = {})
+    def add_ff_what_next_slide(title, content = {})
       @slides << Powerpoint::Slide::FFTrendWhatNext.new(presentation: self, title: title, content: content)
     end
 
-    def add_ff_trend_heading_text_slide(title, content)
+    def add_ff_heading_text_slide(title, content)
       @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content)
     end
 
-    def add_ff_trend_three_row_text_slide(title, content)
+    def add_ff_three_row_text_slide(title, content)
       @slides << Powerpoint::Slide::FFTrendThreeRowText.new(presentation: self, title: title, content: content)
     end
 
-    def add_ff_trend_sector_impact_slide(title, content)
+    def add_ff_sector_impact_slide(title, content)
       @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title,content: content)
     end
 
