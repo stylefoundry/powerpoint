@@ -8,7 +8,7 @@ module Powerpoint
     class FFTrendIntro
       include Powerpoint::Util
 
-      attr_reader :image_name, :title, :subtitle, :coords, :image_path
+      attr_reader :image_name, :title, :subtitle, :coords, :image_path, :link_path
 
       def initialize(options={})
         require_arguments [:presentation, :title, :subtitle, :image_path], options

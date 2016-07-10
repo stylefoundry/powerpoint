@@ -9,7 +9,6 @@ module Powerpoint
       view_contents = read_template(template_name)
       renderer = ERB.new(view_contents)
       data = renderer.result(binding)
-
       File.open(path, 'w') { |f| f << data }
     end
 

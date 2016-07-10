@@ -221,7 +221,16 @@
                             <a:p>
                                 <a:pPr lvl="0" algn="ctr"/>
                                 <a:r>
-                                    <a:rPr lang="en-GB" dirty="0" smtClean="0"/>
+                                  <% if link_path %>
+                                    <a:rPr lang="en-GB" dirty="0" smtClean="0">
+                                        <a:solidFill>
+                                            <a:srgbClr val="FFFFFF"/>
+                                        </a:solidFill>
+                                      <a:hlinkClick r:id="rId3" action="ppaction://hlinkpres?slideindex=1"/>
+                                    </a:rPr>
+                                    <% else %>
+                                      <a:rPr lang="en-GB" dirty="0" smtClean="0"/>
+                                    <% end %>
                                     <a:t><%= title %>
                                     </a:t>
                                 </a:r>

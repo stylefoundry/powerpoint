@@ -40,7 +40,7 @@ module Powerpoint
 
     def add_ff_trend_intro_slide(title, subtitle, image_path, coords = {})
       existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
-      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: coords)
+      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: {})
       if existing_intro_slide
         @slides[@slides.index(existing_intro_slide)] = slide
       else
@@ -61,8 +61,14 @@ module Powerpoint
     end
 
     def add_ff_sector_impact_slide(title, content)
-      @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title,content: content)
+      @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title, content: content)
     end
+
+    def add_ff_associated_content_slide(title, subtitle, image_path, coords = {}, link_path = nil)
+      @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
+    end
+
+
 
     def save(path)
       Dir.mktmpdir do |dir|
