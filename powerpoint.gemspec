@@ -28,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rubyzip', '~> 1'
   spec.add_dependency 'fastimage', '~> 1'
   spec.add_dependency 'nokogiri'
-  spec.add_dependency 'htmltoooxml',
+  spec.add_dependency 'htmltoooxml'
 end
