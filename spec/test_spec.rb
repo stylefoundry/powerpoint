@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'powerpoint'
+require 'powerpoint/util'
+include Powerpoint::Util
 
 describe 'Powerpoint parsing a sample PPTX file' do
   before(:all) do

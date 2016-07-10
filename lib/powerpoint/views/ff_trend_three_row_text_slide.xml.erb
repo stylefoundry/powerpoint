@@ -116,7 +116,7 @@
                                                 <a:t><%= content['column1']['items']['headingInput']['value']  %></a:t>
                                             </a:r>
                                         </a:p>
-                                        <%= html_to_ooxml(content['column1']['items']['textInput']['value']) %>
+                                        <%= Powerpoint::Util.html_to_ooxml(content['column1']['items']['textInput']['value']) %>
                                         <!--
                                         <a:p>
                                             <a:pPr algn="ctr" rtl="0" eaLnBrk="1" fontAlgn="t" latinLnBrk="0" hangingPunct="1">
@@ -257,7 +257,7 @@
                                                 <a:t><%= content['column2']['items']['headingInput']['value'] %></a:t>
                                             </a:r>
                                         </a:p>
-                                        <%= html_to_ooxml(content['column2']['items']['textInput']['value']) %>
+                                        <%= Powerpoint::Util.html_to_ooxml(content['column2']['items']['textInput']['value']) %>
                                         <!--
                                         <a:p>
                                             <a:pPr marL="0" marR="0" indent="0" algn="ctr" defTabSz="457200" rtl="0" eaLnBrk="1" fontAlgn="auto" latinLnBrk="0" hangingPunct="1">
@@ -369,7 +369,7 @@
                                                 <a:t><%= content['column3']['items']['headingInput']['value'] %></a:t>
                                             </a:r>
                                         </a:p>
-                                         <%= html_to_ooxml(content['column3']['items']['textInput']['value']) %>
+                                         <%= Powerpoint::Util.html_to_ooxml(content['column3']['items']['textInput']['value']) %>
                                         <!--
                                         <a:p>
                                             <a:pPr marL="0" marR="0" indent="0" algn="ctr" defTabSz="457200" rtl="0" eaLnBrk="1" fontAlgn="auto" latinLnBrk="0" hangingPunct="1">
