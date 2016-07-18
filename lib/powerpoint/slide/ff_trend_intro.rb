@@ -14,11 +14,11 @@ module Powerpoint
         require_arguments [:presentation, :title, :subtitle, :image_path], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @coords = default_coords unless @coords.any?
-        @image_name = File.basename(@image_path)
+        @image_name = File.basename(@image_path) if @image_path != nil
       end
 
       def save(extract_path, index)
-        copy_media(extract_path, @image_path)
+        copy_media(extract_path, @image_path) if @image_path != nil
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
       end
