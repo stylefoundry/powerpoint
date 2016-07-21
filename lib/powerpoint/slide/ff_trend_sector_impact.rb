@@ -2,6 +2,7 @@ require 'zip/filesystem'
 require 'fileutils'
 require 'fastimage'
 require 'erb'
+require 'sanitize'
 
 module Powerpoint
   module Slide
