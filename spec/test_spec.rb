@@ -32,6 +32,9 @@ While checking personal emails in bed is, on the whole, more popular than checki
 </p>')
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
 
+
+    @embed_deck = RubyPowerpoint::Presentation.new "samples/pptx/test_embed.pptx"
+
     @deck = Powerpoint::Presentation.new
     @deck.add_ff_trend_intro_slide 'Cashless Society', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
@@ -39,6 +42,11 @@ While checking personal emails in bed is, on the whole, more popular than checki
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
     @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
     @deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
+    @embed_deck.slides.each do |slide|
+     @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content
+    end
+    puts @embed_deck.media.inspect
+    puts @embed_deck.embeddings.inspect
 
     @deck.save 'samples/pptx/test-output.pptx'
   end

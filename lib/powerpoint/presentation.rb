@@ -68,7 +68,9 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-
+    def add_ff_embeded_slide(slide_content, slide_rel_content)
+      @slides << Powerpoint::Slide::FFEmbededSlide.new(presentation: self, title: "", content: slide_content, rel_content: slide_rel_content)
+    end
 
     def save(path)
       Dir.mktmpdir do |dir|

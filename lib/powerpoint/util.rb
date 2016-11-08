@@ -14,6 +14,10 @@ module Powerpoint
       File.open(path, 'w') { |f| f << data }
     end
 
+    def render_raw(data, path)
+      File.open(path, 'w') { |f| f << data }
+    end
+
     def read_template(filename)
       File.read("#{Powerpoint::VIEW_PATH}/#{filename}")
     end
