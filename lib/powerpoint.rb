@@ -17,6 +17,6 @@ require 'powerpoint/slide/ff_embeded_slide'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
-  TEMPLATE_PATH = "#{ROOT_PATH}/template/"
-  VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/"
+  TEMPLATE_PATH = "#{ROOT_PATH}/template"
+  VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/new"
 end

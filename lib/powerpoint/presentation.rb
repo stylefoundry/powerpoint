@@ -53,7 +53,13 @@ module Powerpoint
     end
 
     def add_ff_heading_text_slide(title, content)
-      @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content)
+      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
+      slide = Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content)
+      if existing_intro_slide
+        @slides[@slides.index(existing_intro_slide)] = slide
+      else
+        @slides.insert 0, slide
+      end
     end
 
     def add_ff_three_row_text_slide(title, content)
@@ -88,7 +94,11 @@ module Powerpoint
         render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
         render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
         render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
+        #render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
+        #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
+        #render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
         render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
+        #render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
 
         # Save slides
         slides.each_with_index do |slide, index|
