@@ -21,7 +21,7 @@ module RubyPowerpoint
       parse_relation
     end
 
-    def parse_slide 
+    def parse_slide
       slide_doc = @presentation.files.file.open @slide_xml_path
       @slide_xml = Nokogiri::XML::Document.parse slide_doc
     end
@@ -54,7 +54,7 @@ module RubyPowerpoint
     def notes_content
       content_elements @slide_notes_xml
     end
-    
+
     def title
       title_elements = title_elements(@slide_xml)
       title_elements.join(" ") if title_elements.length > 0
@@ -67,11 +67,19 @@ module RubyPowerpoint
             node['Target'].gsub('..', 'ppt'))
         end
     end
-   
+
+    def charts
+        chart_elements(@relation_xml)
+          .map.each do |node|
+            @presentation.files.file.open(
+              node['Target'].gsub('..', 'ppt'))
+        end
+    end
+
     def slide_num
       @slide_xml_path.match(/slide([0-9]*)\.xml$/)[1].to_i
     end
- 
+
     private
 
     def extract_slide_number_from_path path
@@ -85,25 +93,33 @@ module RubyPowerpoint
     def title_elements(xml)
       shape_elements(xml).select{ |shape| element_is_title(shape) }
     end
-    
+
     def content_elements(xml)
       xml.xpath('//a:t').collect{ |node| node.text }
     end
 
     def image_elements(xml)
       xml.css('Relationship').select{ |node| element_is_image(node) }
-    end    
+    end
+
+    def chart_elements(xml)
+       xml.css('Relationship').select{ |node| element_is_chart(node) }
+    end
 
     def shape_elements(xml)
       xml.xpath('//p:sp')
-    end    
-  
+    end
+
     def element_is_title(shape)
       shape.xpath('.//p:nvSpPr/p:nvPr/p:ph').select{ |prop| prop['type'] == 'title' || prop['type'] == 'ctrTitle' }.length > 0
     end
 
     def element_is_image(node)
-      node['Type'].include? 'image' 
+      node['Type'].include? 'image'
+    end
+
+    def element_is_chart(node)
+      node['Type'].include? 'chart'
     end
   end
 end

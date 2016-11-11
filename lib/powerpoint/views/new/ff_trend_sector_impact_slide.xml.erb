@@ -53,8 +53,8 @@
           <a:lstStyle/>
           <a:p>
             <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= title %></a:t>
+              <a:rPr lang="en-GB" b="1" dirty="0"/>
+              <a:t>Sector Impact</a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -73,7 +73,21 @@
         <p:txBody>
           <a:bodyPr/>
           <a:lstStyle/>
-          <%= content %>
+          <%  content.each_with_index do |sector,i| %>
+            <a:p>
+              <a:r>
+                <a:rPr lang="en-GB" b="1" dirty="0"/>
+                <a:t><%= sector[1]["title"] %></a:t>
+              </a:r>
+            </a:p>
+            <%= html_to_ooxml(sector[1]["items"]["impactTextInput"]["value"]) %>
+              <a:p>
+                <a:r>
+                  <a:rPr lang="en-GB" b="1" dirty="0"/>
+                  <a:t></a:t>
+                </a:r>
+              </a:p>
+          <% end %>
         </p:txBody>
       </p:sp>
     </p:spTree>

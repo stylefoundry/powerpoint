@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" 
+<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
             xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
   <TotalTime>0</TotalTime>
   <Words>55</Words>
@@ -23,7 +23,7 @@
         <vt:lpstr>Theme</vt:lpstr>
       </vt:variant>
       <vt:variant>
-        <vt:i4>1</vt:i4>
+        <vt:i4>2</vt:i4>
       </vt:variant>
       <vt:variant>
         <vt:lpstr>Slide Titles</vt:lpstr>
@@ -37,7 +37,9 @@
     <vt:vector size="<%= slides.length + 3 %>" baseType="lpstr">
       <vt:lpstr>Arial</vt:lpstr>
       <vt:lpstr>Calibri</vt:lpstr>
-      <vt:lpstr>Office Theme</vt:lpstr><% slides.each do |slide| %><vt:lpstr><%= slide.title %></vt:lpstr><% end %>
+      <vt:lpstr>Office Theme</vt:lpstr>
+      <vt:lpstr>FF2016</vt:lpstr>
+      <% slides.each do |slide| %><vt:lpstr><%= slide.title %></vt:lpstr><% end %>
     </vt:vector>
   </TitlesOfParts>
   <LinksUpToDate>false</LinksUpToDate>

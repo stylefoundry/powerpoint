@@ -53,13 +53,7 @@ module Powerpoint
     end
 
     def add_ff_heading_text_slide(title, content)
-      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
-      slide = Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content)
-      if existing_intro_slide
-        @slides[@slides.index(existing_intro_slide)] = slide
-      else
-        @slides.insert 0, slide
-      end
+      @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content)
     end
 
     def add_ff_three_row_text_slide(title, content)
