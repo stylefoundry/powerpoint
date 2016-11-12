@@ -75,7 +75,6 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/embeddings/slide_#{index}"
         embeddings.each do |embedding|
           zip_entry = embedding.rewind
-          puts zip_entry.name
           File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}/"), 'w+') do |f|
             f.write zip_entry.get_input_stream.read
           end
