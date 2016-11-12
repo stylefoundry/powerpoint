@@ -69,11 +69,43 @@ module RubyPowerpoint
     end
 
     def charts
-        chart_elements(@relation_xml)
-          .map.each do |node|
-            @presentation.files.file.open(
-              node['Target'].gsub('..', 'ppt'))
+      files = chart_elements(@relation_xml)
+        .map.each do |node|
+          @presentation.files.file.open(
+            node['Target'].gsub('..', 'ppt'))
+      end
+      files  += chart_elements(@relation_xml)
+        .map.each do |node|
+          @presentation.files.file.open(
+            node['Target'].gsub('..','ppt').gsub('charts','charts/_rels').gsub('xml','xml.rels'))
+      end
+      files
+    end
+
+    def embeddings
+      embeds = nil
+      chart_elements(@relation_xml).each do |node|
+        rel_file = @presentation.files.file.open(
+          node['Target'].gsub('..','ppt').gsub('charts','charts/_rels').gsub('xml','xml.rels'))
+        zip_entry = rel_file.rewind
+        relation_doc = @presentation.files.file.open zip_entry.name
+        embed_xml = Nokogiri::XML::Document.parse relation_doc
+        if embeds.nil?
+          embeds = embedding_elements(embed_xml)
+            .map.each do |node|
+              @presentation.files.file.open(
+                node['Target'].gsub('..', 'ppt'))
+          end
+        else
+          embeds += embedding_elements(relation_xml)
+            .map.each do |node|
+              @presentation.files.file.open(
+                node['Target'].gsub('..', 'ppt'))
+          end
         end
+      end
+      puts embeds
+      embeds
     end
 
     def slide_num
@@ -106,6 +138,10 @@ module RubyPowerpoint
        xml.css('Relationship').select{ |node| element_is_chart(node) }
     end
 
+    def embedding_elements(xml)
+      xml.css('Relationship').select{ |node| element_is_embedding(node) }
+    end
+
     def shape_elements(xml)
       xml.xpath('//p:sp')
     end
@@ -121,5 +157,10 @@ module RubyPowerpoint
     def element_is_chart(node)
       node['Type'].include? 'chart'
     end
+
+    def element_is_embedding(node)
+      node['Type'].include? 'package'
+    end
+
   end
 end
