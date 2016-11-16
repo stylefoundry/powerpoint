@@ -59,77 +59,9 @@
           </a:p>
         </p:txBody>
       </p:sp>
-<% content["rowsManagerInput"]["value"].each_with_index do |block, i| %>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="<%= 4 + (i *3) %>" name="Text Placeholder <%= 3 + (i *3)%>"/>
-          <p:cNvSpPr>
-            <a:spLocks noGrp="1"/>
-          </p:cNvSpPr>
-          <p:nvPr>
-            <p:ph type="body" sz="quarter" idx="<%= 12 + (i *3)%>"/>
-          </p:nvPr>
-        </p:nvSpPr>
-        <p:spPr/>
-        <p:txBody>
-          <a:bodyPr/>
-          <a:lstStyle/>
-          <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block["item"]["items"]["textInput1"]["value"]  %></a:t>
-            </a:r>
-          </a:p>
-        </p:txBody>
-      </p:sp>
-      <p:sp>
-        <p:nvSpPr>
-          <p:cNvPr id="<%= 5 + (i *3) %>" name="Text Placeholder <%= 4 + (i *3)%>"/>
-          <p:cNvSpPr>
-            <a:spLocks noGrp="1"/>
-          </p:cNvSpPr>
-          <p:nvPr>
-            <p:ph type="body" sz="quarter" idx="<%= 13 + (i *3) %>"/>
-          </p:nvPr>
-        </p:nvSpPr>
-        <p:spPr/>
-        <p:txBody>
-          <a:bodyPr/>
-          <a:lstStyle/>
-          <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block["item"]["items"]["textInput2"]["value"]  %></a:t>
-            </a:r>
-          </a:p>
-        </p:txBody>
-      </p:sp>
-      <p:sp>
-        <p:nvSpPr>
-          <p:cNvPr id="<%= 6 + (i *3) %>" name="Text Placeholder <%= 5 + (i *3)%>"/>
-          <p:cNvSpPr>
-            <a:spLocks noGrp="1"/>
-          </p:cNvSpPr>
-          <p:nvPr>
-            <p:ph type="body" sz="quarter" idx="<%= 14 + (i *3)%>"/>
-          </p:nvPr>
-        </p:nvSpPr>
-        <p:spPr/>
-        <p:txBody>
-          <a:bodyPr/>
-          <a:lstStyle/>
-          <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block["item"]["items"]["textInput3"]["value"]  %></a:t>
-            </a:r>
-          </a:p>
-        </p:txBody>
-      </p:sp>
-      <% end %>
-      <p:sp>
-        <p:nvSpPr>
-          <p:cNvPr id="13" name="Text Placeholder 12"/>
+          <p:cNvPr id="4" name="Text Placeholder 3"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -151,7 +83,7 @@
       </p:sp>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="14" name="Text Placeholder 13"/>
+          <p:cNvPr id="5" name="Text Placeholder 4"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -173,7 +105,7 @@
       </p:sp>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="15" name="Text Placeholder 14"/>
+          <p:cNvPr id="6" name="Text Placeholder 5"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -193,11 +125,79 @@
           </a:p>
         </p:txBody>
       </p:sp>
+      <% content["rowsManagerInput"]["value"].each_with_index do |block, i| %>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="<%= 7 + (i *3) %>" name="Text Placeholder <%= 6 + (i *3)%>"/>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="<%= 24 + (i *3)%>"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr/>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0"/>
+              <a:t><%= block["item"]["items"]["textInput1"]["value"]  %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="<%= 8 + (i *3) %>" name="Text Placeholder <%= 7 + (i *3)%>"/>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="<%= 25 + (i *3) %>"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr/>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0"/>
+              <a:t><%= block["item"]["items"]["textInput2"]["value"]  %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="<%= 9 + (i *3) %>" name="Text Placeholder <%= 8 + (i *3)%>"/>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="<%= 26 + (i *3)%>"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr/>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0"/>
+              <a:t><%= block["item"]["items"]["textInput3"]["value"]  %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <% end %>
     </p:spTree>
     <p:extLst>
       <p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
         <p14:creationId
-          xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="1787757013"/>
+          xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="607448638"/>
         </p:ext>
       </p:extLst>
     </p:cSld>

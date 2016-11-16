@@ -68,8 +68,8 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings)
-      @slides << Powerpoint::Slide::FFEmbededSlide.new(presentation: self, title: "", content: slide_content, rel_content: slide_rel_content, images: images, charts: charts, embeddings: embeddings)
+    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes)
+      @slides << Powerpoint::Slide::FFEmbededSlide.new(presentation: self, title: "", content: slide_content, rel_content: slide_rel_content, images: images, charts: charts, embeddings: embeddings, notes: notes)
     end
 
     def save(path)
@@ -84,6 +84,11 @@ module Powerpoint
           FileUtils.rm_rf(keep_file)
         end
 
+        # Save slides
+        slides.each_with_index do |slide, index|
+          slide.save(extract_path, index + 1)
+        end
+
         # Render/save generic stuff
         render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
         render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
@@ -94,11 +99,6 @@ module Powerpoint
         render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
         #render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
 
-        # Save slides
-        slides.each_with_index do |slide, index|
-          slide.save(extract_path, index + 1)
-        end
-
         # Create .pptx file
         File.delete(path) if File.exist?(path)
         Powerpoint.compress_pptx(extract_path, path)
@@ -108,7 +108,12 @@ module Powerpoint
     end
 
     def file_types
-      slides.map {|slide| slide.file_type if slide.respond_to? :file_type }.compact.uniq
+      slides.map {|slide| slide.file_type if slide.respond_to? :file_type }.compact.flatten.uniq
     end
+
+    def notes_slides
+      slides.map {|slide| slide.notes_slides if slide.respond_to? :notes_slides }.compact.flatten
+    end
+
   end
 end

@@ -2,6 +2,7 @@ require 'zip/filesystem'
 require 'fileutils'
 require 'fastimage'
 require 'erb'
+require 'mimemagic'
 
 module Powerpoint
   module Slide
@@ -24,7 +25,7 @@ module Powerpoint
       end
 
       def file_type
-        File.extname(image_name).gsub('.', '')
+        [{ type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name}" }]
       end
 
       def default_coords

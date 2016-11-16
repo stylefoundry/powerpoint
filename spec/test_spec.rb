@@ -31,9 +31,8 @@ More, online media and retail are accessed differently in these arenas. Remote t
     @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
     @embed_deck.slides.each do |slide|
-      @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings
+      @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes
     end
-
     @deck.save 'samples/pptx/test-output.pptx'
   end
 

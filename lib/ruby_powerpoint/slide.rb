@@ -104,8 +104,21 @@ module RubyPowerpoint
           end
         end
       end
-      puts embeds
       embeds
+    end
+
+    def notes
+      files = note_elements(@relation_xml)
+        .map.each do |node|
+          @presentation.files.file.open(
+            node['Target'].gsub('..', 'ppt'))
+      end
+      files  += note_elements(@relation_xml)
+        .map.each do |node|
+          @presentation.files.file.open(
+            node['Target'].gsub('..','ppt').gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels'))
+      end
+      files
     end
 
     def slide_num
@@ -142,6 +155,10 @@ module RubyPowerpoint
       xml.css('Relationship').select{ |node| element_is_embedding(node) }
     end
 
+    def note_elements(xml)
+      xml.css('Relationship').select{ |node| element_is_note(node) }
+    end
+
     def shape_elements(xml)
       xml.xpath('//p:sp')
     end
@@ -162,5 +179,8 @@ module RubyPowerpoint
       node['Type'].include? 'package'
     end
 
+    def element_is_note(node)
+      node['Type'].include? 'notesSlide'
+    end
   end
 end
