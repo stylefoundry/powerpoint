@@ -7,6 +7,8 @@ require 'powerpoint/slide/text_picture_split'
 require 'powerpoint/slide/picture_description'
 require 'powerpoint/compression'
 require 'powerpoint/presentation'
+require 'powerpoint/read_presentation'
+require 'powerpoint/read_slide'
 
 require 'powerpoint/slide/ff_trend_intro'
 require 'powerpoint/slide/ff_trend_what_next'

@@ -1,8 +1,8 @@
 require 'zip/filesystem'
 require 'nokogiri'
 
-module ReadPowerpoint
-  class ReadPowerpoint::Slide
+module Powerpoint
+  class Powerpoint::ReadSlide
 
     attr_reader :presentation,
                 :slide_number,

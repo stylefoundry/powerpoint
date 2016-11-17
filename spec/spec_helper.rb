@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'htmltoooxml'
-require 'read_powerpoint'
 
 include Htmltoooxml::XSLTHelper
 
