@@ -97,7 +97,7 @@ module Powerpoint
                 node['Target'].gsub('..', 'ppt'))
           end
         else
-          embeds += embedding_elements(relation_xml)
+          embeds += embedding_elements(@relation_xml)
             .map.each do |node|
               @presentation.files.file.open(
                 node['Target'].gsub('..', 'ppt'))
