@@ -106,6 +106,7 @@ module Powerpoint
                 node['Target'].gsub('..', 'ppt'))
           end
         end
+        rel_file.close
       end
       embeds
     end
