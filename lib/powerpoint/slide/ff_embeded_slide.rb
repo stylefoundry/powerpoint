@@ -81,7 +81,7 @@ module Powerpoint
         charts.each do |chart|
           zip_entry = chart.rewind
           file_path =zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}")
-          File.open("#{extract_path}/" +  file_path, 'w+') do |f|
+          File.open("#{extract_path}/" +  file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read.gsub('../embeddings',"../../embeddings/slide_#{index}")
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
@@ -110,13 +110,13 @@ module Powerpoint
                 node['Target'] = "../slides/slide#{index}.xml"
               end
             }
-            File.open("#{extract_path}/ppt/notesSlides/_rels/notesSlide#{index}.xml.rels", 'w+') do |f|
+            File.open("#{extract_path}/ppt/notesSlides/_rels/notesSlide#{index}.xml.rels", 'wb') do |f|
               f.write notes_xml
             end
           else
             notes_file = "ppt/notesSlides/notesSlide#{index}.xml"
             notes_slides << "/#{notes_file}"
-            File.open("#{extract_path}/" + notes_file , 'w+') do |f|
+            File.open("#{extract_path}/" + notes_file , 'wb') do |f|
               f.write zip_entry.get_input_stream.read
             end
           end
