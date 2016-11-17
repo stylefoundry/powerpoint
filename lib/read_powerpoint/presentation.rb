@@ -1,9 +1,9 @@
 require 'zip/filesystem'
 require 'nokogiri'
 
-module RubyPowerpoint
+module ReadPowerpoint
 
-  class RubyPowerpoint::Presentation
+  class ReadPowerpoint::Presentation
 
     attr_reader :files
 
@@ -16,7 +16,7 @@ module RubyPowerpoint
       slides = Array.new
       @files.each do |f|
         if f.name.include? 'ppt/slides/slide'
-          slides.push RubyPowerpoint::Slide.new(self, f.name)
+          slides.push ReadPowerpoint::Slide.new(self, f.name)
         end
       end
       slides.sort{|a,b| a.slide_num <=> b.slide_num}
