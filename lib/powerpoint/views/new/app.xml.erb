@@ -34,11 +34,14 @@
     </vt:vector>
   </HeadingPairs>
  <TitlesOfParts>
-    <vt:vector size="<%= slides.length + 3 %>" baseType="lpstr">
+    <vt:vector size="<%= slides.length + 7 %>" baseType="lpstr">
       <vt:lpstr>Arial</vt:lpstr>
       <vt:lpstr>Calibri</vt:lpstr>
       <vt:lpstr>Office Theme</vt:lpstr>
-      <vt:lpstr>FF2016</vt:lpstr>
+      <vt:lpstr>Wingdings</vt:lpstr>
+      <vt:lpstr>Wingdings 3</vt:lpstr>
+      <vt:lpstr>Office Theme</vt:lpstr>
+      <vt:lpstr>FF2016</vt:lpstr>      
       <% slides.each do |slide| %><vt:lpstr><%= slide.title %></vt:lpstr><% end %>
     </vt:vector>
   </TitlesOfParts>
