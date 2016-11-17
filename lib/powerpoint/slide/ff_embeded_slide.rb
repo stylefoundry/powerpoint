@@ -29,10 +29,10 @@ module Powerpoint
       def save(extract_path, index)
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
-        save_images(extract_path, index)
-        save_charts(extract_path, index)
-        save_embeddings(extract_path, index)
-        save_notes(extract_path, index)
+        save_images(extract_path, index) if images && images.count > 0
+        save_charts(extract_path, index) if charts && charts.count > 0
+        save_embeddings(extract_path, index) if embeddings && embeddings.count > 0
+        save_notes(extract_path, index) if notes && notes.count > 0
       end
 
       def file_type
@@ -68,7 +68,7 @@ module Powerpoint
           FileUtils::mkdir_p "#{extract_path}/ppt/media/slide_#{index}"
           zip_entry = image.rewind
           file_path = zip_entry.name.to_s.gsub('media',"media/slide_#{index}")
-          File.open("#{extract_path}/" + file_path, 'w+') do |f|
+          File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
           @file_types << { type: MimeMagic.by_magic(File.open("#{extract_path}/" + file_path)).type, path: "/#{file_path}" } unless file_path.include? "rels"
@@ -93,7 +93,7 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/embeddings/slide_#{index}"
         embeddings.each do |embedding|
           zip_entry = embedding.rewind
-          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'w+') do |f|
+          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
         end
