@@ -71,6 +71,7 @@ module Powerpoint
           File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
+          f.close
           @file_types << { type: MimeMagic.by_magic(File.open("#{extract_path}/" + file_path)).type, path: "/#{file_path}" } unless file_path.include? "rels"
         end
       end
@@ -84,6 +85,7 @@ module Powerpoint
           File.open("#{extract_path}/" +  file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read.gsub('../embeddings',"../../embeddings/slide_#{index}")
           end
+          f.close
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
         end
       end
@@ -96,6 +98,7 @@ module Powerpoint
           File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
+          f.close
         end
       end
       private :save_embeddings
@@ -113,12 +116,14 @@ module Powerpoint
             File.open("#{extract_path}/ppt/notesSlides/_rels/notesSlide#{index}.xml.rels", 'wb') do |f|
               f.write notes_xml
             end
+            f.close
           else
             notes_file = "ppt/notesSlides/notesSlide#{index}.xml"
             notes_slides << "/#{notes_file}"
             File.open("#{extract_path}/" + notes_file , 'wb') do |f|
               f.write zip_entry.get_input_stream.read
             end
+            f.close
           end
         end
       end
