@@ -22,42 +22,42 @@ module Powerpoint
       end
       slides.sort{|a,b| a.slide_num <=> b.slide_num}
     end
-
+  
     def media
-      media = Array.new
-      return media unless @files
-      @files.each do |f|
-        if f.name.include? 'ppt/media'
-          media.push(f.name)
-        end
-      end
-      media
+      match_files 'ppt/media'
     end
 
     def charts
-      charts = Array.new
-      return charts unless @files
-      @files.each do |f|
-        if f.name.include? 'ppt/charts'
-          charts.push(f.name)
-        end
-      end
-      charts
+      match_files 'ppt/charts'
     end
 
     def embeddings
-      embeddings = Array.new
-      return embeddings unless @files
-      @files.each do |f|
-        if f.name.include? 'ppt/embeddings'
-          embeddings.push(f.name)
-        end
-      end
-      embeddings
+      match_files 'ppt/embeddings'
+    end
+
+    def masters
+      match_files 'ppt/masters'
+    end
+
+    def notes_masters
+      match_files 'ppt/notesMasters'
     end
 
     def close
       @files.close
+    end
+
+    private
+
+    def match_files(pattern)
+      matches = Array.new
+      return matches unless @find_files
+      @files.each do |f|
+        if f.name.include? pattern
+          matches.push(f.name)
+        end
+      end
+      matches
     end
   end
 end

@@ -63,24 +63,44 @@ module Powerpoint
       title_elements.join(" ") if title_elements.length > 0
     end
 
+    def layout
+      xml.css('Relationship').select{ |node| node_is(node,'slideLayout') }.first
+    end
+
+    def master
+      node = layout
+      layout_rel_xml = Nokogiri::XML::Document.parse @presentation.files.file.open(
+        node['Target'].gsub('..','ppt').gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
+      layout_rel_xml.css('Relationship').select{ |node| node_is(node, 'slideMaster') }.first
+    end
+
+    def layout_file
+      node = layout
+      open_package_file node['Target']
+    end
+
+    def master_file
+      node = master
+      open_package_file node['Target']
+    end
+
+
     def images
       image_elements(@relation_xml)
         .map.each do |node|
-          @presentation.files.file.open(
-            node['Target'].gsub('..', 'ppt'))
+          open_package_file node['Target']
         end
     end
 
     def charts
       files = chart_elements(@relation_xml)
         .map.each do |node|
-          @presentation.files.file.open(
-            node['Target'].gsub('..', 'ppt'))
+          open_package_file node['Target']
       end
       files  += chart_elements(@relation_xml)
         .map.each do |node|
-          @presentation.files.file.open(
-            node['Target'].gsub('..','ppt').gsub('charts','charts/_rels').gsub('xml','xml.rels'))
+          open_package_file(
+            node['Target'].gsub('charts','charts/_rels').gsub('xml','xml.rels'))
       end
       files
     end
@@ -97,14 +117,12 @@ module Powerpoint
         if embeds.nil?
           embeds = embedding_elements(embed_xml)
             .map.each do |node|
-              @presentation.files.file.open(
-                node['Target'].gsub('..', 'ppt'))
+              open_package_file node['Target']
           end
         else
           embeds += embedding_elements(embed_xml)
             .map.each do |node|
-              @presentation.files.file.open(
-                node['Target'].gsub('..', 'ppt'))
+              open_package_file node['Target']
           end
         end
         rel_file.close
@@ -115,13 +133,12 @@ module Powerpoint
     def notes
       files = note_elements(@relation_xml)
         .map.each do |node|
-          @presentation.files.file.open(
-            node['Target'].gsub('..', 'ppt'))
+          open_package_file node['Target']
       end
       files  += note_elements(@relation_xml)
         .map.each do |node|
-          @presentation.files.file.open(
-            node['Target'].gsub('..','ppt').gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels'))
+          open_package_file(
+            node['Target'].gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels'))
       end
       files
     end
@@ -149,19 +166,19 @@ module Powerpoint
     end
 
     def image_elements(xml)
-      xml.css('Relationship').select{ |node| element_is_image(node) }
+      xml.css('Relationship').select{ |node| node_is?(node, 'image') }
     end
 
     def chart_elements(xml)
-       xml.css('Relationship').select{ |node| element_is_chart(node) }
+       xml.css('Relationship').select{ |node| node_is?(node, 'chart') }
     end
 
     def embedding_elements(xml)
-      xml.css('Relationship').select{ |node| element_is_embedding(node) }
+      xml.css('Relationship').select{ |node| node_is?(node, 'package') }
     end
 
     def note_elements(xml)
-      xml.css('Relationship').select{ |node| element_is_note(node) }
+      xml.css('Relationship').select{ |node| node_is?(node, 'notesSlide') }
     end
 
     def shape_elements(xml)
@@ -172,20 +189,12 @@ module Powerpoint
       shape.xpath('.//p:nvSpPr/p:nvPr/p:ph').select{ |prop| prop['type'] == 'title' || prop['type'] == 'ctrTitle' }.length > 0
     end
 
-    def element_is_image(node)
-      node['Type'].include? 'image'
+    def node_is?(node, pattern)
+      node['Type'].include? pattern
     end
 
-    def element_is_chart(node)
-      node['Type'].include? 'chart'
-    end
-
-    def element_is_embedding(node)
-      node['Type'].include? 'package'
-    end
-
-    def element_is_note(node)
-      node['Type'].include? 'notesSlide'
+    def open_package_file(file)
+      @presentation.files.file.open file.gsub('..', 'ppt')
     end
   end
 end

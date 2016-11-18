@@ -39,6 +39,8 @@ module Powerpoint
         file_types
       end
 
+      private
+
       def save_rel_xml(extract_path, index)
         @index = index
         @tmp_content = rel_content.to_s
@@ -55,13 +57,11 @@ module Powerpoint
         @tmp_content = xml.to_s
         render_view('ff_embeded_slide_rel.xml.erb', "#{extract_path}/ppt/slides/_rels/slide#{index}.xml.rels")
       end
-      private :save_rel_xml
 
       def save_slide_xml(extract_path, index)
         @index = index
         render_view('ff_embeded_slide_slide.xml.erb', "#{extract_path}/ppt/slides/slide#{index}.xml")
       end
-      private :save_slide_xml
 
       def save_images(extract_path, index)
         images.each do |image|
@@ -75,7 +75,6 @@ module Powerpoint
           image.close
         end
       end
-      private :save_images
 
       def save_charts(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/charts/slide_#{index}/_rels"
@@ -89,7 +88,6 @@ module Powerpoint
           chart.close
         end
       end
-      private :save_charts
 
       def save_embeddings(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/embeddings/slide_#{index}"
@@ -101,7 +99,6 @@ module Powerpoint
           embedding.close
         end
       end
-      private :save_embeddings
 
       def save_notes(extract_path, index)
         notes.each do |note|
@@ -126,7 +123,6 @@ module Powerpoint
           note.close
         end
       end
-      private :save_notes
 
     end
   end
