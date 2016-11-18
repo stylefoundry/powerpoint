@@ -72,6 +72,7 @@ module Powerpoint
             f.write zip_entry.get_input_stream.read
           end
           @file_types << { type: MimeMagic.by_magic(File.open("#{extract_path}/" + file_path)).type, path: "/#{file_path}" } unless file_path.include? "rels"
+          image.close
         end
       end
       private :save_images
@@ -85,6 +86,7 @@ module Powerpoint
             f.write zip_entry.get_input_stream.read.gsub('../embeddings',"../../embeddings/slide_#{index}")
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
+          chart.close
         end
       end
       private :save_charts
@@ -96,6 +98,7 @@ module Powerpoint
           File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
+          embedding.close
         end
       end
       private :save_embeddings
@@ -120,6 +123,7 @@ module Powerpoint
               f.write zip_entry.get_input_stream.read
             end
           end
+          note.close
         end
       end
       private :save_notes

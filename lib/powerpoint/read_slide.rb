@@ -64,7 +64,6 @@ module Powerpoint
     end
 
     def images
-      puts "---images"
       image_elements(@relation_xml)
         .map.each do |node|
           @presentation.files.file.open(
@@ -73,7 +72,6 @@ module Powerpoint
     end
 
     def charts
-      puts "---charts"
       files = chart_elements(@relation_xml)
         .map.each do |node|
           @presentation.files.file.open(
@@ -88,7 +86,6 @@ module Powerpoint
     end
 
     def embeddings
-      puts "---embeds"
       embeds = nil
       chart_elements(@relation_xml).each do |node|
         rel_file = @presentation.files.file.open(
@@ -96,6 +93,7 @@ module Powerpoint
         zip_entry = rel_file.rewind
         relation_doc = @presentation.files.file.open zip_entry.name
         embed_xml = Nokogiri::XML::Document.parse relation_doc
+        relation_doc.close
         if embeds.nil?
           embeds = embedding_elements(embed_xml)
             .map.each do |node|
@@ -115,7 +113,6 @@ module Powerpoint
     end
 
     def notes
-      puts "---notes"
       files = note_elements(@relation_xml)
         .map.each do |node|
           @presentation.files.file.open(
