@@ -17,6 +17,8 @@ module Powerpoint
       attr_reader :embeddings
       attr_reader :notes
       attr_reader :notes_slides
+      attr_reader :masters
+      attr_reader :layouts
       attr_reader :file_types
 
       def initialize(options={})
@@ -123,7 +125,6 @@ module Powerpoint
           note.close
         end
       end
-
     end
   end
 end
