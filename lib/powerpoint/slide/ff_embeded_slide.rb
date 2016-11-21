@@ -17,12 +17,13 @@ module Powerpoint
       attr_reader :embeddings
       attr_reader :notes
       attr_reader :notes_slides
-      attr_reader :masters
+      attr_reader :master
+      attr_reader :notes_master
       attr_reader :layouts
       attr_reader :file_types
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :content, :rel_content, :images, :charts, :embeddings, :notes], options
+        require_arguments [:presentation, :title, :content, :rel_content, :images, :charts, :embeddings, :notes, :master, :notes_master], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @file_types = []
         @notes_slides = []
@@ -46,7 +47,6 @@ module Powerpoint
       def save_rel_xml(extract_path, index)
         @index = index
         @tmp_content = rel_content.to_s
-        @tmp_content.gsub!('slideLayouts','slideLayouts/master2')
         @tmp_content.sub!('charts',"charts/slide_#{@index}")
         @tmp_content.gsub!('media',"media/slide_#{@index}")
         @tmp_content.gsub!('embeddings',"media/slide_#{@index}")
@@ -54,6 +54,8 @@ module Powerpoint
         xml.css('Relationship').select{ |node|
           if node['Type'].include? 'relationships/notesSlide'
             node['Target'] = "../notesSlides/notesSlide#{index}.xml"
+          elsif node['Type'].include? 'relationships/masterSlide'
+            node['Target'] = master.file_path
           end
         }
         @tmp_content = xml.to_s
@@ -102,7 +104,7 @@ module Powerpoint
         end
       end
 
-      def save_notes(extract_path, index)
+      def save_notes(extract_path, index)     
         notes.each do |note|
           zip_entry = note.rewind
           if zip_entry.name.include? "rels"
@@ -117,7 +119,7 @@ module Powerpoint
             end
           else
             notes_file = "ppt/notesSlides/notesSlide#{index}.xml"
-            notes_slides << "/#{notes_file}"
+            @notes_slides << "/#{notes_file}"
             File.open("#{extract_path}/" + notes_file , 'wb') do |f|
               f.write zip_entry.get_input_stream.read
             end

@@ -22,16 +22,42 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
 More, online media and retail are accessed differently in these arenas. Remote technology for both work and socialising means that consumers are engaging with their devices, and their fellow human beings, in a totally new way.
 </p>')
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
+
     @embed_deck = Powerpoint::ReadPresentation.new "samples/pptx/test_embed.pptx"
+
     @deck = Powerpoint::Presentation.new
+
+    @master_refs = Hash.new
+    @embed_deck.masters.each do |master|
+      @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master))
+    end
+
+    @notes_master_refs = Hash.new
+    @embed_deck.notes_masters.each do |master|
+      @notes_master_refs["#{master}".gsub('ppt','..')] = @deck.add_notes_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master))
+    end
+
+    @layout_refs = Hash.new
+    @embed_deck.layouts.each do |layout|
+      layout_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout)
+      layout_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout.gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
+      master = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
+      layout_rel_xml.css('Relationship').select{ |node| 
+        if node['Target'].include? 'slideMaster'
+          node['Target'] = @master_refs[node['Target']][:file_path]
+        end
+      }
+      @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path])
+    end
+
     @deck.add_ff_trend_intro_slide 'Cashless Society', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_heading_text_slide 'Test Header', @html_content
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
     @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
-    @embed_deck.slides.each do |slide|
-      @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes
+      @embed_deck.slides.each do |slide|
+      @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, @master_refs[slide.master], @notes_master_refs[slide.notes_master]
     end
     @deck.save 'samples/pptx/test-output.pptx'
   end

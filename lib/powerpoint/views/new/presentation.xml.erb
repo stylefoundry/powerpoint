@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" saveSubsetFonts="1">
   <p:sldMasterIdLst>
-    <p:sldMasterId id="2147483648" r:id="rId1"/>
-    <p:sldMasterId id="2147483660" r:id="rId9999"/>
+  <% masters.each_with_index do |master,index| %>
+    <p:sldMasterId r:id="rId<%= master[:id] %>"/>
+  <% end %>
   </p:sldMasterIdLst>
   <p:notesMasterIdLst>
-    <p:notesMasterId r:id="rId99999"/>
+  <% notes_masters.each_with_index do |master,index| %>
+    <p:notesMasterId r:id="rId<%= master[:id] %>"/>
+  <% end %>
   </p:notesMasterIdLst>
-  <p:sldIdLst><% slides.each_with_index do |slide, index| %><p:sldId id="<%= 255 + (index+1) %>" r:id="rId<%= (index + 1) + 5 %>"/><% end %></p:sldIdLst>
+  <p:sldIdLst><% slides.each_with_index do |slide, index| %><p:sldId id="<%= 255 + (index + rel_index) %>" r:id="rId<%= (index + rel_index) + 5 %>"/><% end %></p:sldIdLst>
  <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
   <p:notesSz cx="6858000" cy="9144000"/>
   <p:defaultTextStyle>

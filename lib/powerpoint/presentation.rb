@@ -6,10 +6,19 @@ module Powerpoint
   class Presentation
     include Powerpoint::Util
 
-    attr_reader :slides
+    attr_reader :slides, :masters, :layouts, :notes_masters, :rel_index, :layout_index, :extract_path, :master_rel
 
     def initialize
+      @extract_path
+      @dir
+      @rel_index = 1
+      @layout_index = 1
       @slides = []
+      @masters = []
+      @notes_masters = []
+      @layouts = []
+      @master_rel
+      init_files
     end
 
     def add_intro(title, subtitile = nil)
@@ -68,42 +77,77 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes)
-      @slides << Powerpoint::Slide::FFEmbededSlide.new(presentation: self, title: "", content: slide_content, rel_content: slide_rel_content, images: images, charts: charts, embeddings: embeddings, notes: notes)
+    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes, master, notes_master)
+      @slides << Powerpoint::Slide::FFEmbededSlide.new(presentation: self, title: "", content: slide_content, rel_content: slide_rel_content, images: images, charts: charts, embeddings: embeddings, notes: notes, master: master, notes_master: notes_master)
+    end
+
+    def init_files
+      @dir = Dir.mktmpdir
+      @extract_path = "#{@dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"
+
+      # Copy template to temp path
+      FileUtils.copy_entry(TEMPLATE_PATH, extract_path)
+
+      # Remove keep files
+      Dir.glob("#{extract_path}/**/.keep").each do |keep_file|
+        FileUtils.rm_rf(keep_file)
+      end
+
+      # Read in our template slide masters
+      Dir.glob("#{extract_path}/ppt/slideMasters/*.xml").each do |master|
+        @masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/slideMasters",'../slideMasters'), layouts: [] }
+        @rel_index += 1
+      end
+
+      # Read in our notes template slide masters
+      Dir.glob("#{extract_path}/ppt/notesMasters/*.xml").each do |master|
+        @notes_masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/notesMasters",'../notesMasters') }
+        @rel_index += 1
+      end
+
+      # Read in our layout templates
+      Dir.glob("#{extract_path}/ppt/slideLayouts/*.xml").each do |layout|
+        layout_rel_xml = Nokogiri::XML::Document.parse(File.open(layout.gsub('ppt/slideLayouts','ppt/slideLayouts/_rels').gsub('.xml','.xml.rels')))
+        master_path = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
+        new_layout = { id: layout_index, file_path: layout.gsub("#{extract_path}/ppt/slideLayouts",'../slideLayouts'), master: master_path }
+        @layouts << new_layout
+        @masters.find{ |master| master[:file_path] == master_path }[:layouts] << new_layout
+        @layout_index += 1
+      end
     end
 
     def save(path)
-      Dir.mktmpdir do |dir|
-        extract_path = "#{dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"
-
-        # Copy template to temp path
-        FileUtils.copy_entry(TEMPLATE_PATH, extract_path)
-
-        # Remove keep files
-        Dir.glob("#{extract_path}/**/.keep").each do |keep_file|
-          FileUtils.rm_rf(keep_file)
-        end
-
-        # Save slides
-        slides.each_with_index do |slide, index|
-          slide.save(extract_path, index + 1)
-        end
-
-        # Render/save generic stuff
-        render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
-        render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
-        render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
-        #render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
-        #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
-        #render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
-        render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
-        #render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
-
-        # Create .pptx file
-        File.delete(path) if File.exist?(path)
-        Powerpoint.compress_pptx(extract_path, path)
+      # Save slides
+      slides.each_with_index do |slide, index|
+        slide.save(extract_path, index + 1)
       end
 
+      # render master rels
+      masters.each do |master|
+        @master_rel = master
+        render_view('slide_master.xml.rel.erb', extract_path + "/" + master[:file_path].gsub('../slideMasters','ppt/slideMasters/_rels').gsub('.xml','.xml.rels'))
+      end
+
+      # render notes master rels
+      notes_masters.each do |master|
+        @master_rel = master
+        render_view('notes_master.xml.rel.erb',extract_path + "/" + master[:file_path].gsub('../notesMasters','ppt/notesMasters/_rels').gsub('.xml','.xml.rels'))
+      end
+
+      # Render/save generic stuff
+      render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
+      render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
+      render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
+      #render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
+      #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
+      #render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
+      render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
+      #render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
+
+      # Create .pptx file
+      File.delete(path) if File.exist?(path)
+      Powerpoint.compress_pptx(extract_path, path)
+      FileUtils.remove_entry @dir
       path
     end
 
@@ -115,5 +159,41 @@ module Powerpoint
       slides.map {|slide| slide.notes_slides if slide.respond_to? :notes_slides }.compact.flatten
     end
 
+    def add_master(xml)
+      @rel_index += 1
+      File.open("#{extract_path}/ppt/slideMasters/slideMaster#{rel_index}.xml", "wb") do |f|
+        f.write xml
+      end
+      new_master = { id: rel_index, file_path: "../slideMasters/slideMaster#{rel_index}.xml", layouts: [] }
+      @masters << new_master
+      @masters.uniq!
+      new_master
+    end
+
+    def add_notes_master(xml)
+      @rel_index += 1
+      File.open("#{extract_path}/ppt/notesMasters/notesMaster#{rel_index}.xml", "wb") do |f|
+        f.write xml
+      end
+      new_master = { id: rel_index, file_path: "../notesMasters/notesMaster#{rel_index}.xml" }
+      @notes_masters << new_master
+      @notes_masters.uniq!
+      new_master
+    end
+
+    def add_layout(xml, rel_xml, layout_master)
+      @layout_index += 1
+      File.open("#{extract_path}/ppt/slideLayouts/_rels/slideLayout#{layout_index}.xml.rels", "wb") do |f|
+        f.write rel_xml
+      end
+      File.open("#{extract_path}/ppt/slideLayouts/slideLayout#{layout_index}.xml", "wb") do |f|
+        f.write xml
+      end
+      new_layout = { id: layout_index, file_path: "../slideLayouts/slideLayout#{layout_index}.xml", master: layout_master }
+      @masters.find{ |master| master[:file_path] == layout_master }[:layouts] << new_layout
+      @layouts << new_layout
+      @layouts.uniq!
+      new_layout
+    end
   end
 end

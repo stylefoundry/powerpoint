@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <% master_rel[:layouts].each do |layout| %>
+  <Relationship Id="rId<%= layout[:id] %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="<%= layout[:file_path] %>"/>
+  <% end %>
+  <Relationship Id="rId9999" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/> 
+</Relationships>

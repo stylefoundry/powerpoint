@@ -36,11 +36,15 @@ module Powerpoint
     end
 
     def masters
-      match_files 'ppt/masters'
+      match_files('ppt/slideMasters').select{ |file_name| file_name unless file_name.include? 'rels' }
     end
 
     def notes_masters
-      match_files 'ppt/notesMasters'
+      match_files('ppt/notesMasters').select{ |file_name| file_name unless file_name.include? 'rels' }
+    end
+
+    def layouts
+      match_files('ppt/slideLayouts').select{ |file_name| file_name unless file_name.include? 'rels' }
     end
 
     def close
@@ -51,7 +55,7 @@ module Powerpoint
 
     def match_files(pattern)
       matches = Array.new
-      return matches unless @find_files
+      return matches unless @files
       @files.each do |f|
         if f.name.include? pattern
           matches.push(f.name)

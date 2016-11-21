@@ -64,14 +64,28 @@ module Powerpoint
     end
 
     def layout
-      xml.css('Relationship').select{ |node| node_is(node,'slideLayout') }.first
+      @relation_xml.css('Relationship').select{ |node| node_is?(node,'slideLayout') }.first
     end
 
     def master
       node = layout
-      layout_rel_xml = Nokogiri::XML::Document.parse @presentation.files.file.open(
-        node['Target'].gsub('..','ppt').gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
-      layout_rel_xml.css('Relationship').select{ |node| node_is(node, 'slideMaster') }.first
+      master_doc = @presentation.files.file.open(node['Target'].gsub('..','ppt').gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels')) rescue nil
+      if master_doc
+       layout_rel_xml = Nokogiri::XML::Document.parse master_doc
+       master = layout_rel_xml.css('Relationship').select{ |node| node_is?(node, 'slideMaster') }.first['Target'] if layout_rel_xml
+       master_doc.close
+      return master
+    end
+    end
+
+    def notes_master
+      master_doc =  @presentation.files.file.open(@slide_notes_xml_path.gsub('..','ppt').gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels')) rescue nil
+      if master_doc
+        notes_rel_xml = Nokogiri::XML::Document.parse master_doc        
+        master = notes_rel_xml.css('Relationship').select{ |node| node_is?(node, 'notesMaster') }.first if notes_rel_xml
+        master_doc.close
+        return master
+      end
     end
 
     def layout_file
@@ -102,7 +116,7 @@ module Powerpoint
           open_package_file(
             node['Target'].gsub('charts','charts/_rels').gsub('xml','xml.rels'))
       end
-      files
+      files.compact.uniq
     end
 
     def embeddings
@@ -131,16 +145,10 @@ module Powerpoint
     end
 
     def notes
-      files = note_elements(@relation_xml)
-        .map.each do |node|
-          open_package_file node['Target']
-      end
-      files  += note_elements(@relation_xml)
-        .map.each do |node|
-          open_package_file(
-            node['Target'].gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels'))
-      end
-      files
+      files = Array.new
+      files << open_package_file("../notesSlides/notesSlide#{slide_number}.xml")
+      files << open_package_file("../notesSlide#{slide_number}.xml.rels")
+      files.compact
     end
 
     def slide_num
@@ -194,7 +202,7 @@ module Powerpoint
     end
 
     def open_package_file(file)
-      @presentation.files.file.open file.gsub('..', 'ppt')
+      @presentation.files.file.open file.gsub('..', 'ppt') rescue nil
     end
   end
 end
