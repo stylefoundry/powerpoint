@@ -12,11 +12,12 @@
   <% notes_masters.each_with_index do |master,index| %>
   <Override PartName="/<%= master[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml"/> 
   <% end %>
-  <% slides.each_with_index do |slide, index| %><Override PartName="/ppt/slides/slide<%= index + 1 %>.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/><% end %>    
+  <% slides.each_with_index do |slide, index| %>
+  <Override PartName="/ppt/slides/slide<%= index + 1 %>.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>
+  <% end %>    
   <Override PartName="/ppt/presProps.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presProps+xml"/>
   <Override PartName="/ppt/viewProps.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.viewProps+xml"/>
-  <Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
-  <Override PartName="/ppt/theme/theme2.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
+  <% themes.each_with_index do |theme, index| %><Override PartName="/<%= theme[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/><% end %>
   <Override PartName="/ppt/tableStyles.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.tableStyles+xml"/>
   <Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
   <Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
@@ -24,6 +25,7 @@
   <Override PartName="/<%= layout[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
   <% end %>
   <% file_types.each do |file| %><Override PartName="<%= file[:path] %>" ContentType="<%= file[:type] %>"/><% end %>
+  <% notes_slides.each do |note| %><Override PartName="/<%= note.gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml" /><% end %>
   <Override PartName="/customXml/itemProps1.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
   <Override PartName="/customXml/itemProps2.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
   <Override PartName="/customXml/itemProps3.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>

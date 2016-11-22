@@ -5,12 +5,16 @@
     <p:sldMasterId r:id="rId<%= master[:id] %>"/>
   <% end %>
   </p:sldMasterIdLst>
+  <% if notes_masters.count > 0 %>
   <p:notesMasterIdLst>
   <% notes_masters.each_with_index do |master,index| %>
     <p:notesMasterId r:id="rId<%= master[:id] %>"/>
   <% end %>
   </p:notesMasterIdLst>
-  <p:sldIdLst><% slides.each_with_index do |slide, index| %><p:sldId id="<%= 255 + (index + rel_index) %>" r:id="rId<%= (index + rel_index) + 5 %>"/><% end %></p:sldIdLst>
+  <% else %>
+  <p:notesMasterIdLst/>
+  <% end %>
+  <p:sldIdLst><% slides.each_with_index do |slide, index| %><p:sldId id="<%= 255 + index + rel_index + 1 %>" r:id="rId<%= index + rel_index + 1 %>"/><% end %></p:sldIdLst>
  <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
   <p:notesSz cx="6858000" cy="9144000"/>
   <p:defaultTextStyle>

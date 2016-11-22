@@ -64,7 +64,7 @@ module Powerpoint
     end
 
     def layout
-      @relation_xml.css('Relationship').select{ |node| node_is?(node,'slideLayout') }.first
+      @relation_xml.css('Relationship').select{ |node| node_is?(node,'slideLayout') }.first['Target']
     end
 
     def master
@@ -81,21 +81,20 @@ module Powerpoint
     def notes_master
       master_doc =  @presentation.files.file.open(@slide_notes_xml_path.gsub('..','ppt').gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels')) rescue nil
       if master_doc
-        notes_rel_xml = Nokogiri::XML::Document.parse master_doc        
-        master = notes_rel_xml.css('Relationship').select{ |node| node_is?(node, 'notesMaster') }.first if notes_rel_xml
+        notes_rel_xml = Nokogiri::XML::Document.parse master_doc
+        master = notes_rel_xml.css('Relationship').select{ |node| node_is?(node, 'notesMaster') }.first['Target'] if notes_rel_xml
         master_doc.close
         return master
       end
     end
 
     def layout_file
-      node = layout
-      open_package_file node['Target']
+      open_package_file layout
     end
 
     def master_file
       node = master
-      open_package_file node['Target']
+      open_package_file master
     end
 
 
@@ -147,7 +146,7 @@ module Powerpoint
     def notes
       files = Array.new
       files << open_package_file("../notesSlides/notesSlide#{slide_number}.xml")
-      files << open_package_file("../notesSlide#{slide_number}.xml.rels")
+      files << open_package_file("../notesSlides/_rels/notesSlide#{slide_number}.xml.rels")
       files.compact
     end
 

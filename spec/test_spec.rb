@@ -29,7 +29,11 @@ More, online media and retail are accessed differently in these arenas. Remote t
 
     @master_refs = Hash.new
     @embed_deck.masters.each do |master|
-      @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master))
+      master_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open master.gsub('slideMasters','slideMasters/_rels').gsub('.xml','.xml.rels'))
+      theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'theme' }.first['Target']
+      theme_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open(theme_path.gsub('..','ppt')))
+      new_theme_path = @deck.add_theme(theme_xml)[:file_path]
+      @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path)
     end
 
     @notes_master_refs = Hash.new
@@ -49,6 +53,8 @@ More, online media and retail are accessed differently in these arenas. Remote t
       }
       @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path])
     end
+    #we've updated the layouts so the actual slide masters need updating with the correct ids
+    @deck.update_slide_masters
 
     @deck.add_ff_trend_intro_slide 'Cashless Society', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_heading_text_slide 'Test Header', @html_content
@@ -56,8 +62,8 @@ More, online media and retail are accessed differently in these arenas. Remote t
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
     @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
-      @embed_deck.slides.each do |slide|
-      @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, @master_refs[slide.master], @notes_master_refs[slide.notes_master]
+    @embed_deck.slides.each do |slide|
+      @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, @master_refs[slide.master], @notes_master_refs[slide.notes_master], @layout_refs[slide.layout]
     end
     @deck.save 'samples/pptx/test-output.pptx'
   end
