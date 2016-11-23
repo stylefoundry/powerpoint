@@ -115,7 +115,7 @@ module Powerpoint
           open_package_file(
             node['Target'].gsub('charts','charts/_rels').gsub('xml','xml.rels'))
       end
-      files.compact.uniq
+      files.compact
     end
 
     def embeddings
