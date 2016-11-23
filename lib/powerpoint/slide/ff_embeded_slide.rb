@@ -16,6 +16,8 @@ module Powerpoint
       attr_reader :charts
       attr_reader :embeddings
       attr_reader :notes
+      attr_reader :tags
+      attr_reader :drawings
       attr_reader :notes_slides
       attr_reader :master
       attr_reader :notes_master
@@ -24,7 +26,7 @@ module Powerpoint
       attr_reader :file_types
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :content, :rel_content, :images, :charts, :embeddings, :notes, :master, :notes_master, :layout], options
+        require_arguments [:presentation, :title, :content, :rel_content, :images, :charts, :embeddings, :notes, :tags, :drawings, :master, :notes_master, :layout], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @file_types = []
         @notes_slides = []
@@ -37,6 +39,8 @@ module Powerpoint
         save_charts(extract_path, index) if charts && charts.count > 0
         save_embeddings(extract_path, index) if embeddings && embeddings.count > 0
         save_notes(extract_path, index) if notes && notes.count > 0
+        save_tags(extract_path, index) if tags && tags.count > 0
+        save_drawings(extract_path, index) if drawings && drawings.count > 0
       end
 
       def file_type
@@ -87,7 +91,7 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/charts/slide_#{index}/_rels"
         charts.each do |chart|
           zip_entry = chart.rewind
-          file_path =zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}")
+          file_path = zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}")
           File.open("#{extract_path}/" +  file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read.gsub('../embeddings',"../../embeddings/slide_#{index}").gsub('../drawings',"../../drawings/slide_#{index}")
           end
@@ -111,7 +115,8 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/drawings/slide_#{index}"
         drawings.each do |drawing|
           zip_entry = drawing.rewind
-          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('drawings',"drawings/slide_#{index}"), 'wb') do |f|
+          file_path = zip_entry.name.to_s.gsub('drawings',"drawings/slide_#{index}")
+          File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml", path: "/#{file_path}" } unless file_path.include? "rels"
@@ -119,11 +124,12 @@ module Powerpoint
         end
       end
 
-      def save_tags
+      def save_tags(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/tags/slide_#{index}"
         tags.each do |tag|
-          zip_entry = drawing.rewind
-          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('tags',"tags/slide_#{index}"), 'wb') do |f|
+          zip_entry = tag.rewind
+          file_path = zip_entry.name.to_s.gsub('tags',"tags/slide_#{index}")          
+          File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.presentationml.tags+xml", path: "/#{file_path}" } unless file_path.include? "rels"

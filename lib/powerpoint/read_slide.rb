@@ -144,7 +144,7 @@ module Powerpoint
     end
 
     def tags
-      chart_elements(@relation_xml)
+      tag_elements(@relation_xml)
         .map.each do |node|
           open_package_file(
             node['Target'])

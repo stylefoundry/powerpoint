@@ -80,8 +80,21 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes, master, notes_master, layout)
-      @slides << Powerpoint::Slide::FFEmbededSlide.new(presentation: self, title: "", content: slide_content, rel_content: slide_rel_content, images: images, charts: charts, embeddings: embeddings, notes: notes, master: master, notes_master: notes_master, layout: layout)
+    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout)
+      @slides << Powerpoint::Slide::FFEmbededSlide.new(
+        presentation: self, title: "", 
+        content: slide_content, 
+        rel_content: slide_rel_content, 
+        images: images, 
+        charts: charts, 
+        embeddings: embeddings, 
+        notes: notes, 
+        tags: tags, 
+        drawings: drawings, 
+        master: master, 
+        notes_master: notes_master,
+        layout: layout
+      )
     end
 
     def init_files
@@ -127,9 +140,6 @@ module Powerpoint
 
     def save(path)
       # Save slides
-
-      puts @rel_index
-
       slides.each_with_index do |slide, index|
         slide.save(extract_path, index + 1)
       end
@@ -137,7 +147,6 @@ module Powerpoint
       # render master rels
       masters.each do |master_ref|
         @master_rel = master_ref
-        puts @master_rel
         render_view('slide_master.xml.rel.erb', extract_path + "/" + master_ref[:file_path].gsub('../slideMasters','ppt/slideMasters/_rels').gsub('.xml','.xml.rels'))
       end
 
