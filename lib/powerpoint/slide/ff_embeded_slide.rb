@@ -54,7 +54,7 @@ module Powerpoint
         @tmp_content = rel_content.to_s
         @tmp_content.sub!('charts',"charts/slide_#{@index}")
         @tmp_content.gsub!('media',"media/slide_#{@index}")
-        @tmp_content.gsub!('tags',"tags/slide_#{@index}")
+        @tmp_content.gsub!('../tags',"../tags/slide_#{@index}")
         xml = Nokogiri::XML::Document.parse @tmp_content
         xml.css('Relationship').select{ |node|
           if node['Type'].include? 'relationships/notesSlide'
