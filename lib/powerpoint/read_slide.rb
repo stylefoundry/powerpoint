@@ -102,7 +102,7 @@ module Powerpoint
       image_elements(@relation_xml)
         .map.each do |node|
           open_package_file node['Target']
-        end
+      end
     end
 
     def charts
@@ -141,6 +141,39 @@ module Powerpoint
         rel_file.close
       end
       embeds
+    end
+
+    def tags
+      chart_elements(@relation_xml)
+        .map.each do |node|
+          open_package_file(
+            node['Target'])
+      end
+    end
+
+    def drawings
+      drawings = nil
+      chart_elements(@relation_xml).each do |node|
+        rel_file = @presentation.files.file.open(
+          node['Target'].gsub('..','ppt').gsub('charts','charts/_rels').gsub('xml','xml.rels'))
+        zip_entry = rel_file.rewind
+        relation_doc = @presentation.files.file.open zip_entry.name
+        drawings_xml = Nokogiri::XML::Document.parse relation_doc
+        relation_doc.close
+        if drawings.nil?
+          drawings = drawing_elements(drawings_xml)
+            .map.each do |node|
+              open_package_file node['Target']
+          end
+        else
+          drawings += drawing_elements(drawings_xml)
+            .map.each do |node|
+              open_package_file node['Target']
+          end
+        end
+        rel_file.close
+      end
+      drawings
     end
 
     def notes
@@ -182,6 +215,14 @@ module Powerpoint
 
     def embedding_elements(xml)
       xml.css('Relationship').select{ |node| node_is?(node, 'package') }
+    end
+
+    def tag_elements(xml)
+      xml.css('Relationship').select{ |node| node_is?(node, 'tags')}
+    end
+
+    def drawing_elements(xml)
+      xml.css('Relationship').select{ |node| node_is?(node, 'chartUserShapes')}
     end
 
     def note_elements(xml)

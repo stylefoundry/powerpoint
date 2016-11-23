@@ -50,7 +50,7 @@ module Powerpoint
         @tmp_content = rel_content.to_s
         @tmp_content.sub!('charts',"charts/slide_#{@index}")
         @tmp_content.gsub!('media',"media/slide_#{@index}")
-        @tmp_content.gsub!('embeddings',"media/slide_#{@index}")
+        @tmp_content.gsub!('tags',"tags/slide_#{@index}")
         xml = Nokogiri::XML::Document.parse @tmp_content
         xml.css('Relationship').select{ |node|
           if node['Type'].include? 'relationships/notesSlide'
@@ -89,7 +89,7 @@ module Powerpoint
           zip_entry = chart.rewind
           file_path =zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}")
           File.open("#{extract_path}/" +  file_path, 'wb') do |f|
-            f.write zip_entry.get_input_stream.read.gsub('../embeddings',"../../embeddings/slide_#{index}")
+            f.write zip_entry.get_input_stream.read.gsub('../embeddings',"../../embeddings/slide_#{index}").gsub('../drawings',"../../drawings/slide_#{index}")
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
           chart.close
@@ -104,6 +104,30 @@ module Powerpoint
             f.write zip_entry.get_input_stream.read
           end
           embedding.close
+        end
+      end
+
+      def save_drawings(extract_path, index)
+        FileUtils::mkdir_p "#{extract_path}/ppt/drawings/slide_#{index}"
+        drawings.each do |drawing|
+          zip_entry = drawing.rewind
+          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('drawings',"drawings/slide_#{index}"), 'wb') do |f|
+            f.write zip_entry.get_input_stream.read
+          end
+          @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml", path: "/#{file_path}" } unless file_path.include? "rels"
+          drawing.close
+        end
+      end
+
+      def save_tags
+        FileUtils::mkdir_p "#{extract_path}/ppt/tags/slide_#{index}"
+        tags.each do |tag|
+          zip_entry = drawing.rewind
+          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('tags',"tags/slide_#{index}"), 'wb') do |f|
+            f.write zip_entry.get_input_stream.read
+          end
+          @file_types << { type: "application/vnd.openxmlformats-officedocument.presentationml.tags+xml", path: "/#{file_path}" } unless file_path.include? "rels"
+          tag.close
         end
       end
 
