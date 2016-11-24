@@ -37,7 +37,9 @@
     <vt:vector size="<%= slides.length + 3 %>" baseType="lpstr">
       <vt:lpstr>Arial</vt:lpstr>
       <vt:lpstr>Calibri</vt:lpstr>
-      <vt:lpstr>Office Theme</vt:lpstr>
+      <% themes.each do |theme| %>
+      <vt:lpstr><%= theme.xml.css('theme').first['name'] %></vt:lpstr>
+      <% end %>
       <% slides.each do |slide| %>
       <vt:lpstr><%= slide.title %></vt:lpstr>
       <% end %>

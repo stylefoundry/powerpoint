@@ -23,7 +23,7 @@ More, online media and retail are accessed differently in these arenas. Remote t
 </p>')
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
 
-    embed_decks = ["samples/pptx/test_embed.pptx", "samples/pptx/test_embed_with_tags.pptx"]
+    embed_decks = ["samples/pptx/35848.pptx"]
 
     @deck = Powerpoint::Presentation.new
 
@@ -61,7 +61,7 @@ More, online media and retail are accessed differently in these arenas. Remote t
             node['Target'] = @master_refs[node['Target']][:file_path]
           end
         }
-        @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path])
+        @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path], @embed_deck.files)
       end
       #we've updated the layouts so the actual slide masters need updating with the correct ids
       @deck.update_slide_masters

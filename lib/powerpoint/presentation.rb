@@ -117,7 +117,7 @@ module Powerpoint
         @masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/slideMasters",'../slideMasters'), layouts: [], theme: theme_path }
         if !@themes.find{ |theme| theme[:file_path] == theme_path }
           @theme_index += 1
-          @themes << { id: theme_index, file_path: theme_path }
+          @themes << { id: theme_index, file_path: theme_path, xml: Nokogiri::XML::Document.parse(File.open("#{extract_path}/#{theme_path}".gsub('..','ppt'))) }
         end
       end
 
@@ -203,8 +203,21 @@ module Powerpoint
       new_master
     end
 
-    def add_layout(xml, rel_xml, layout_master)
+    def add_layout(xml, rel_xml, layout_master, files)
       @layout_index += 1
+      rel_xml.css('Relationship').each do |node|
+        if node['Target'].include? 'image'
+          FileUtils::mkdir_p "#{extract_path}/ppt/media/layout_#{layout_index}"
+          image = files.file.open node['Target'].gsub('..', 'ppt') rescue nil
+          image.rewind
+          file = node['Target'].gsub('../media',"../media/layout_#{layout_index}")
+          File.open("#{extract_path}/" + file.gsub('..','ppt'), "wb") do |f|
+            f.write image.read
+          end
+          image.close
+          node['Target'] = node['Target'].gsub('../media',"../media/layout_#{layout_index}")
+        end
+      end
       File.open("#{extract_path}/ppt/slideLayouts/_rels/slideLayout#{layout_index}.xml.rels", "wb") do |f|
         f.write rel_xml
       end
@@ -224,7 +237,7 @@ module Powerpoint
       File.open("#{extract_path}/ppt/theme/theme#{theme_index}.xml", "wb") do |f|
         f.write xml
       end
-      new_theme = { id: theme_index, file_path: "../theme/theme#{theme_index}.xml" } 
+      new_theme = { id: theme_index, file_path: "../theme/theme#{theme_index}.xml", xml: xml} 
       @themes << new_theme
       new_theme
     end
