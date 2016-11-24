@@ -153,7 +153,7 @@ module Powerpoint
 
     def drawings
       drawings = nil
-      drawing_elements(@relation_xml).each do |node|
+      chart_elements(@relation_xml).each do |node|
         rel_file = @presentation.files.file.open(
           node['Target'].gsub('..','ppt').gsub('charts','charts/_rels').gsub('xml','xml.rels'))
         zip_entry = rel_file.rewind
