@@ -13,12 +13,13 @@ module Powerpoint
       @presentation = presentation
       @slide_xml_path = slide_xml_path
       @slide_number = extract_slide_number_from_path slide_xml_path
-      @slide_notes_xml_path = "ppt/notesSlides/notesSlide#{@slide_number}.xml"
       @slide_file_name = extract_slide_file_name_from_path slide_xml_path
 
       parse_slide
-      parse_slide_notes
       parse_relation
+      node = note_elements(@relation_xml).first
+      @slide_notes_xml_path = node['Target'] if node
+      parse_slide_notes
     end
 
     def parse_slide
@@ -28,7 +29,7 @@ module Powerpoint
     end
 
     def parse_slide_notes
-      slide_notes_doc = @presentation.files.file.open @slide_notes_xml_path rescue nil
+      slide_notes_doc  = open_package_file @slide_notes_xml_path rescue nil
       @slide_notes_xml = Nokogiri::XML::Document.parse(slide_notes_doc) if slide_notes_doc
       slide_notes_doc.close if slide_notes_doc
     end
@@ -177,9 +178,15 @@ module Powerpoint
     end
 
     def notes
-      files = Array.new
-      files << open_package_file("../notesSlides/notesSlide#{slide_number}.xml")
-      files << open_package_file("../notesSlides/_rels/notesSlide#{slide_number}.xml.rels")
+      files = note_elements(@relation_xml)
+        .map.each do |node|
+          open_package_file node['Target']
+      end
+      files  += note_elements(@relation_xml)
+        .map.each do |node|
+          open_package_file(
+            node['Target'].gsub('notesSlides','notesSlides/_rels').gsub('xml','xml.rels'))
+      end
       files.compact
     end
 

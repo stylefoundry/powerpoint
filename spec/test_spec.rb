@@ -29,9 +29,9 @@ More, online media and retail are accessed differently in these arenas. Remote t
 
     @deck.add_ff_trend_intro_slide 'Cashless Society', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_heading_text_slide 'Test Header', @html_content
-    @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
+    #@deck.add_ff_three_row_text_slide 'What to do', @three_col_content
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
+    #@deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
 
     embed_decks.each do |deck_path|
@@ -56,7 +56,7 @@ More, online media and retail are accessed differently in these arenas. Remote t
         layout_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout)
         layout_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout.gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
         master = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
-        layout_rel_xml.css('Relationship').select{ |node| 
+        layout_rel_xml.css('Relationship').select{ |node|
           if node['Target'].include? 'slideMaster'
             node['Target'] = @master_refs[node['Target']][:file_path]
           end

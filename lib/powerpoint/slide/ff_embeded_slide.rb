@@ -128,7 +128,7 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/tags/slide_#{index}"
         tags.each do |tag|
           zip_entry = tag.rewind
-          file_path = zip_entry.name.to_s.gsub('tags',"tags/slide_#{index}")          
+          file_path = zip_entry.name.to_s.gsub('tags',"tags/slide_#{index}")
           File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end
@@ -137,7 +137,7 @@ module Powerpoint
         end
       end
 
-      def save_notes(extract_path, index)     
+      def save_notes(extract_path, index)
         notes.each do |note|
           zip_entry = note.rewind
           if zip_entry.name.include? "rels"
