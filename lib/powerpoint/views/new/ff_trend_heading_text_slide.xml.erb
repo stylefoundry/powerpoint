@@ -52,7 +52,8 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <a:normAutofit />
+            <% @fontscale = title.length > 31 ?  100000 - ((title.length - 31)*3000)  : 100000 %>
+            <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
           <a:lstStyle/>
           <a:p>
@@ -76,9 +77,11 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <a:normAutofit />
+            <% @fontscale = content.length > 800 ?  100000 - ((content.length - 800)* 30)  : 100000 %>
+            <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
           <a:lstStyle/>
+
           <%= content %>
         </p:txBody>
       </p:sp>

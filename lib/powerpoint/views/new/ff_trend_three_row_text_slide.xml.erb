@@ -148,10 +148,11 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <a:normAutofit />
+            <% @xml =  html_to_ooxml(content['column1']['items']['textInput']['value']) %>
+            <% @fontscale = @xml.length > 800 ?  100000 - ((@xml.length - 800)* 30)  : 100000 %>
           </a:bodyPr>
           <a:lstStyle/>
-          <%= html_to_ooxml(content['column1']['items']['textInput']['value']) %>
+          <%= @xml %>
         </p:txBody>
       </p:sp>
       <p:sp>
@@ -167,10 +168,12 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <a:normAutofit />
+            <% @xml =  html_to_ooxml(content['column2']['items']['textInput']['value']) %>
+            <% @fontscale = @xml.length > 400 ?  100000 - ((@xml.length - 400)* 30)  : 100000 %>
+            <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
           <a:lstStyle/>
-          <%= html_to_ooxml(content['column2']['items']['textInput']['value']) %>
+          <%= @xml %>
         </p:txBody>
       </p:sp>
       <p:sp>
@@ -186,10 +189,12 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <a:normAutofit />
+            <% @xml =  html_to_ooxml(content['column3']['items']['textInput']['value'])  %>
+            <% @fontscale = @xml.length > 400 ?  100000 - ((@xml.length - 400)* 30)  : 100000 %>
+            <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
           <a:lstStyle/>
-          <%= html_to_ooxml(content['column3']['items']['textInput']['value']) %>
+          <%= @xml %>
         </p:txBody>
       </p:sp>
     </p:spTree>
