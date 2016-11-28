@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
-            xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
+<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
   <TotalTime>0</TotalTime>
   <Words>55</Words>
   <Application>Microsoft Office PowerPoint</Application>
@@ -34,15 +33,7 @@
     </vt:vector>
   </HeadingPairs>
  <TitlesOfParts>
-    <vt:vector size="<%= slides.length + 7 %>" baseType="lpstr">
-      <vt:lpstr>Arial</vt:lpstr>
-      <vt:lpstr>Calibri</vt:lpstr>
-      <vt:lpstr>Office Theme</vt:lpstr>
-      <vt:lpstr>Wingdings</vt:lpstr>
-      <vt:lpstr>Wingdings 3</vt:lpstr>
-      <% themes.each do |theme| %>
-      <vt:lpstr><%= theme[:xml].xpath('/a:theme').first['name'] %></vt:lpstr>
-      <% end %>  
+    <vt:vector size="<%= slides.length %>" baseType="lpstr">
       <% slides.each do |slide| %><vt:lpstr><%= slide.title %></vt:lpstr><% end %>
     </vt:vector>
   </TitlesOfParts>
