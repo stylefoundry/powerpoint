@@ -155,8 +155,9 @@ module Powerpoint
           else
             notes_file = "ppt/notesSlides/notesSlide#{index}.xml"
             @notes_slides << "#{notes_file}"
+            notes_xml =  Nokogiri::XML::Document.parse  zip_entry.get_input_stream.read
             File.open("#{extract_path}/" + notes_file , 'wb') do |f|
-              f.write zip_entry.get_input_stream.read
+              f.write notes_xml.to_xml.gsub('smtClean="0"','')
             end
           end
           note.close

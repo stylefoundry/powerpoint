@@ -82,16 +82,16 @@ module Powerpoint
 
     def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout)
       @slides << Powerpoint::Slide::FFEmbededSlide.new(
-        presentation: self, title: "", 
-        content: slide_content, 
-        rel_content: slide_rel_content, 
-        images: images, 
-        charts: charts, 
-        embeddings: embeddings, 
-        notes: notes, 
-        tags: tags, 
-        drawings: drawings, 
-        master: master, 
+        presentation: self, title: "",
+        content: slide_content,
+        rel_content: slide_rel_content,
+        images: images,
+        charts: charts,
+        embeddings: embeddings,
+        notes: notes,
+        tags: tags,
+        drawings: drawings,
+        master: master,
         notes_master: notes_master,
         layout: layout
       )
@@ -184,7 +184,7 @@ module Powerpoint
     def add_master(xml, master_theme, master_layouts = [])
       @rel_index += 1
       File.open("#{extract_path}/ppt/slideMasters/slideMaster#{rel_index}.xml", "wb") do |f|
-        f.write xml
+        f.write xml.to_xml.gsub('smtClean="0"','')
       end
       new_master = { id: rel_index, file_path: "../slideMasters/slideMaster#{rel_index}.xml", layouts: master_layouts, theme: master_theme }
       @masters << new_master
@@ -195,7 +195,7 @@ module Powerpoint
     def add_notes_master(xml)
       @rel_index += 1
       File.open("#{extract_path}/ppt/notesMasters/notesMaster#{rel_index}.xml", "wb") do |f|
-        f.write xml
+        f.write xml.gsub('smtClean="0"','')
       end
       new_master = { id: rel_index, file_path: "../notesMasters/notesMaster#{rel_index}.xml" }
       @notes_masters << new_master
@@ -222,7 +222,7 @@ module Powerpoint
         f.write rel_xml
       end
       File.open("#{extract_path}/ppt/slideLayouts/slideLayout#{layout_index}.xml", "wb") do |f|
-        f.write xml
+        f.write xml.to_xml.gsub('smtClean="0"','')
       end
       new_layout = { id: layout_index, file_path: "../slideLayouts/slideLayout#{layout_index}.xml", master: layout_master }
       @masters.find{ |master_ref| master_ref[:file_path] == layout_master }[:layouts] << new_layout
@@ -237,7 +237,7 @@ module Powerpoint
       File.open("#{extract_path}/ppt/theme/theme#{theme_index}.xml", "wb") do |f|
         f.write xml
       end
-      new_theme = { id: theme_index, file_path: "../theme/theme#{theme_index}.xml", xml: xml} 
+      new_theme = { id: theme_index, file_path: "../theme/theme#{theme_index}.xml", xml: xml}
       @themes << new_theme
       new_theme
     end
@@ -255,7 +255,7 @@ module Powerpoint
         end
         # save the file
         File.open("#{extract_path}/" + master_ref[:file_path].gsub('..','ppt'), 'wb') do |f|
-          f.write master_xml.to_xml
+          f.write master_xml.to_xml.gsub('smtClean="0"','')
         end
       end
     end
