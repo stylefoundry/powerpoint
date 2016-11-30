@@ -131,7 +131,7 @@
           </a:p>
         </p:txBody>
       </p:sp>
-      <% content["rowsManagerInput"]["value"].each_with_index do |block, i| %>
+      <% cols.each_with_index do |block, i| %>
       <p:sp>
         <p:nvSpPr>
           <p:cNvPr id="<%= 7 + (i *3) %>" name="Text Placeholder <%= 6 + (i *3)%>"/>
@@ -145,7 +145,7 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <% @xml =  block["item"]["items"]["textInput1"]["value"]   %>
+            <% @xml =  block[0]   %>
             <% @fontscale = @xml.length > 120 ?  100000 - ((@xml.length - 120)* 550)  : 100000 %>
             <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
@@ -153,7 +153,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block["item"]["items"]["textInput1"]["value"]  %></a:t>
+              <a:t><%= block[0]  %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -171,7 +171,7 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <% @xml =  block["item"]["items"]["textInput2"]["value"]   %>
+            <% @xml =  block[1]  %>
             <% @fontscale = @xml.length > 120 ?  100000 - ((@xml.length - 120)* 550)  : 100000 %>
             <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
@@ -179,7 +179,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block["item"]["items"]["textInput2"]["value"]  %></a:t>
+              <a:t><%= block[1]  %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -197,7 +197,7 @@
         <p:spPr/>
         <p:txBody>
           <a:bodyPr>
-            <% @xml =  block["item"]["items"]["textInput3"]["value"]   %>
+            <% @xml =  block[2]  %>
             <% @fontscale = @xml.length > 120 ?  100000 - ((@xml.length - 120)* 550)  : 100000 %>
             <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
@@ -205,7 +205,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block["item"]["items"]["textInput3"]["value"]  %></a:t>
+              <a:t><%= block[2]  %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
