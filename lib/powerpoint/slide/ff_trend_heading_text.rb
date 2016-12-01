@@ -22,7 +22,7 @@ module Powerpoint
       end
 
       def save(extract_path, index)
-        @images.each do |image_path, image_name|
+        @images.each do |image_name, image_path|
           copy_media(extract_path, image_path) if image_path != nil
         end
         save_rel_xml(extract_path, index)
