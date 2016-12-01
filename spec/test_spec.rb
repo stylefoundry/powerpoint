@@ -37,14 +37,15 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @final.search('img').each do |node|
       @image_paths << node.attributes['src']
     end
+    image_path = "samples/media/image4.jpeg"
 
-    puts html_to_ooxml(@final.to_s)
+    puts @sector_content.first[1]['items'].first[1]['value']
 
     @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future. Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    @deck.add_ff_sector_impact_slide 'Sector Impact', @sector_content
+    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], image_path
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
 
     embed_decks.each do |deck_path|
