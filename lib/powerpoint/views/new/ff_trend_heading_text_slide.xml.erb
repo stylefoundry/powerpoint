@@ -35,7 +35,11 @@
           </a:bodyPr>
           <a:lstStyle/>
           <a:p>
-            <a:endParaRPr lang="en-GB"/>
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0" err="1" />
+              <a:t> </a:t>
+            </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
         </p:txBody>
       </p:sp>
@@ -88,7 +92,7 @@
    <% @images.each_with_index do |path, index| %>
      <p:pic>
      <p:nvPicPr>
-      <p:cNvPr id="rId<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
+      <p:cNvPr id="<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
           <p:cNvPicPr>
             <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
           </p:cNvPicPr>

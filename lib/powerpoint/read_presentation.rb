@@ -22,7 +22,7 @@ module Powerpoint
       end
       slides.sort{|a,b| a.slide_num <=> b.slide_num}
     end
-  
+
     def media
       match_files 'ppt/media'
     end
@@ -45,6 +45,10 @@ module Powerpoint
 
     def layouts
       match_files('ppt/slideLayouts').select{ |file_name| file_name unless file_name.include? 'rels' }
+    end
+
+    def themes
+      match_files('ppt/theme').select{ |file_name| file_name unless file_name.include? 'rels'}
     end
 
     def close

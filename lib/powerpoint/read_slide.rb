@@ -177,6 +177,31 @@ module Powerpoint
       drawings
     end
 
+    def theme_overrides
+      theme_overrides = nil
+      chart_elements(@relation_xml).each do |node|
+        rel_file = @presentation.files.file.open(
+          node['Target'].gsub('..','ppt').gsub('charts','charts/_rels').gsub('xml','xml.rels'))
+        zip_entry = rel_file.rewind
+        relation_doc = @presentation.files.file.open zip_entry.name
+        embed_xml = Nokogiri::XML::Document.parse relation_doc
+        relation_doc.close
+        if theme_overrides.nil?
+           theme_overrides =  theme_override_elements(embed_xml)
+            .map.each do |node|
+              open_package_file node['Target']
+          end
+        else
+           theme_overrides +=  theme_override_elements(embed_xml)
+            .map.each do |node|
+              open_package_file node['Target']
+          end
+        end
+        rel_file.close
+      end
+       theme_overrides
+    end
+
     def notes
       files = note_elements(@relation_xml)
         .map.each do |node|
@@ -222,6 +247,10 @@ module Powerpoint
 
     def embedding_elements(xml)
       xml.css('Relationship').select{ |node| node_is?(node, 'package') }
+    end
+
+    def theme_override_elements(xml)
+      xml.css('Relationship').select{ |node| node_is?(node, 'themeOverride') }
     end
 
     def tag_elements(xml)

@@ -26,7 +26,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
 </p>'
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
 
-    embed_decks = ["samples/pptx/35848.pptx"]
+    embed_decks = ["samples/pptx/35848.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx"]
 
     @deck = Powerpoint::Presentation.new
 
@@ -47,6 +47,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
     @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], image_path
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
+    @deck.add_ff_trend_outro_slide
 
     embed_decks.each do |deck_path|
       @embed_deck = Powerpoint::ReadPresentation.new deck_path
@@ -81,7 +82,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
       @deck.update_slide_masters
 
       @embed_deck.slides.each do |slide|
-        @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout]
+        @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides
       end
     end
     @deck.save 'samples/pptx/test-output.pptx'

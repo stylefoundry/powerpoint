@@ -10,11 +10,11 @@
   <Override PartName="/<%= master[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
   <% end %>
   <% notes_masters.each_with_index do |master,index| %>
-  <Override PartName="/<%= master[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml"/> 
+  <Override PartName="/<%= master[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml"/>
   <% end %>
   <% slides.each_with_index do |slide, index| %>
   <Override PartName="/ppt/slides/slide<%= index + 1 %>.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>
-  <% end %>    
+  <% end %>
   <Override PartName="/ppt/presProps.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presProps+xml"/>
   <Override PartName="/ppt/viewProps.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.viewProps+xml"/>
   <% themes.each_with_index do |theme, index| %><Override PartName="/<%= theme[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/><% end %>
@@ -25,7 +25,7 @@
   <Override PartName="/<%= layout[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
   <% end %>
   <% file_types.each do |file| %><Override PartName="<%= file[:path] %>" ContentType="<%= file[:type] %>"/><% end %>
-  <% notes_slides.each do |note| %><Override PartName="/<%= note.gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml" /><% end %>
+  <% notes_slides.each do |note| %><Override PartName="/<%= note[:path].gsub('..','ppt') %>" ContentType="<%= note[:type] %>" /><% end %>
   <Override PartName="/customXml/itemProps1.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
   <Override PartName="/customXml/itemProps2.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
   <Override PartName="/customXml/itemProps3.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
