@@ -85,6 +85,35 @@
           <%= content %>
         </p:txBody>
       </p:sp>
+   <% @images.each_with_index do |path, index| %>
+     <p:pic>
+  <p:nvPicPr>
+      <p:cNvPr id="<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
+          <p:cNvPicPr>
+            <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+          </p:cNvPicPr>
+          <p:nvPr/>
+        </p:nvPicPr>
+        <p:blipFill>
+          <a:blip r:embed="rId<%= 2  + index %>" cstate="print"/>
+          <a:srcRect />
+          <a:stretch>
+            <a:fillRect/>
+          </a:stretch>
+        </p:blipFill>
+        <p:spPr bwMode="auto">
+          <a:xfrm>
+            <a:off x="<%= pixle_to_pt(20) %>" y="<%= pixle_to_pt(130) %>"/>
+            <a:ext cx="<%= pixle_to_pt(670) %>" cy="<%= pixle_to_pt(358) %>"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+      </p:pic>
+    <% end %>
+
     </p:spTree>
     <p:extLst>
       <p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
