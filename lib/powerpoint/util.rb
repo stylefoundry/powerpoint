@@ -37,6 +37,7 @@ module Powerpoint
       result = Htmltoooxml::Document.new().transform_doc_xml(source, false)
       result.gsub!(/\s*<!--(.*?)-->\s*/m, '')
       result = remove_declaration(result)
+      result = remove_whitespace(result)
       result
     end
 
