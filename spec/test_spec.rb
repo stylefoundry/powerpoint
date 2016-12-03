@@ -37,7 +37,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @final.search('img').each do |node|
       @image_paths << node.attributes['src']
     end
-    image_path = "samples/media/image4.jpeg"
+    sector_image_path = "samples/images/Sector_Leisure_400x300.jpg"
 
     puts @sector_content.first[1]['items'].first[1]['value']
 
@@ -45,7 +45,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], image_path
+    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
     @deck.add_ff_trend_outro_slide
 
