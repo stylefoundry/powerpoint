@@ -154,6 +154,7 @@
           <a:bodyPr>
             <% @xml =  html_to_ooxml(content['column1']['items']['textInput']['value']) %>
             <% @fontscale = @xml.length > 350 ?  100000 - ((@xml.length - 350)* 30)  : 100000 %>
+             <a:normAutofit fontScale="<%= @fontscale %>" />
           </a:bodyPr>
           <a:lstStyle/>
           <%= @xml %>
