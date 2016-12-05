@@ -19,7 +19,7 @@ module Powerpoint
            @cols[i] = []
            @cols[i] << content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"]
            @cols[i] << content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"]
-           @cols[i] << content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"]
+           @cols[i] << content["rowsManagerInput"]["value"][2]  != nil ? content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"] : ''
         end
 
       end
