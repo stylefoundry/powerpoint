@@ -17,9 +17,9 @@ module Powerpoint
         @cols = []
         content["rowsManagerInput"]["value"].each_with_index do | col, i |
            @cols[i] = []
-           @cols[i] << content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"]
-           @cols[i] << content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"]
-           @cols[i] << content["rowsManagerInput"]["value"][2]  != nil ? content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"] : ''
+           @cols[i] << content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil ? content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"] : ''
+           @cols[i] << content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil ? content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"] : ''
+           @cols[i] << content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil ? content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"] : ''
         end
 
       end
