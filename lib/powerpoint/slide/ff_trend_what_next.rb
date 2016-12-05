@@ -15,14 +15,17 @@ module Powerpoint
         options.each {|k, v| instance_variable_set("@#{k}", v)}
 
         @cols = []
-        content["rowsManagerInput"]["value"].each_with_index do | col, i |
+        for i in 0..2
            @cols[i] = []
-           @cols[i] << content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"]
-              if content["rowsManagerInput"]["value"][0] != nil && content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil ?
-           @cols[i] <<  content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"]
-              if content["rowsManagerInput"]["value"][1] != nil && content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil ?
-           @cols[i] << content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"]
-              if content["rowsManagerInput"]["value"][2] != nil && content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil ?
+            if content["rowsManagerInput"]["value"][0] != nil && content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil
+              @cols[i] << content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"]
+           end
+            if content["rowsManagerInput"]["value"][1] != nil && content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil
+             @cols[i] <<  content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"]
+            end
+            if content["rowsManagerInput"]["value"][2] != nil && content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil
+              @cols[i] << content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"]
+            end
         end
 
       end
