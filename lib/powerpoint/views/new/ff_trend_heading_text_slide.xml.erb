@@ -80,16 +80,13 @@
         </p:nvSpPr>
         <p:spPr/>
         <p:txBody>
-          <a:bodyPr>
-            <% @fontscale = content.length > 1200 ?  100000 - ((content.length - 1200)* 30)  : 100000 %>
-            <a:normAutofit fontScale="<%= @fontscale %>" />
-          </a:bodyPr>
+          <a:bodyPr/>
           <a:lstStyle/>
-
           <%= content %>
         </p:txBody>
       </p:sp>
-   <% @images.each_with_index do |path, index| %>
+     <% if @images.count > 0 %>
+     <% @images.each_with_index do |path, index| %>
      <p:pic>
      <p:nvPicPr>
       <p:cNvPr id="<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
@@ -117,7 +114,7 @@
         </p:spPr>
       </p:pic>
     <% end %>
-
+    <% end %>
     </p:spTree>
     <p:extLst>
       <p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
