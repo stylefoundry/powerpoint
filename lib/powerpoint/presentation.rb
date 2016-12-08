@@ -119,7 +119,7 @@ module Powerpoint
         @rel_index += 1
         master_rel_xml = Nokogiri::XML::Document.parse(File.open(master.gsub('ppt/slideMasters','ppt/slideMasters/_rels').gsub('.xml','.xml.rels')))
         theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'relationships/theme'}.first['Target']
-        @masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/slideMasters",'../slideMasters'), layouts: [], theme: theme_path }
+        @masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/slideMasters",'../slideMasters'), layouts: [], theme: theme_path, embeds: []}
         if !@themes.find{ |theme| theme[:file_path] == theme_path }
           @theme_index += 1
           @themes << { id: theme_index, file_path: theme_path, xml: Nokogiri::XML::Document.parse(File.open("#{extract_path}/#{theme_path}".gsub('..','ppt'))) }
@@ -186,12 +186,21 @@ module Powerpoint
       slides.map {|slide| slide.notes_slides if slide.respond_to? :notes_slides }.compact.flatten
     end
 
-    def add_master(xml, master_theme, master_layouts = [])
+    def add_master(xml, master_theme, master_layouts = [], master_embeds = [])
       @rel_index += 1
+
+      master_embeds = add_master_embeds(master_embeds)
       File.open("#{extract_path}/ppt/slideMasters/slideMaster#{rel_index}.xml", "wb") do |f|
         f.write xml.to_xml.gsub('smtClean="0"','')
       end
-      new_master = { id: rel_index, file_path: "../slideMasters/slideMaster#{rel_index}.xml", layouts: master_layouts, theme: master_theme }
+
+      new_master = {
+         id: rel_index,
+         file_path: "../slideMasters/slideMaster#{rel_index}.xml",
+         layouts: master_layouts,
+         theme: master_theme,
+         embeds: master_embeds
+       }
       @masters << new_master
       @masters.uniq!
       new_master
@@ -258,11 +267,37 @@ module Powerpoint
           node['r:id'] = "rId#{layout[:id]}"
           master_xml.search('//p:sldLayoutIdLst').first.add_child(node)
         end
+
+        # update embed id's in slide master to match what will be in the rel file
+        master_xml_as_string = master_xml.to_xml
+        if master_ref.key?(:embeds)
+          master_ref[:embeds].each do |embed|
+             master_xml_as_string.gsub!("embed=\"#{embed[:rid]}\"", "embed=\"rId#{embed[:id]}\"")
+          end
+        end
         # save the file
         File.open("#{extract_path}/" + master_ref[:file_path].gsub('..','ppt'), 'wb') do |f|
-          f.write master_xml.to_xml.gsub('smtClean="0"','')
+          f.write master_xml_as_string.gsub('smtClean="0"','')
         end
       end
+    end
+
+    def  add_master_embeds(embeds)
+      # open a new folder in the media directory for this master
+      FileUtils::mkdir_p "#{extract_path}/ppt/media/master_#{rel_index}"
+      @layout_index +=1
+      # open the package file and copy to presentation path
+      embeds.each do |embed|
+          embed[:id] = layout_index
+          resource = embed[:files].file.open embed[:file_path].gsub('..', 'ppt') rescue nil
+          resource.rewind
+          embed[:file_path].gsub!('../media',"../media/master_#{rel_index}")
+          File.open("#{extract_path}/" + embed[:file_path].gsub('..','ppt'), "wb") do |f|
+            f.write resource.read
+          end
+          resource.close
+      end
+      embeds
     end
   end
 end

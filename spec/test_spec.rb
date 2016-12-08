@@ -26,7 +26,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
 </p>'
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
 
-    embed_decks = ["samples/pptx/35848.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx"]
+    embed_decks = ["samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx"]
 
     @deck = Powerpoint::Presentation.new
 
@@ -53,12 +53,22 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
       @embed_deck = Powerpoint::ReadPresentation.new deck_path
 
       @master_refs = Hash.new
+
       @embed_deck.masters.each do |master|
         master_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open master.gsub('slideMasters','slideMasters/_rels').gsub('.xml','.xml.rels'))
         theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'theme' }.first['Target']
         theme_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open(theme_path.gsub('..','ppt')))
         new_theme_path = @deck.add_theme(theme_xml)[:file_path]
-        @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path)
+        ##### Loop through rel_xml and pull in media emeds
+        embeds = master_rel_xml.css('Relationship').select{ |node|
+          node['Target'].include? 'media'
+        }
+        puts embeds
+        master_embeds = []
+        embeds.each_with_index do |embed,index|
+          master_embeds << { id: index, rid: embed['Id'], files: @embed_deck.files, file_path: embed['Target'], content_type: embed['Type'] }
+        end
+        @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path, [], master_embeds)
       end
 
       #@notes_master_refs = Hash.new

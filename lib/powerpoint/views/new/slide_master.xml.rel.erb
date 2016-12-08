@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <% master_rel[:layouts].each do |layout| %>
-  <% @last_id = layout[:id] %>
+   <% @last_layout_id = layout[:id] %>
   <Relationship Id="rId<%= layout[:id] %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="<%= layout[:file_path] %>"/>
   <% end %>
-  <Relationship Id="rId<%= @last_id + 1 %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="<%= master_rel[:theme] %>"/> 
+ <% master_rel[:embeds].each do |embed| %>
+ <% @last_embed_id = embed[:id] %>
+  <Relationship Id="rId<%= embed[:id] %>" Type="<%= embed[:content_type] %>" Target="<%= embed[:file_path] %>" />
+ <% end %>
+<Relationship Id="rId<%= [@last_layout_id, @last_embed_id  ? @last_embed_id : 0].max + 1 %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="<%= master_rel[:theme] %>"/>
 </Relationships>

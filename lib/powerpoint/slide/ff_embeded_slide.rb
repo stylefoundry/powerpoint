@@ -101,6 +101,7 @@ module Powerpoint
               .gsub('../embeddings',"../../embeddings/slide_#{index}")
               .gsub('../drawings',"../../drawings/slide_#{index}")
               .gsub('../theme',"../../theme/slide_#{index}")
+              .gsub('smtClean="0"','')
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
           chart.close
@@ -125,6 +126,7 @@ module Powerpoint
           file_path = zip_entry.name.to_s.gsub('drawings/',"drawings/slide_#{index}/")
           File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
+              .gsub('smtClean="0"','')
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml", path: "/#{file_path}" } unless file_path.include? "rels"
           drawing.close
