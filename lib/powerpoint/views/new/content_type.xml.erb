@@ -3,8 +3,10 @@
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
   <Default Extension="xml" ContentType="application/xml"/>
   <Default Extension="jpeg" ContentType="image/jpeg"/>
+  <Default Extension="gif" ContentType="image/gif" />
   <Default Extension="png" ContentType="image/png"/>
   <Default Extension="xlsx" ContentType="application/octet-stream"/>
+  <Default Extension="xlsm" ContentType="application/octet-stream"/>
   <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
   <% masters.each_with_index do |master,index| %>
   <Override PartName="/<%= master[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
@@ -24,7 +26,7 @@
   <% layouts.each_with_index do |layout,index| %>
   <Override PartName="/<%= layout[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
   <% end %>
-  <% file_types.each do |file| %><Override PartName="<%= file[:path] %>" ContentType="<%= file[:type] %>"/><% end %>
+  <% file_types.each do |file| %><% next if file[:type].include? 'image' %><Override PartName="<%= file[:path] %>" ContentType="<%= file[:type] %>"/><% end %>
   <% notes_slides.each do |note| %><Override PartName="/<%= note[:path].gsub('..','ppt') %>" ContentType="<%= note[:type] %>" /><% end %>
   <Override PartName="/customXml/itemProps1.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
   <Override PartName="/customXml/itemProps2.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>

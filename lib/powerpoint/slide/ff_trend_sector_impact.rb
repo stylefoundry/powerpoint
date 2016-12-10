@@ -13,7 +13,7 @@ module Powerpoint
       def initialize(options={})
         require_arguments [:presentation, :title, :content, :image_path], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
-        @image_name = File.basename(@image_path) if @image_path != nil
+        @image_name = File.basename(@image_path).gsub('jpg','jpeg') if @image_path != nil
       end
 
       def save(extract_path, index)

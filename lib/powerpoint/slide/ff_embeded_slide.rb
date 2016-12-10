@@ -82,7 +82,7 @@ module Powerpoint
         images.each do |image|
           FileUtils::mkdir_p "#{extract_path}/ppt/media/slide_#{index}"
           zip_entry = image.rewind
-          file_path = zip_entry.name.to_s.gsub('media',"media/slide_#{index}")
+          file_path = zip_entry.name.to_s.gsub('media',"media/slide_#{index}").gsub('jpg','jpeg')
           File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end

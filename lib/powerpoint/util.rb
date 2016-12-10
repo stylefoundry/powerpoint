@@ -27,7 +27,7 @@ module Powerpoint
     end
 
     def copy_media(extract_path, image_path)
-      image_name = File.basename(image_path)
+      image_name = File.basename(image_path).gsub('jpg','jpeg')
       dest_path = "#{extract_path}/ppt/media/#{image_name}"
       FileUtils.copy_file(image_path, dest_path) unless File.exist?(dest_path)
     end

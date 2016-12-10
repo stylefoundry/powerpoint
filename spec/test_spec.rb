@@ -37,7 +37,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @final.search('img').each do |node|
       @image_paths << node.attributes['src']
     end
-    sector_image_path = "samples/images/Sector_Leisure_400x300.jpg"
+    sector_image_path = "samples/images/sector_leisure.jpg"
 
     puts @sector_content.first[1]['items'].first[1]['value']
 

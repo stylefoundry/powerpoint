@@ -18,7 +18,7 @@ module Powerpoint
       end
 
       def file_type
-        @images.map{ |image_name, image_path| { type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name}" } }
+        @images.map{ |image_name, image_path| { type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name.gsub('jpg','jpeg')}" } }
       end
 
       def save(extract_path, index)
