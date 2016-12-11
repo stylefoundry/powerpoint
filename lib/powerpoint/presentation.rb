@@ -169,7 +169,7 @@ module Powerpoint
       #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
       #render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
       render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
-      #render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
+      render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
 
       # Create .pptx file
       File.delete(path) if File.exist?(path)

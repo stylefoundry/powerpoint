@@ -11,11 +11,11 @@ module Powerpoint
       view_contents = read_template(template_name)
       renderer = ERB.new(view_contents)
       data = renderer.result(binding)
-      File.open(path, 'w') { |f| f << data }
+      File.open(path, 'wb:UTF-8') { |f| f << data }
     end
 
     def render_raw(data, path)
-      File.open(path, 'w') { |f| f << data }
+      File.open(path, 'wb:UTF-8') { |f| f << data }
     end
 
     def read_template(filename)

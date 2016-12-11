@@ -91,19 +91,57 @@ module Powerpoint
         end
       end
 
-      def save_charts(extract_path, index)
+    def save_charts(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/charts/slide_#{index}/_rels"
         charts.each do |chart|
           zip_entry = chart.rewind
           file_path = zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}")
-          File.open("#{extract_path}/" +  file_path, 'wb') do |f|
-            f.write zip_entry.get_input_stream.read
-              .gsub('../embeddings',"../../embeddings/slide_#{index}")
-              .gsub('../drawings',"../../drawings/slide_#{index}")
-              .gsub('../theme',"../../theme/slide_#{index}")
-              .gsub('smtClean="0"','')
-          end
-          @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
+          if zip_entry.name.include? "rels"
+            File.open("#{extract_path}/" +  file_path, 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+                .gsub('../embeddings',"../../embeddings/slide_#{index}")
+                .gsub('../drawings',"../../drawings/slide_#{index}")
+                .gsub('../theme',"../../theme/slide_#{index}")
+                .gsub('smtClean="0"','')
+            end
+          else
+            chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
+            data_label_xml = <<-EOXML
+            <c:dLbls>
+              <c:showLegendKey val="0"/>
+              <c:showVal val="0"/>
+              <c:showCatName val="0"/>
+              <c:showSerName val="0"/>
+              <c:showPercent val="0"/>
+              <c:showBubbleSize val="0"/>
+              <c:showLeaderLines val="0"/>
+            </c:dLbls>
+            EOXML
+            bar_xml = chart_xml.search('//c:barChart/c:ser/c:spPr')
+            if bar_xml.count > 0
+              bar_xml.each do |node|
+                #node.add_next_sibling(data_label_xml) unless chart_xml.search('//c:barChart/c:ser').count > 0
+              end
+            end
+
+            cat_ax_xml = chart_xml.search('//c:catAx/c:delete')
+            if cat_ax_xml.count < 1
+              chart_xml.search('//c:catAx').each do |node|
+                node.add_child('<c:delete val="0"/>')
+              end
+            end
+            val_ax_xml = chart_xml.search('//c:valAx/c:delete')
+            if cat_ax_xml.count < 1
+              chart_xml.search('//c:valAx').each do |node|
+                node.add_child('<c:delete val="0"/>')
+              end
+            end
+
+            File.open("#{extract_path}/" + file_path , 'wb') do |f|
+              f.write chart_xml.to_xml.gsub('smtClean="0"','').strip
+            end
+           end
+         @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
           chart.close
         end
       end
@@ -163,6 +201,7 @@ module Powerpoint
       end
 
       def save_notes(extract_path, index)
+       FileUtils::mkdir_p "#{extract_path}/ppt/notesSlides//_rels"
         notes.each do |note|
           zip_entry = note.rewind
           if zip_entry.name.include? "rels"
