@@ -27,7 +27,8 @@
     </vt:vector>
   </HeadingPairs>
  <TitlesOfParts>
-    <vt:vector size="<%= slides.length %>" baseType="lpstr">
+    <vt:vector size="<%= slides.length + 1 %>" baseType="lpstr">
+      <vt:lpstr>Office Theme</vt:lpstr>
       <% slides.each do |slide| %><vt:lpstr><%= slide.title %></vt:lpstr><% end %>
     </vt:vector>
   </TitlesOfParts>

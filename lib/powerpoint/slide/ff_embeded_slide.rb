@@ -31,8 +31,6 @@ module Powerpoint
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @file_types = []
         @notes_slides = []
-        puts theme_overrides
-
       end
 
       def save(extract_path, index)
@@ -175,10 +173,7 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/theme/slide_#{index}"
         theme_overrides.each do |theme_override|
           zip_entry = theme_override.rewind
-          puts zip_entry
           file_path = zip_entry.name.to_s.gsub('ppt/theme/',"ppt/theme/slide_#{index}/")
-
-          puts file_path
           File.open("#{extract_path}/" + file_path, 'wb') do |f|
             f.write zip_entry.get_input_stream.read
           end

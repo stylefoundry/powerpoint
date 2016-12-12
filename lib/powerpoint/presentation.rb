@@ -167,7 +167,7 @@ module Powerpoint
       render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
       #render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
       #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
-      #render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
+      render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
       render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
       render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
 
