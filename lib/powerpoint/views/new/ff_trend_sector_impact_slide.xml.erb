@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<p:sld
-  xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
-  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-  xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
   <p:cSld>
     <p:spTree>
       <p:nvGrpSpPr>
@@ -20,7 +17,7 @@
       </p:grpSpPr>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="2" name="Text Placeholder 1"/>
+          <p:cNvPr id="11" name="Text Placeholder 10"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -33,17 +30,13 @@
           <a:bodyPr/>
           <a:lstStyle/>
           <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0" err="1" />
-              <a:t> </a:t>
-            </a:r>
-            <a:endParaRPr lang="en-GB" dirty="0"/>
+            <a:endParaRPr lang="en-US"/>
           </a:p>
         </p:txBody>
       </p:sp>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="3" name="Title 2"/>
+          <p:cNvPr id="10" name="Title 9"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -57,7 +50,7 @@
           <a:lstStyle/>
           <a:p>
             <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
+              <a:rPr lang="en-US" dirty="0"/>
               <a:t>Sector Impact</a:t>
             </a:r>
           </a:p>
@@ -65,7 +58,7 @@
       </p:sp>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="4" name="Text Placeholder 3"/>
+          <p:cNvPr id="12" name="Text Placeholder 11"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -79,49 +72,63 @@
           <a:lstStyle/>
           <a:p>
             <a:r>
-              <a:rPr lang="en-GB" b="1" dirty="0"/>
+              <a:rPr lang="en-US" dirty="0" b="1"/>
               <a:t><%= title %></a:t>
             </a:r>
+          </a:p>
+          <a:p>
+            <a:endParaRPr lang="en-US" dirty="0"/>
           </a:p>
           <%= html_to_ooxml(content) %>
         </p:txBody>
       </p:sp>
-    <p:pic>
-     <p:nvPicPr>
-      <p:cNvPr id="2" name="Picture 1 %>" descr="Picture 1%>"/>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="13" name="Picture Placeholder 12"/>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="pic" sz="quarter" idx="12"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr/>
+      </p:sp>
+      <p:pic>
+        <p:nvPicPr>
+          <p:cNvPr id="14" name="Picture Placeholder 13"/>
           <p:cNvPicPr>
-            <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+            <a:picLocks noGrp="1" noChangeAspect="1"/>
           </p:cNvPicPr>
-          <p:nvPr/>
+          <p:nvPr>
+            <p:ph type="pic" sz="quarter" idx="12"/>
+          </p:nvPr>
         </p:nvPicPr>
         <p:blipFill>
-          <a:blip r:embed="rId2" cstate="print"/>
-          <a:srcRect />
-          <a:stretch>
-            <a:fillRect/>
-          </a:stretch>
-        </p:blipFill>
-        <p:spPr bwMode="auto">
-          <a:xfrm>
-            <a:off x="<%= pixle_to_pt(394) %>" y="<%= pixle_to_pt(72) %>"/>
-            <a:ext cx="<%= pixle_to_pt(286) %>" cy="<%= pixle_to_pt(197) %>"/>
-          </a:xfrm>
-          <a:prstGeom prst="rect">
-            <a:avLst/>
-          </a:prstGeom>
-          <a:noFill/>
-        </p:spPr>
-      </p:pic>
+          <a:blip r:embed="rId2" cstate="print">
+            <a:extLst>
+              <a:ext uri="{28A0092B-C50C-407E-A947-70E740481C1C}">
+                <a14:useLocalDpi
+                  xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main" val="0"/>
+                </a:ext>
+              </a:extLst>
+            </a:blip>
+            <a:srcRect t="10658" b="10658"/>
+            <a:stretch>
+              <a:fillRect/>
+            </a:stretch>
+          </p:blipFill>
+          <p:spPr/>
+        </p:pic>
     </p:spTree>
     <p:extLst>
       <p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
         <p14:creationId
-          xmlns=""
-          xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="1857252358"/>
+          xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="3928577606"/>
         </p:ext>
       </p:extLst>
     </p:cSld>
     <p:clrMapOvr>
       <a:masterClrMapping/>
     </p:clrMapOvr>
-  </p:sld>
+</p:sld>

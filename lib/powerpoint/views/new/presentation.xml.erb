@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" saveSubsetFonts="1">
-  <p:sldMasterIdLst>
-  <% masters.each_with_index do |master,index| %>
-    <p:sldMasterId r:id="rId<%= master[:id] %>"/>
-  <% end %>
-  </p:sldMasterIdLst>
-  <% if notes_masters.count > 0 %>
-  <p:notesMasterIdLst>
-  <% notes_masters.each_with_index do |master,index| %>
-    <p:notesMasterId r:id="rId<%= master[:id] %>"/>
-  <% end %>
-  </p:notesMasterIdLst>
-  <% else %>
-  <p:notesMasterIdLst/>
-  <% end %>
-  <p:sldIdLst><% slides.each_with_index do |slide, index| %><p:sldId id="<%= 255 + index + rel_index + 1 %>" r:id="rId<%= index + rel_index + 1 %>"/><% end %></p:sldIdLst>
- <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+<p:presentation
+  xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+  xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" saveSubsetFonts="1">
+<p:sldMasterIdLst><% masters.each_with_index do |master,index| %><p:sldMasterId r:id="rId<%= master[:id] %>"/><% end %></p:sldMasterIdLst>
+<% if notes_masters.length > 0 %><p:notesMasterIdLst><% notes_masters.each_with_index do |master,index| %><p:notesMasterId r:id="rId<%= master[:id] %>"/><% end %></p:notesMasterIdLst><% end %>
+<p:sldIdLst><% slides.each_with_index do |slide, index| %><p:sldId id="<%= 255 + index + rel_index + 1 %>" r:id="rId<%= index + rel_index + 1 %>"/><% end %></p:sldIdLst>
+  <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
   <p:notesSz cx="6858000" cy="9144000"/>
   <p:defaultTextStyle>
     <a:defPPr>
@@ -115,7 +106,8 @@
   <p:extLst>
     <p:ext uri="{EFAFB233-063F-42B5-8137-9DF3F51BA10A}">
       <p15:sldGuideLst
-        xmlns:p15="http://schemas.microsoft.com/office/powerpoint/2012/main">
+        xmlns:p15="http://schemas.microsoft.com/office/powerpoint/2012/main"
+        xmlns="">
         <p15:guide id="1" orient="horz" pos="459">
           <p15:clr>
             <a:srgbClr val="A4A3A4"/>

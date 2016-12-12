@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<p:sld
-  xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
-  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-  xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
   <p:cSld>
     <p:spTree>
       <p:nvGrpSpPr>
@@ -34,7 +31,7 @@
           <a:lstStyle/>
           <a:p>
             <a:r>
-              <a:rPr lang="en-GB" dirty="0" err="1" />
+              <a:rPr lang="en-GB" dirty="0"/>
               <a:t> </a:t>
             </a:r>
             <a:endParaRPr lang="en-GB" dirty="0"/>
@@ -57,9 +54,10 @@
           <a:lstStyle/>
           <a:p>
             <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
+              <a:rPr lang="en-GB" dirty="0" />
               <a:t>What will happen next?</a:t>
             </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
         </p:txBody>
       </p:sp>
@@ -97,9 +95,7 @@
         </p:nvSpPr>
         <p:spPr/>
         <p:txBody>
-          <a:bodyPr>
-            <a:normAutofit />
-          </a:bodyPr>
+          <a:bodyPr/>
           <a:lstStyle/>
           <a:p>
             <a:r>
@@ -131,6 +127,7 @@
           </a:p>
         </p:txBody>
       </p:sp>
+
       <% cols.each_with_index do |block, i| %>
       <p:sp>
         <p:nvSpPr>
@@ -151,6 +148,7 @@
               <a:rPr lang="en-GB" dirty="0"/>
               <a:t><%= block[0]  %></a:t>
             </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
         </p:txBody>
       </p:sp>
@@ -173,6 +171,7 @@
               <a:rPr lang="en-GB" dirty="0"/>
               <a:t><%= block[1]  %></a:t>
             </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
         </p:txBody>
       </p:sp>
@@ -195,6 +194,7 @@
               <a:rPr lang="en-GB" dirty="0"/>
               <a:t><%=  block.count > 2 ? block[2]  : '  ' %></a:t>
             </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
         </p:txBody>
       </p:sp>
@@ -210,4 +210,4 @@
     <p:clrMapOvr>
       <a:masterClrMapping/>
     </p:clrMapOvr>
-  </p:sld>
+</p:sld>

@@ -201,7 +201,7 @@ module Powerpoint
       end
 
       def save_notes(extract_path, index)
-       FileUtils::mkdir_p "#{extract_path}/ppt/notesSlides//_rels"
+       FileUtils::mkdir_p "#{extract_path}/ppt/notesSlides/_rels"
         notes.each do |note|
           zip_entry = note.rewind
           if zip_entry.name.include? "rels"

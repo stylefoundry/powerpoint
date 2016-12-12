@@ -41,61 +41,61 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
 
     puts @sector_content.first[1]['items'].first[1]['value']
 
-    @deck.add_textual_slide 'header', ['text', 'text2']
-    #@deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future. Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
-    # @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths
-    # @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
-    # @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    # @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path
-    # #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
-    # @deck.add_ff_trend_outro_slide
 
-    # embed_decks.each do |deck_path|
-    #   @embed_deck = Powerpoint::ReadPresentation.new deck_path
+    @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future. Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
+    @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths
+    @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
+    @deck.add_ff_what_next_slide 'What will happen next', @what_content
+    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path
+    #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
+    @deck.add_ff_trend_outro_slide
 
-    #   @master_refs = Hash.new
+    embed_decks.each do |deck_path|
+      @embed_deck = Powerpoint::ReadPresentation.new deck_path
 
-    #   @embed_deck.masters.each do |master|
-    #     master_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open master.gsub('slideMasters','slideMasters/_rels').gsub('.xml','.xml.rels'))
-    #     theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'theme' }.first['Target']
-    #     theme_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open(theme_path.gsub('..','ppt')))
-    #     new_theme_path = @deck.add_theme(theme_xml)[:file_path]
-    #     ##### Loop through rel_xml and pull in media emeds
-    #     embeds = master_rel_xml.css('Relationship').select{ |node|
-    #       node['Target'].include? 'media'
-    #     }
-    #     puts embeds
-    #     master_embeds = []
-    #     embeds.each_with_index do |embed,index|
-    #       master_embeds << { id: index, rid: embed['Id'], files: @embed_deck.files, file_path: embed['Target'], content_type: embed['Type'] }
-    #     end
-    #     @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path, [], master_embeds)
-    #   end
+      @master_refs = Hash.new
 
-    #   #@notes_master_refs = Hash.new
-    #   #@embed_deck.notes_masters.first do |master|
-    #   #  @notes_master_refs["#{master}".gsub('ppt','..')] = @deck.add_notes_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master))
-    #   #end
+      @embed_deck.masters.each do |master|
+        master_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open master.gsub('slideMasters','slideMasters/_rels').gsub('.xml','.xml.rels'))
+        theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'theme' }.first['Target']
+        theme_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open(theme_path.gsub('..','ppt')))
+        new_theme_path = @deck.add_theme(theme_xml)[:file_path]
+        ##### Loop through rel_xml and pull in media emeds
+        embeds = master_rel_xml.css('Relationship').select{ |node|
+          node['Target'].include? 'media'
+        }
+        puts embeds
+        master_embeds = []
+        embeds.each_with_index do |embed,index|
+          master_embeds << { id: index, rid: embed['Id'], files: @embed_deck.files, file_path: embed['Target'], content_type: embed['Type'] }
+        end
+        @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path, [], master_embeds)
+      end
 
-    #   @layout_refs = Hash.new
-    #   @embed_deck.layouts.each do |layout|
-    #     layout_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout)
-    #     layout_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout.gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
-    #     master = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
-    #     layout_rel_xml.css('Relationship').select{ |node|
-    #       if node['Target'].include? 'slideMaster'
-    #         node['Target'] = @master_refs[node['Target']][:file_path]
-    #       end
-    #     }
-    #     @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path], @embed_deck.files)
-    #   end
-    #   #we've updated the layouts so the actual slide masters need updating with the correct ids
-    #   @deck.update_slide_masters
+      #@notes_master_refs = Hash.new
+      #@embed_deck.notes_masters.first do |master|
+      #  @notes_master_refs["#{master}".gsub('ppt','..')] = @deck.add_notes_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master))
+      #end
 
-    #   @embed_deck.slides.each do |slide|
-    #     @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides
-    #   end
-    # end
+      @layout_refs = Hash.new
+      @embed_deck.layouts.each do |layout|
+        layout_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout)
+        layout_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout.gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
+        master = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
+        layout_rel_xml.css('Relationship').select{ |node|
+          if node['Target'].include? 'slideMaster'
+            node['Target'] = @master_refs[node['Target']][:file_path]
+          end
+        }
+        @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path], @embed_deck.files)
+      end
+      #we've updated the layouts so the actual slide masters need updating with the correct ids
+      @deck.update_slide_masters
+
+      @embed_deck.slides.each do |slide|
+        @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides
+      end
+    end
     @deck.save 'samples/pptx/test-output.pptx'
 
   end
