@@ -27,7 +27,6 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
 
     embed_decks = ["samples/pptx/35848.pptx", "samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx"]
-    embed_decks = []
     @deck = Powerpoint::Presentation.new
 
     @final = Nokogiri::HTML.fragment(@html)
