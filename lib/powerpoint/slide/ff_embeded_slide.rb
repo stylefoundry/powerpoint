@@ -104,6 +104,8 @@ module Powerpoint
             end
           else
             chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
+            #chart_xml.search('//c:chartSpace/c:lang').first.add_next_sibling('<c:style val="2"/>')
+
             data_label_xml = <<-EOXML
             <c:dLbls>
               <c:showLegendKey val="0"/>
@@ -124,17 +126,17 @@ module Powerpoint
 
             cat_ax_xml = chart_xml.search('//c:catAx/c:delete')
             if cat_ax_xml.count < 1
-              chart_xml.search('//c:catAx').each do |node|
-                node.add_child('<c:delete val="0"/>')
+              chart_xml.search('//c:catAx/c:scaling').each do |node|
+                #node.add_next_sibling '<c:delete val="0"/>'
               end
             end
             val_ax_xml = chart_xml.search('//c:valAx/c:delete')
             if cat_ax_xml.count < 1
-              chart_xml.search('//c:valAx').each do |node|
-                node.add_child('<c:delete val="0"/>')
+              chart_xml.search('//c:valAx/c:scaling').each do |node|
+                #node.add_next_sibling '<c:delete val="0"/>'
               end
             end
-
+            puts chart_xml
             File.open("#{extract_path}/" + file_path , 'wb') do |f|
               f.write chart_xml.to_xml.gsub('smtClean="0"','').strip
             end

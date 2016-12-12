@@ -27,13 +27,15 @@
     </vt:vector>
   </HeadingPairs>
  <TitlesOfParts>
-    <vt:vector size="<%= slides.length + 1 %>" baseType="lpstr">
-      <vt:lpstr>Office Theme</vt:lpstr>
-      <% slides.each do |slide| %><vt:lpstr><%= slide.title %></vt:lpstr><% end %>
+    <vt:vector size="<%= slides.length + themes.length %>" baseType="lpstr">
+     <% themes.each do |theme| %>
+      <vt:lpstr><%= theme[:name] %></vt:lpstr>
+     <% end %>
+      <% slides.each do |slide| %><vt:lpstr><%= slide.title.nil? ?  "PowerPoint Presentation" : slide.title %></vt:lpstr><% end %>
     </vt:vector>
   </TitlesOfParts>
   <LinksUpToDate>false</LinksUpToDate>
   <SharedDoc>false</SharedDoc>
   <HyperlinksChanged>false</HyperlinksChanged>
-  <AppVersion>12.0000</AppVersion>
+  <AppVersion>14.0000</AppVersion>
 </Properties>

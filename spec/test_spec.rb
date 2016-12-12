@@ -106,7 +106,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
       @deck.update_slide_masters
 
       @embed_deck.slides.each do |slide|
-        @deck.add_ff_embeded_slide slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides
+        @deck.add_ff_embeded_slide slide.title, slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides
       end
     end
 

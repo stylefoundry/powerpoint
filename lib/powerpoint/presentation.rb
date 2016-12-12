@@ -80,9 +80,9 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_embeded_slide(slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides)
+    def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides)
       @slides << Powerpoint::Slide::FFEmbededSlide.new(
-        presentation: self, title: "",
+        presentation: self, title: slide_title,
         content: slide_content,
         rel_content: slide_rel_content,
         images: images,
@@ -122,7 +122,9 @@ module Powerpoint
         @masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/slideMasters",'../slideMasters'), layouts: [], theme: theme_path, embeds: []}
         if !@themes.find{ |theme| theme[:file_path] == theme_path }
           @theme_index += 1
-          @themes << { id: theme_index, file_path: theme_path, xml: Nokogiri::XML::Document.parse(File.open("#{extract_path}/#{theme_path}".gsub('..','ppt'))) }
+          theme_xml = Nokogiri::XML::Document.parse(File.open("#{extract_path}/#{theme_path}".gsub('..','ppt')))
+          theme_name = theme_xml.xpath('//a:theme').first['name']
+          @themes << { id: theme_index, file_path: theme_path, name: theme_name, xml: theme_xml }
         end
       end
 
@@ -130,6 +132,14 @@ module Powerpoint
       Dir.glob("#{extract_path}/ppt/notesMasters/*.xml").each do |master|
         @rel_index += 1
         @notes_masters << { id: rel_index, file_path: master.gsub("#{extract_path}/ppt/notesMasters",'../notesMasters') }
+        notes_rel_xml = Nokogiri::XML::Document.parse(File.open(master.gsub('ppt/notesMasters','ppt/notesMasters/_rels').gsub('.xml','.xml.rels')))
+        theme_path = notes_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'relationships/theme'}.first['Target']
+        if !@themes.find{ |theme| theme[:file_path] == theme_path }
+          @theme_index += 1
+          theme_xml = Nokogiri::XML::Document.parse(File.open("#{extract_path}/#{theme_path}".gsub('..','ppt')))
+          theme_name = theme_xml.xpath('//a:theme').first['name']
+          @themes << { id: theme_index, file_path: theme_path, name: theme_name, xml: theme_xml }
+        end
       end
 
       # Read in our layout templates
@@ -144,6 +154,7 @@ module Powerpoint
     end
 
     def save(path)
+      puts @themes.count
       # Save slides
       slides.each_with_index do |slide, index|
         slide.save(extract_path, index + 1)
@@ -158,7 +169,7 @@ module Powerpoint
       # render notes master rels
       notes_masters.each do |master|
         @master_rel = master
-        render_view('notes_master.xml.rel.erb',extract_path + "/" + master[:file_path].gsub('../notesMasters','ppt/notesMasters/_rels').gsub('.xml','.xml.rels'))
+        #render_view('notes_master.xml.rel.erb',extract_path + "/" + master[:file_path].gsub('../notesMasters','ppt/notesMasters/_rels').gsub('.xml','.xml.rels'))
       end
 
       # Render/save generic stuff
@@ -251,7 +262,8 @@ module Powerpoint
       File.open("#{extract_path}/ppt/theme/theme#{theme_index}.xml", "wb") do |f|
         f.write xml
       end
-      new_theme = { id: theme_index, file_path: "../theme/theme#{theme_index}.xml", xml: xml}
+      theme_name = xml.xpath('//a:theme').first['name']
+      new_theme = { id: theme_index, name: theme_name, file_path: "../theme/theme#{theme_index}.xml", xml: xml}
       @themes << new_theme
       new_theme
     end

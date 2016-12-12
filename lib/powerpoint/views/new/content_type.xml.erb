@@ -2,14 +2,11 @@
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
   <Default Extension="xml" ContentType="application/xml"/>
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-  <Default Extension="png" ContentType="image/png"/>
-  <Default Extension="jpg" ContentType="image/jpeg"/>
   <Default Extension="jpeg" ContentType="image/jpeg"/>
   <Default Extension="emf" ContentType="image/x-emf"/>
-  <Default Extension="xlsm" ContentType="application/vnd.ms-excel.sheet.macroEnabled.12"/>
-  <!-- Remove the following to force repair in 2010 upwards
-  <Default Extension="xlsx" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
-  /-->
+  <Default Extension="png" ContentType="image/png"/>
+  <Default Extension="xlsx" ContentType="application/octet-stream"/>
+  <Default Extension="xlsm" ContentType="application/octet-stream"/>
   <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
   <Override PartName="/customXml/itemProps1.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
   <Override PartName="/customXml/itemProps2.xml" ContentType="application/vnd.openxmlformats-officedocument.customXmlProperties+xml"/>
@@ -34,7 +31,8 @@
   <% layouts.each_with_index do |layout,index| %>
   <Override PartName="/<%= layout[:file_path].gsub('..','ppt') %>" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
   <% end %>
-  <% file_types.each do |file| %><% next if file[:type].include? 'image' %>
+  <% file_types.each do |file| %>
+  <% next if file[:type].include? 'image' %>
   <Override PartName="<%= file[:path] %>" ContentType="<%= file[:type] %>"/>
   <% end %>
   <% notes_slides.each do |note| %>
