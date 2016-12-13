@@ -105,6 +105,7 @@ module Powerpoint
           else
             chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
             #chart_xml.search('//c:chartSpace/c:lang').first.add_next_sibling('<c:style val="2"/>')
+            #chart_xml.search('//c:chartSpace/c:externalData').first.add_child '<c:autoUpdate val="0"/>'
 
             data_label_xml = <<-EOXML
             <c:dLbls>
@@ -127,21 +128,20 @@ module Powerpoint
             cat_ax_xml = chart_xml.search('//c:catAx/c:delete')
             if cat_ax_xml.count < 1
               chart_xml.search('//c:catAx/c:scaling').each do |node|
-                #node.add_next_sibling '<c:delete val="0"/>'
+                node.add_next_sibling '<c:delete val="0"/>'
               end
             end
             val_ax_xml = chart_xml.search('//c:valAx/c:delete')
-            if cat_ax_xml.count < 1
+            if val_ax_xml.count < 1
               chart_xml.search('//c:valAx/c:scaling').each do |node|
-                #node.add_next_sibling '<c:delete val="0"/>'
+                node.add_next_sibling '<c:delete val="0"/>'
               end
             end
-            puts chart_xml
-            File.open("#{extract_path}/" + file_path , 'wb') do |f|
+            File.open("#{extract_path}/" + file_path , 'wb:UTF-8') do |f|
               f.write chart_xml.to_xml.gsub('smtClean="0"','').strip
             end
-           end
-         @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" } unless file_path.include? "rels"
+           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" }
+          end
           chart.close
         end
       end
