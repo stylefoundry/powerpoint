@@ -78,7 +78,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['headers']['items']['headerInput1']['value'] %></a:t>
+              <a:t><%= content['headers']['items']['headerInput1']['value'].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -100,7 +100,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['headers']['items']['headerInput2']['value'] %></a:t>
+              <a:t><%= content['headers']['items']['headerInput2']['value'].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -122,7 +122,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['headers']['items']['headerInput3']['value'] %></a:t>
+              <a:t><%= content['headers']['items']['headerInput3']['value'].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -146,7 +146,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block[0]  %></a:t>
+              <a:t><%= block[0].strip.encode(:xml => :text)  %></a:t>
             </a:r>
             <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
@@ -169,7 +169,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= block[1]  %></a:t>
+              <a:t><%= block[1].strip.encode(:xml => :text)  %></a:t>
             </a:r>
             <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
@@ -192,7 +192,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%=  block.count > 2 ? block[2]  : '  ' %></a:t>
+              <a:t><%=  block.count > 2 ? block[2].strip.encode(:xml => :text)  : '  ' %></a:t>
             </a:r>
             <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>

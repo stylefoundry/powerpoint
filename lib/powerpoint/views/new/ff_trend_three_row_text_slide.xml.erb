@@ -55,7 +55,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['headingInput']['value'] %></a:t>
+              <a:t><%= content['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -77,7 +77,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['column1']['items']['headingInput']['value']  %></a:t>
+              <a:t><%= content['column1']['items']['headingInput']['value'].strip.encode(:xml => :text)  %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -99,7 +99,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['column2']['items']['headingInput']['value']  %></a:t>
+              <a:t><%= content['column2']['items']['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

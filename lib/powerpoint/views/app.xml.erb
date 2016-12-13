@@ -41,7 +41,7 @@
       <vt:lpstr><%= theme.xml.css('theme').first['name'] %></vt:lpstr>
       <% end %>
       <% slides.each do |slide| %>
-      <vt:lpstr><%= slide.title %></vt:lpstr>
+      <vt:lpstr><%= slide.title.strip.encode(:xml => :text) %></vt:lpstr>
       <% end %>
     </vt:vector>
   </TitlesOfParts>

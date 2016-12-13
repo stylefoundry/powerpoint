@@ -46,7 +46,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= title.length > 30 ? title[0..30].gsub(/\s\w+\s*$/,'...') : title %></a:t>
+              <a:t><%= title.length > 30 ? title.strip.encode(:xml => :text)[0..30].gsub(/\s\w+\s*$/,'...') : title.strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -68,7 +68,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= subtitle %></a:t>
+              <a:t><%= subtitle.strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

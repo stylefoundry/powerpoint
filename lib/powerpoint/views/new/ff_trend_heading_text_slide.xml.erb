@@ -55,7 +55,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= title %></a:t>
+              <a:t><%= title.strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

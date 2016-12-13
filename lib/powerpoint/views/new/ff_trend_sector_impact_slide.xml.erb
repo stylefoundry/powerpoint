@@ -76,7 +76,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-US" dirty="0" b="1"/>
-              <a:t><%= title %></a:t>
+              <a:t><%= title.strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
           <a:p>
