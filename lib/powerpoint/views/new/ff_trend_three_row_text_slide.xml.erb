@@ -121,7 +121,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['column3']['items']['headingInput']['value']  %></a:t>
+              <a:t><%= content['column3']['items']['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

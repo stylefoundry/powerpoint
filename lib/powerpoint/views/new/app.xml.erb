@@ -31,7 +31,7 @@
      <% themes.each do |theme| %>
       <vt:lpstr><%= theme[:name] %></vt:lpstr>
      <% end %>
-      <% slides.each do |slide| %><vt:lpstr><%= slide.title.nil? ?  "PowerPoint Presentation" : slide.title %></vt:lpstr><% end %>
+      <% slides.each do |slide| %><vt:lpstr><%= slide.title.nil? ?  "PowerPoint Presentation" : slide.title.strip.encode(:xml => :text)  %></vt:lpstr><% end %>
     </vt:vector>
   </TitlesOfParts>
   <LinksUpToDate>false</LinksUpToDate>
