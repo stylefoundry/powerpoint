@@ -64,8 +64,8 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendWhatNext.new(presentation: self, title: title, content: content)
     end
 
-    def add_ff_heading_text_slide(title, content, image_paths)
-      @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content, image_paths: image_paths)
+    def add_ff_heading_text_slide(title, content, image_paths, links)
+      @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content, image_paths: image_paths, links: links)
     end
 
     def add_ff_three_row_text_slide(title, content)

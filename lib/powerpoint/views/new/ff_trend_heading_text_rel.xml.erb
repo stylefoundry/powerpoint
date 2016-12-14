@@ -4,4 +4,7 @@
   <% @images.each_with_index do |image, index| %>
     <Relationship Id="rId<%= 2 + index %>" Target="../media/<%= image[0] %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"/>
   <% end %>
+  <% links.each_with_index do |link,index| %>
+    <Relationship Id="rId<%= 100 + index %>" Target="<%= link %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" TargetMode="External"/>
+  <% end %>
 </Relationships>
