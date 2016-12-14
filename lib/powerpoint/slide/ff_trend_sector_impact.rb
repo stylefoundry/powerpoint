@@ -8,10 +8,10 @@ module Powerpoint
     class FFTrendSectorImpact
       include Powerpoint::Util
 
-      attr_reader :title, :content, :image_path, :image_name
+      attr_reader :title, :content, :image_path, :image_name, :links
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :content, :image_path], options
+        require_arguments [:presentation, :title, :content, :image_path, :links], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @image_name = File.basename(@image_path).gsub('jpg','jpeg') if @image_path != nil
       end

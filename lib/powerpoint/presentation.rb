@@ -72,8 +72,8 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendThreeRowText.new(presentation: self, title: title, content: content)
     end
 
-    def add_ff_sector_impact_slide(title, content, image_path)
-      @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title, content: content, image_path: image_path)
+    def add_ff_sector_impact_slide(title, content, image_path, links)
+      @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title, content: content, image_path: image_path, links: links)
     end
 
     def add_ff_associated_content_slide(title, subtitle, image_path, coords = {}, link_path = nil)

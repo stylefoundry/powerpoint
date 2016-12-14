@@ -27,7 +27,7 @@ More, online media and retail are accessed differently in these arenas. Remote t
 <p>
 Work-life balance is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
 </p>'
-    @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p>Lorem ipsum dolar sit amet consectetur...</p>"}}}}
+    @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"http://www.foo.com\">Lorem ipsum</a> dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"http://www.foo.com\">Lorem ipsum</a>dolar sit amet consectetur...</p>"}}}}
 
     ##
     # Set up some stuff for testing the sector impact slides
@@ -40,7 +40,8 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
       @image_paths << node.attributes['src']
     end
     sector_image_path = "samples/images/sector_leisure.jpg"
-    @links = @final.search('a').map { |link| link['href'] }
+    links = @final.search('a').map { |link| link['href'] }
+    sector_impact_links = Nokogiri.parse(@sector_content.first[1]['items'].first[1]['value']).search('a').map{ |link| link['href'] }
     ##
     # Create a new presentation
     ##
@@ -53,10 +54,10 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
 
 
     @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future. Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
-    @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths, @links
+    @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths, links
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path
+    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
     @deck.add_ff_trend_outro_slide
 
