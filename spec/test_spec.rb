@@ -27,7 +27,7 @@ More, online media and retail are accessed differently in these arenas. Remote t
 <p>
 Work-life balance is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
 </p>'
-    @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"http://www.foo.com\">Lorem ipsum</a> dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"http://www.foo.com\">Lorem ipsum</a>dolar sit amet consectetur...</p>"}}}}
+    @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"https://staging-ffonline.foresightfactory.co/content/cult-of-immediacy-copy\">Lorem ipsum</a> dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"http://www.foo.com\">Lorem ipsum</a>dolar sit amet consectetur...</p>"}}}}
 
     ##
     # Set up some stuff for testing the sector impact slides
