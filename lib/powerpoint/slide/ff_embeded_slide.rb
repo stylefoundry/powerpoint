@@ -25,24 +25,42 @@ module Powerpoint
       attr_reader :layouts
       attr_reader :layout
       attr_reader :file_types
+      attr_reader :chart_images
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :content, :rel_content, :images, :charts, :embeddings, :notes, :tags, :drawings, :master, :notes_master, :layout, :theme_overrides], options
+        require_arguments [
+          :presentation,
+          :title, :content,
+          :rel_content,
+          :images,
+          :charts,
+          :embeddings,
+          :notes,
+          :tags,
+          :drawings,
+          :master,
+          :notes_master,
+          :layout,
+          :theme_overrides,
+          :chart_images
+          ], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @file_types = []
         @notes_slides = []
+        puts chart_images
       end
 
       def save(extract_path, index)
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
-        save_images(extract_path, index) if images && images.count > 0
-        save_theme_overrides(extract_path, index) if theme_overrides && theme_overrides.count > 0
-        save_charts(extract_path, index) if charts && charts.count > 0
-        save_embeddings(extract_path, index) if embeddings && embeddings.count > 0
-        save_notes(extract_path, index) if notes && notes.count > 0
-        save_tags(extract_path, index) if tags && tags.count > 0
-        save_drawings(extract_path, index) if drawings && drawings.count > 0
+        save_images(extract_path, index, images) if images && images.length> 0
+        save_theme_overrides(extract_path, index) if theme_overrides && theme_overrides.length > 0
+        save_charts(extract_path, index) if charts && charts.length > 0
+        save_embeddings(extract_path, index) if embeddings && embeddings.length > 0
+        save_images(extract_path,index, chart_images) if chart_images && chart_images.length > 0
+        save_notes(extract_path, index) if notes && notes.length > 0
+        save_tags(extract_path, index) if tags && tags.length > 0
+        save_drawings(extract_path, index) if drawings && drawings.length > 0
       end
 
       def file_type
@@ -76,7 +94,7 @@ module Powerpoint
         render_view('ff_embeded_slide_slide.xml.erb', "#{extract_path}/ppt/slides/slide#{index}.xml")
       end
 
-      def save_images(extract_path, index)
+      def save_images(extract_path, index, images)
         images.each do |image|
           FileUtils::mkdir_p "#{extract_path}/ppt/media/slide_#{index}"
           zip_entry = image.rewind
@@ -89,7 +107,7 @@ module Powerpoint
         end
       end
 
-    def save_charts(extract_path, index)
+      def save_charts(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/charts/slide_#{index}/_rels"
         charts.each do |chart|
           zip_entry = chart.rewind
@@ -100,6 +118,7 @@ module Powerpoint
                 .gsub('../embeddings',"../../embeddings/slide_#{index}")
                 .gsub('../drawings',"../../drawings/slide_#{index}")
                 .gsub('../theme',"../../theme/slide_#{index}")
+                .gsub('../media',"../../media/slide_#{index}")
                 .gsub('smtClean="0"','')
             end
           else

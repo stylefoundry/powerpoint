@@ -80,13 +80,14 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides)
+    def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides, chart_images)
       @slides << Powerpoint::Slide::FFEmbededSlide.new(
         presentation: self, title: slide_title,
         content: slide_content,
         rel_content: slide_rel_content,
         images: images,
         charts: charts,
+        chart_images: chart_images,
         embeddings: embeddings,
         theme_overrides: theme_overrides,
         notes: notes,

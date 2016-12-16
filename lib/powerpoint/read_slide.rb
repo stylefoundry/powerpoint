@@ -7,14 +7,15 @@ module Powerpoint
     attr_reader :presentation,
                 :slide_number,
                 :slide_number,
-                :slide_file_name
+                :slide_file_name,
+                :chart_images
 
     def initialize presentation, slide_xml_path
       @presentation = presentation
       @slide_xml_path = slide_xml_path
       @slide_number = extract_slide_number_from_path slide_xml_path
       @slide_file_name = extract_slide_file_name_from_path slide_xml_path
-
+      @chart_images = []
       parse_slide
       parse_relation
       node = note_elements(@relation_xml).first
@@ -139,10 +140,15 @@ module Powerpoint
               open_package_file node['Target']
           end
         end
+        @chart_images += image_elements(embed_xml)
+          .map.each do |node|
+            open_package_file node['Target']
+        end
         rel_file.close
       end
       embeds
     end
+
 
     def tags
       tag_elements(@relation_xml)
