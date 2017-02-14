@@ -45,7 +45,7 @@ module Powerpoint
     end
 
     def content
-      content_elements @slide_xml
+      row_elements @slide_xml
     end
 
     def raw_content
@@ -237,6 +237,10 @@ module Powerpoint
 
     def title_elements(xml)
       shape_elements(xml).select{ |shape| element_is_title(shape) }
+    end
+
+    def row_elements(xml)
+      xml.xpath('//a:p').collect{ |node| node.text }
     end
 
     def content_elements(xml)

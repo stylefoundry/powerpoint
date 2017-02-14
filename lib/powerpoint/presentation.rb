@@ -186,7 +186,7 @@ module Powerpoint
       # Create .pptx file
       File.delete(path) if File.exist?(path)
       Powerpoint.compress_pptx(extract_path, path)
-      FileUtils.remove_entry @dir
+      cleanup
       path
     end
 
@@ -311,6 +311,10 @@ module Powerpoint
           resource.close
       end
       embeds
+    end
+
+    def cleanup
+      FileUtils.remove_entry(@dir)
     end
   end
 end
