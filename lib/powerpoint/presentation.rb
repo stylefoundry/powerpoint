@@ -60,19 +60,19 @@ module Powerpoint
       end
     end
 
-    def add_ff_what_next_slide(title, content = {})
-      @slides << Powerpoint::Slide::FFTrendWhatNext.new(presentation: self, title: title, content: content)
+    def add_ff_what_next_slide(title, content = {}, links = [])
+      @slides << Powerpoint::Slide::FFTrendWhatNext.new(presentation: self, title: title, content: content, links: links)
     end
 
-    def add_ff_heading_text_slide(title, content, image_paths, links)
+    def add_ff_heading_text_slide(title, content, image_paths, links = [])
       @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content, image_paths: image_paths, links: links)
     end
 
-    def add_ff_three_row_text_slide(title, content)
-      @slides << Powerpoint::Slide::FFTrendThreeRowText.new(presentation: self, title: title, content: content)
+    def add_ff_three_row_text_slide(title, content, links = [])
+      @slides << Powerpoint::Slide::FFTrendThreeRowText.new(presentation: self, title: title, content: content, links: links)
     end
 
-    def add_ff_sector_impact_slide(title, content, image_path, links)
+    def add_ff_sector_impact_slide(title, content, image_path, links = [])
       @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title, content: content, image_path: image_path, links: links)
     end
 
