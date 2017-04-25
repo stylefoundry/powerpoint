@@ -2,6 +2,7 @@ require 'zip/filesystem'
 require 'fileutils'
 require 'fastimage'
 require 'erb'
+require 'sanitize'
 
 module Powerpoint
   module Slide
@@ -18,13 +19,13 @@ module Powerpoint
         for i in 0..2
            @cols[i] = []
             if content["rowsManagerInput"]["value"][0] != nil && content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil
-              @cols[i] << content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"]
+              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"])
            end
             if content["rowsManagerInput"]["value"][1] != nil && content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil
-             @cols[i] <<  content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"]
+              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"])
             end
             if content["rowsManagerInput"]["value"][2] != nil && content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil
-              @cols[i] << content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"]
+              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"])
             end
         end
 
