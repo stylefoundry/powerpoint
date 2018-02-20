@@ -80,9 +80,9 @@ module Powerpoint
           if node['Type'].include? 'relationships/notesSlide'
             node['Target'] = "../notesSlides/notesSlide#{index}.xml"
           elsif node['Type'].include? 'relationships/masterSlide'
-            node['Target'] = master[:file_path]
+            node['Target'] = master[:file_path] if master && master[:file_path]
           elsif node['Type'].include? 'relationships/slideLayout'
-            node['Target'] = layout[:file_path]
+            node['Target'] = layout[:file_path] if layout && layout[:file_path]
           end
         }
         @tmp_content = xml.to_s
@@ -99,10 +99,14 @@ module Powerpoint
           FileUtils::mkdir_p "#{extract_path}/ppt/media/slide_#{index}"
           zip_entry = image.rewind
           file_path = zip_entry.name.to_s.gsub('media',"media/slide_#{index}").gsub('jpg','jpeg')
-          File.open("#{extract_path}/" + file_path, 'wb') do |f|
-            f.write zip_entry.get_input_stream.read
+          begin
+            File.open("#{extract_path}/" + file_path, 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+            end
+            @file_types << { type: MimeMagic.by_magic(File.open("#{extract_path}/" + file_path)).type, path: "/#{file_path}" } unless file_path.include? "rels"
+          rescue Exception => e
+            puts "Error writing file #{e}"
           end
-          @file_types << { type: MimeMagic.by_magic(File.open("#{extract_path}/" + file_path)).type, path: "/#{file_path}" } unless file_path.include? "rels"
           image.close
         end
       end
@@ -113,16 +117,20 @@ module Powerpoint
           zip_entry = chart.rewind
           file_path = zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}")
           if zip_entry.name.include? "rels"
-            File.open("#{extract_path}/" +  file_path, 'wb') do |f|
-              f.write zip_entry.get_input_stream.read
-                .gsub('../embeddings',"../../embeddings/slide_#{index}")
-                .gsub('../drawings',"../../drawings/slide_#{index}")
-                .gsub('../theme',"../../theme/slide_#{index}")
-                .gsub('../media',"../../media/slide_#{index}")
-                .gsub('smtClean="0"','')
-            end
-          else
-            chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
+            begin
+              File.open("#{extract_path}/" +  file_path, 'wb') do |f|
+                f.write zip_entry.get_input_stream.read
+                  .gsub('../embeddings',"../../embeddings/slide_#{index}")
+                  .gsub('../drawings',"../../drawings/slide_#{index}")
+                  .gsub('../theme',"../../theme/slide_#{index}")
+                  .gsub('../media',"../../media/slide_#{index}")
+                  .gsub('smtClean="0"','')
+              end
+              rescue Exception => e
+                puts "Error writing file #{e}"
+              end
+            else
+              chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
             #chart_xml.search('//c:chartSpace/c:lang').first.add_next_sibling('<c:style val="2"/>')
             #chart_xml.search('//c:chartSpace/c:externalData').first.add_child '<c:autoUpdate val="0"/>'
 
@@ -156,10 +164,14 @@ module Powerpoint
                 node.add_next_sibling '<c:delete val="0"/>'
               end
             end
-            File.open("#{extract_path}/" + file_path , 'wb:UTF-8') do |f|
-              f.write chart_xml.to_xml.gsub('smtClean="0"','').strip
+            begin
+              File.open("#{extract_path}/" + file_path , 'wb:UTF-8') do |f|
+                f.write chart_xml.to_xml.gsub('smtClean="0"','').strip
+              end
+            rescue Exception => e
+              puts "Error writing file #{e}"
             end
-           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" }
+            @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" }
           end
           chart.close
         end
@@ -169,8 +181,12 @@ module Powerpoint
         FileUtils::mkdir_p "#{extract_path}/ppt/embeddings/slide_#{index}"
         embeddings.each do |embedding|
           zip_entry = embedding.rewind
-          File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'wb') do |f|
-            f.write zip_entry.get_input_stream.read
+          begin
+            File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+            end
+          rescue Exception => e
+            puts "Error writing file #{e}"
           end
           embedding.close
         end
@@ -181,9 +197,13 @@ module Powerpoint
         drawings.each do |drawing|
           zip_entry = drawing.rewind
           file_path = zip_entry.name.to_s.gsub('drawings/',"drawings/slide_#{index}/")
-          File.open("#{extract_path}/" + file_path, 'wb') do |f|
-            f.write zip_entry.get_input_stream.read
-              .gsub('smtClean="0"','')
+          begin
+            File.open("#{extract_path}/" + file_path, 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+                .gsub('smtClean="0"','')
+            end
+          rescue Exception => e
+            puts "Error writing file #{e}"
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml", path: "/#{file_path}" } unless file_path.include? "rels"
           drawing.close
@@ -195,8 +215,12 @@ module Powerpoint
         theme_overrides.each do |theme_override|
           zip_entry = theme_override.rewind
           file_path = zip_entry.name.to_s.gsub('ppt/theme/',"ppt/theme/slide_#{index}/")
-          File.open("#{extract_path}/" + file_path, 'wb') do |f|
-            f.write zip_entry.get_input_stream.read
+          begin
+            File.open("#{extract_path}/" + file_path, 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+            end
+          rescue Exception => e
+            puts "Error writing file #{e}"
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.themeOverride+xml", path: "/#{file_path}" } unless file_path.include? "rels"
           theme_override.close
@@ -208,8 +232,12 @@ module Powerpoint
         tags.each do |tag|
           zip_entry = tag.rewind
           file_path = zip_entry.name.to_s.gsub('ppt/tags/',"ppt/tags/slide_#{index}/")
-          File.open("#{extract_path}/" + file_path, 'wb') do |f|
-            f.write zip_entry.get_input_stream.read
+          begin
+            File.open("#{extract_path}/" + file_path, 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+            end
+          rescue Exception => e
+            puts "Error writing file #{e}"
           end
           @file_types << { type: "application/vnd.openxmlformats-officedocument.presentationml.tags+xml", path: "/#{file_path}" } unless file_path.include? "rels"
           tag.close
@@ -229,15 +257,23 @@ module Powerpoint
                 node['Target'] = notes_master[:file_path]
               end
             }
-            File.open("#{extract_path}/ppt/notesSlides/_rels/notesSlide#{index}.xml.rels", 'wb') do |f|
-              f.write notes_xml
+            begin
+              File.open("#{extract_path}/ppt/notesSlides/_rels/notesSlide#{index}.xml.rels", 'wb') do |f|
+                f.write notes_xml
+              end
+            rescue Exception => e
+              puts "Error writing file #{e}"
             end
           else
             file_path = "ppt/notesSlides/notesSlide#{index}.xml"
             @notes_slides << { type: "application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml", path: "#{file_path}" }
             notes_xml =  Nokogiri::XML::Document.parse  zip_entry.get_input_stream.read
-            File.open("#{extract_path}/" + file_path , 'wb') do |f|
-              f.write notes_xml.to_xml.gsub('smtClean="0"','')
+            begin
+              File.open("#{extract_path}/" + file_path , 'wb') do |f|
+                f.write notes_xml.to_xml.gsub('smtClean="0"','')
+              end
+            rescue Exception => e
+              puts "Error writing file #{e}"
             end
           end
           note.close
