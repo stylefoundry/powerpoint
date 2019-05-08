@@ -16,16 +16,22 @@ module Powerpoint
         options.each {|k, v| instance_variable_set("@#{k}", v)}
 
         @cols = []
-        for i in 0..2
+        for i in 0..content["rowsManagerInput"]["value"].length
            @cols[i] = []
             if content["rowsManagerInput"]["value"][0] != nil && content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil
               @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"])
-           end
+            else
+              @cols[i] << ''
+            end
             if content["rowsManagerInput"]["value"][1] != nil && content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil
               @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"])
+            else
+              @cols[i] << ''
             end
             if content["rowsManagerInput"]["value"][2] != nil && content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil
               @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"])
+            else
+              @cols[i] << ''
             end
         end
 
