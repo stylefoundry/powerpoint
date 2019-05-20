@@ -28,6 +28,7 @@ More, online media and retail are accessed differently in these arenas. Remote t
 <p>
 Work-life balance is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
 </p>'
+    @bullet_html = '<ul><li>Test 1</li><li>Test 2</li></ul>'
     @sector_content = {"Alcohol"=>{"title"=>"Alcohol", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"https://staging-ffonline.foresightfactory.co/content/cult-of-immediacy-copy\">Lorem ipsum</a> dolar sit amet consectetur...</p>"}}}, "Beauty and Personal Care"=>{"title"=>"Beauty and Personal Care", "dataType"=>"fieldset", "items"=>{"impactTextInput"=>{"title"=>"Impact: ", "dataType"=>"richText", "value"=>"<p><a href=\"http://www.foo.com\">Lorem ipsum</a>dolar sit amet consectetur...</p>"}}}}
 
     ##
@@ -59,6 +60,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
 
     @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future. Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths, links
+    @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@bullet_html), @image_paths, links
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content, three_col_links
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
     @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
