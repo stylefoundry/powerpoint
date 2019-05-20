@@ -16,7 +16,6 @@ module Powerpoint
         require_arguments [:presentation, :title, :content, :image_paths, :links], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @images = image_paths.each.map { |image_path|  [ File.basename(image_path), image_path ] }
-        puts links
       end
 
       def file_type

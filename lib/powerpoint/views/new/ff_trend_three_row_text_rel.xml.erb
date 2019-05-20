@@ -2,4 +2,7 @@
 <Relationships
   xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout5.xml"/>
+  <% links.each_with_index do |link,index| %>
+    <Relationship Id="rId<%= 100 + index %>" Target="<%= link %>" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" TargetMode="External"/>
+  <% end %>
 </Relationships>
