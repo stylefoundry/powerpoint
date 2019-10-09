@@ -13,7 +13,7 @@ module Powerpoint
       def initialize(options={})
         require_arguments [:presentation, :title, :content, :image_path, :links], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
-        @image_name = File.basename(@image_path).gsub('jpg','jpeg') if @image_path != nil
+        @image_name = File.basename(@image_path) if @image_path != nil
       end
 
       def save(extract_path, index)
@@ -23,7 +23,7 @@ module Powerpoint
       end
 
       def file_type
-        { type: MimeMagic.by_magic(File.open(image_path))&.type, path: "/ppt/media/#{image_name}" }
+        [{ type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name}" }]
       end
 
       def save_rel_xml(extract_path, index)

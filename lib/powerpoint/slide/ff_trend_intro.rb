@@ -25,7 +25,7 @@ module Powerpoint
       end
 
       def file_type
-        [{ type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name.gsub('jpg','jpeg')}" }]
+        [{ type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name}" }]
       end
 
       def default_coords
