@@ -127,16 +127,16 @@
           </a:p>
         </p:txBody>
       </p:sp>
-
       <% cols.each_with_index do |block, i| %>
+      <% break if i > 2 %>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="<%= 7 + (i *3) %>" name="Text Placeholder <%= 6 + (i *3)%>"/>
+          <p:cNvPr id="<%= 8 + (i *3) %>" name="Text Placeholder <%= 6 + (i *3)%>"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
           <p:nvPr>
-            <p:ph type="body" sz="quarter" idx="<%= 24 + (i *3)%>"/>
+            <p:ph type="body" sz="quarter" idx="<%= 24 + (i *3) %>"/>
           </p:nvPr>
         </p:nvSpPr>
         <p:spPr/>
@@ -154,7 +154,7 @@
       </p:sp>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="<%= 8 + (i *3) %>" name="Text Placeholder <%= 7 + (i *3)%>"/>
+          <p:cNvPr id="<%= 9 + (i *3) %>" name="Text Placeholder <%= 8 + (i *3)%>"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -177,7 +177,7 @@
       </p:sp>
       <p:sp>
         <p:nvSpPr>
-          <p:cNvPr id="<%= 9 + (i *3) %>" name="Text Placeholder <%= 8 + (i *3)%>"/>
+          <p:cNvPr id="<%= 10 + (i *3) %>" name="Text Placeholder <%= 9 + (i *3)%>"/>
           <p:cNvSpPr>
             <a:spLocks noGrp="1"/>
           </p:cNvSpPr>
@@ -192,7 +192,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%=  block.count > 2 ? block[2].strip.encode(:xml => :text)  : '  ' %></a:t>
+              <a:t><%=  block.count > 2 ? block[2].strip.encode(:xml => :text)  : '' %></a:t>
             </a:r>
             <a:endParaRPr lang="en-GB" dirty="0"/>
           </a:p>
