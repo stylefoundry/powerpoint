@@ -128,7 +128,7 @@
         </p:txBody>
       </p:sp>
       <% cols.each_with_index do |block, i| %>
-      <% break if i > 2 %>
+      <% next if block[i].nil? %>
       <p:sp>
         <p:nvSpPr>
           <p:cNvPr id="<%= 8 + (i *3) %>" name="Text Placeholder <%= 6 + (i *3)%>"/>
