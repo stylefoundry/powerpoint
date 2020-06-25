@@ -40,7 +40,7 @@ module Powerpoint
     end
 
     def master_rels
-      match_files('ppt/slideMasters/rels').sekect{ |file_name| file_name if file_name.include? 'rels' }
+      match_files('ppt/slideMasters/rels').select{ |file_name| file_name if file_name.include? 'rels' }
     end
 
     def notes_masters
