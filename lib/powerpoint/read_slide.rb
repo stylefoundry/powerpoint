@@ -25,7 +25,7 @@ module Powerpoint
 
     def parse_slide
       slide_doc = @presentation.files.file.open @slide_xml_path
-      @slide_xml = Nokogiri::XML::Document.parse slide_doc
+      @slide_xml = Nokogiri::XML::Document.parse slide_doc if slide_doc
       slide_doc.close if slide_doc
     end
 
@@ -39,7 +39,7 @@ module Powerpoint
       @relation_xml_path = "ppt/slides/_rels/#{@slide_file_name}.rels"
       if @presentation.files.file.exist? @relation_xml_path
         relation_doc = @presentation.files.file.open @relation_xml_path rescue nil
-        @relation_xml = Nokogiri::XML::Document.parse relation_doc
+        @relation_xml = Nokogiri::XML::Document.parse relation_doc if relation_doc
         relation_doc.close if relation_doc
       end
     end
