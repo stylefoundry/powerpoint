@@ -65,7 +65,7 @@ module Powerpoint
       matches = Array.new
       return matches unless @files
       @files.each do |f|
-        if f.name.include? pattern
+        if f.name.include?(pattern) && f.name.include?(".")
           matches.push(f.name)
         end
       end
