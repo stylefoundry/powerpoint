@@ -180,33 +180,35 @@ module Powerpoint
       def save_embeddings(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/embeddings/slide_#{index}"
         embeddings.each do |embedding|
-          zip_entry = embedding.rewind
           begin
+            zip_entry = embedding.rewind
             File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('embeddings',"embeddings/slide_#{index}"), 'wb') do |f|
               f.write zip_entry.get_input_stream.read
             end
+          embedding.close
           rescue Exception => e
             puts "Error writing file #{e}"
           end
-          embedding.close
+
         end
       end
 
       def save_drawings(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/drawings/slide_#{index}"
         drawings.each do |drawing|
-          zip_entry = drawing.rewind
-          file_path = zip_entry.name.to_s.gsub('drawings/',"drawings/slide_#{index}/")
           begin
+            zip_entry = drawing.rewind
+            file_path = zip_entry.name.to_s.gsub('drawings/',"drawings/slide_#{index}/")
             File.open("#{extract_path}/" + file_path, 'wb') do |f|
               f.write zip_entry.get_input_stream.read
                 .gsub('smtClean="0"','')
             end
+            @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml", path: "/#{file_path}" } unless file_path.include? "rels"
+            drawing.close
           rescue Exception => e
             puts "Error writing file #{e}"
           end
-          @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml", path: "/#{file_path}" } unless file_path.include? "rels"
-          drawing.close
+
         end
       end
 
