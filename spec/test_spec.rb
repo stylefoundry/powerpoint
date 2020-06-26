@@ -75,7 +75,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     #  Loop through each and add the masters and layouts to the main output presentation
     #  The other emedding is taken care of by the lib/powerpoint/ff_embed_slide.rb as it's slide specific behaviour
     ##
-    embed_decks = ["samples/pptx/35051.pptx","samples/pptx/35848.pptx", "samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx"]
+    embed_decks = ["samples/pptx/35051.pptx","samples/pptx/35848.pptx", "samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx","samples/pptx/test-broken-chart.pptx"]
 
     # comment out this loop for a single slide test
     embed_decks.each do |deck_path|
@@ -84,32 +84,43 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
       @master_refs = Hash.new
 
       @embed_deck.masters.each do |master|
-        master_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open master.gsub('slideMasters','slideMasters/_rels').gsub('.xml','.xml.rels'))
-        theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'theme' }.first['Target']
-        theme_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open(theme_path.gsub('..','ppt')))
-        new_theme_path = @deck.add_theme(theme_xml)[:file_path]
-        ##### Loop through rel_xml and pull in media emeds
-        embeds = master_rel_xml.css('Relationship').select{ |node|
-          node['Target'].include? 'media'
-        }
-        master_embeds = []
-        embeds.each_with_index do |embed,index|
-          master_embeds << { id: index, rid: embed['Id'], files: @embed_deck.files, file_path: embed['Target'], content_type: embed['Type'] }
+        puts master
+        zip = @embed_deck.files.file.open master.gsub('slideMasters','slideMasters/_rels').gsub('.xml','.xml.rels')
+        master_rel_xml = Nokogiri::XML::Document.parse(zip) unless zip.class === Zip::NullInputStream
+        if master_rel_xml
+          theme_path = master_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'theme' }.first['Target']
+          theme_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open(theme_path.gsub('..','ppt')))
+          new_theme_path = @deck.add_theme(theme_xml)[:file_path]
+          ##### Loop through rel_xml and pull in media emeds
+          embeds = master_rel_xml.css('Relationship').select{ |node|
+            node['Target'].include? 'media'
+          }
+          master_embeds = []
+          embeds.each_with_index do |embed,index|
+            master_embeds << { id: index, rid: embed['Id'], files: @embed_deck.files, file_path: embed['Target'], content_type: embed['Type'] }
+          end
+          @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path, [], master_embeds)
         end
-        @master_refs["#{master}".gsub('ppt','..')] = @deck.add_master(Nokogiri::XML::Document.parse(@embed_deck.files.file.open master), new_theme_path, [], master_embeds)
       end
 
       @layout_refs = Hash.new
       @embed_deck.layouts.each do |layout|
-        layout_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout)
-        layout_rel_xml = Nokogiri::XML::Document.parse(@embed_deck.files.file.open layout.gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels'))
-        master = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
-        layout_rel_xml.css('Relationship').select{ |node|
-          if node['Target'].include? 'slideMaster'
-            node['Target'] = @master_refs[node['Target']][:file_path]
+        puts layout
+        zip = @embed_deck.files.file.open layout
+        layout_xml = Nokogiri::XML::Document.parse(zip) unless zip.class === Zip::NullInputStream
+        if layout_xml
+          zip = @embed_deck.files.file.open layout.gsub('slideLayouts','slideLayouts/_rels').gsub('xml','xml.rels')
+          layout_rel_xml = Nokogiri::XML::Document.parse(zip) unless zip.class === Zip::NullInputStream
+          if layout_rel_xml
+            master = layout_rel_xml.css('Relationship').select{ |node| node['Type'].include? 'slideMaster'}.first['Target']
+            layout_rel_xml.css('Relationship').select{ |node|
+              if node['Target'].include? 'slideMaster'
+                node['Target'] = @master_refs[node['Target']][:file_path]
+              end
+            }
+            @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path], @embed_deck.files)
           end
-        }
-        @layout_refs["#{layout}".gsub('ppt','..')] = @deck.add_layout(layout_xml, layout_rel_xml, @master_refs[master][:file_path], @embed_deck.files)
+        end
       end
       #we've updated the layouts so the actual slide masters need updating with the correct ids
       @deck.update_slide_masters
