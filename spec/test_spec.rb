@@ -57,17 +57,14 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     # This is where we add slides to the presentation . .testing the templates
     # IF YOU WANT A SINGLE SLIDE TEST use   @deck.add_textual_slide 'test head', ['test body'] and comment out the @embed_deck loop below
     ##
-
-
     @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future. Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg'
     @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@final.to_s), @image_paths, links
-    @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@bullet_html), @image_paths, links
+    #@deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@bullet_html), @image_paths, links
     @deck.add_ff_three_row_text_slide 'What to do', @three_col_content, three_col_links
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
+    #@deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
     @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
     #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
-    @deck.add_ff_trend_outro_slide
 
     ##
     # These are the embeded prenstatoins I have taken a selection of the ones that have tags, drawiings, charts etc
@@ -75,8 +72,8 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     #  Loop through each and add the masters and layouts to the main output presentation
     #  The other emedding is taken care of by the lib/powerpoint/ff_embed_slide.rb as it's slide specific behaviour
     ##
-    embed_decks = ["samples/pptx/35051.pptx","samples/pptx/35848.pptx", "samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx","samples/pptx/test-broken-chart.pptx"]
-
+    # embed_decks = ["samples/pptx/35051.pptx","samples/pptx/35848.pptx", "samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx","samples/pptx/test-broken-chart.pptx"]
+    embed_decks = []
     # comment out this loop for a single slide test
     embed_decks.each do |deck_path|
       @embed_deck = Powerpoint::ReadPresentation.new deck_path
@@ -129,7 +126,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
         @deck.add_ff_embeded_slide slide.title, slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides, slide.chart_images
       end
     end
-
+    @deck.add_ff_trend_outro_slide
     ##
     # Save the presentation
     ##

@@ -20,6 +20,8 @@ require 'powerpoint/slide/ff_trend_outro'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
-  TEMPLATE_PATH = "#{ROOT_PATH}/templates/nvision-template"
-  VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/new"
+  TEMPLATE_PATH = "#{ROOT_PATH}/templates/collision-template"
+  VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/collision"
+  # TEMPLATE_PATH = "#{ROOT_PATH}/templates/nvision-template"
+  # VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/new"
 end
