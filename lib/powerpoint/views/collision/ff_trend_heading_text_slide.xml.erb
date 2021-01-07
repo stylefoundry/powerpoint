@@ -20,11 +20,11 @@
 			</p:grpSpPr>
 			<p:sp>
 				<p:nvSpPr>
-					<p:cNvPr id="9" name="Text Placeholder 8">
+					<p:cNvPr id="5" name="Text Placeholder 4">
 						<a:extLst>
 							<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
 								<a16:creationId
-									xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9445F9D9-0C13-4EDD-838E-062B771FE3A6}"/>
+									xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8058E7F8-A0D7-4821-808E-5C3FFD0C2942}"/>
 								</a:ext>
 							</a:extLst>
 						</p:cNvPr>
@@ -54,39 +54,45 @@
 							<p:ph type="body" sz="quarter" idx="11"/>
 						</p:nvPr>
 					</p:nvSpPr>
-					<p:spPr/>
+					<p:spPr>
+						<a:xfrm>
+							<a:off x="250825" y="1736725"/>
+							<a:ext cx="8642350" cy="4645026"/>
+						</a:xfrm>
+					</p:spPr>
 					<p:txBody>
 						<a:bodyPr/>
 						<a:lstStyle/>
-			    <%= content %>
-					</p:txBody>
-				</p:sp><% if @images.count > 0 %><% @images.each_with_index do |path, index| %>
-	     <p:pic>
-	     <p:nvPicPr>
-	      <p:cNvPr id="<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
-	          <p:cNvPicPr>
-	            <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
-	          </p:cNvPicPr>
-	          <p:nvPr/>
-	        </p:nvPicPr>
-	        <p:blipFill>
-	          <a:blip r:embed="rId<%= 2  + index %>" cstate="print"/>
-	          <a:srcRect />
-	          <a:stretch>
-	            <a:fillRect/>
-	          </a:stretch>
-	        </p:blipFill>
-	        <p:spPr bwMode="auto">
-	          <a:xfrm>
-	            <a:off x="<%= pixle_to_pt(80) %>" y="<%= pixle_to_pt(193) %>"/>
-	            <a:ext cx="<%= pixle_to_pt(542) %>" cy="<%= pixle_to_pt(287) %>"/>
-	          </a:xfrm>
-	          <a:prstGeom prst="rect">
-	            <a:avLst/>
-	          </a:prstGeom>
-	          <a:noFill/>
-	        </p:spPr>
-	      </p:pic><% end %><% end %>
+            <%= content %>
+            </p:txBody>
+          </p:sp>
+					<% if @images.count > 0 %><% @images.each_with_index do |path, index| %>
+          <p:pic>
+          <p:nvPicPr>
+          <p:cNvPr id="<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
+              <p:cNvPicPr>
+                <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+              </p:cNvPicPr>
+              <p:nvPr/>
+            </p:nvPicPr>
+            <p:blipFill>
+              <a:blip r:embed="rId<%= 2  + index %>" cstate="print"/>
+              <a:srcRect />
+              <a:stretch>
+                <a:fillRect/>
+              </a:stretch>
+            </p:blipFill>
+            <p:spPr bwMode="auto">
+              <a:xfrm>
+                <a:off x="<%= pixle_to_pt(80) %>" y="<%= pixle_to_pt(193) %>"/>
+                <a:ext cx="<%= pixle_to_pt(542) %>" cy="<%= pixle_to_pt(287) %>"/>
+              </a:xfrm>
+              <a:prstGeom prst="rect">
+                <a:avLst/>
+              </a:prstGeom>
+              <a:noFill/>
+            </p:spPr>
+          </p:pic><% end %><% end %>
 				<p:sp>
 					<p:nvSpPr>
 						<p:cNvPr id="8" name="Title 7">
@@ -104,7 +110,12 @@
 								<p:ph type="title"/>
 							</p:nvPr>
 						</p:nvSpPr>
-						<p:spPr/>
+						<p:spPr>
+							<a:xfrm>
+								<a:off x="250828" y="727200"/>
+								<a:ext cx="8642348" cy="886397"/>
+							</a:xfrm>
+						</p:spPr>
 						<p:txBody>
 							<a:bodyPr/>
 							<a:lstStyle/>
@@ -120,7 +131,7 @@
 				<p:extLst>
 					<p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
 						<p14:creationId
-							xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="4279913766"/>
+							xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="3054531529"/>
 						</p:ext>
 					</p:extLst>
 				</p:cSld>
