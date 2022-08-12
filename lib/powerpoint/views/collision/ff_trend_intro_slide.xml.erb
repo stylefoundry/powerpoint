@@ -82,6 +82,105 @@
 						</a:p>
 					</p:txBody>
 				</p:sp>
+			  <% if trend_number != nil %>
+				<p:sp>
+					<p:nvSpPr>
+						<p:cNvPr id="4" name="Isosceles Triangle 3">
+							<a:extLst>
+								<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+									<a16:creationId
+										xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{E14E49DD-6BD6-AE88-54E0-B4E3BFBA7A45}"/>
+									</a:ext>
+								</a:extLst>
+							</p:cNvPr>
+							<p:cNvSpPr/>
+							<p:nvPr/>
+						</p:nvSpPr>
+						<p:spPr>
+							<a:xfrm rot="10800000">
+								<a:off x="7668344" y="-1"/>
+								<a:ext cx="1476164" cy="1052736"/>
+							</a:xfrm>
+							<a:prstGeom prst="triangle">
+								<a:avLst>
+									<a:gd name="adj" fmla="val 0"/>
+								</a:avLst>
+							</a:prstGeom>
+							<a:solidFill>
+								<a:schemeClr val="accent1"/>
+							</a:solidFill>
+							<a:ln>
+								<a:noFill/>
+							</a:ln>
+							<a:effectLst/>
+						</p:spPr>
+						<p:style>
+							<a:lnRef idx="1">
+								<a:schemeClr val="accent1"/>
+							</a:lnRef>
+							<a:fillRef idx="3">
+								<a:schemeClr val="accent1"/>
+							</a:fillRef>
+							<a:effectRef idx="2">
+								<a:schemeClr val="accent1"/>
+							</a:effectRef>
+							<a:fontRef idx="minor">
+								<a:schemeClr val="lt1"/>
+							</a:fontRef>
+						</p:style>
+						<p:txBody>
+							<a:bodyPr rtlCol="0" anchor="ctr"/>
+							<a:lstStyle/>
+							<a:p>
+								<a:pPr algn="ctr"/>
+								<a:endParaRPr lang="en-GB" dirty="0"/>
+							</a:p>
+						</p:txBody>
+					</p:sp>
+					<p:sp>
+						<p:nvSpPr>
+							<p:cNvPr id="8" name="TextBox 7">
+								<a:extLst>
+									<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+										<a16:creationId
+											xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{74BAF5FD-3904-EAE7-2BE8-B0E16EE59AC2}"/>
+										</a:ext>
+									</a:extLst>
+								</p:cNvPr>
+								<p:cNvSpPr txBox="1"/>
+								<p:nvPr/>
+							</p:nvSpPr>
+							<p:spPr>
+								<a:xfrm>
+									<a:off x="8460432" y="44624"/>
+									<a:ext cx="683568" cy="646331"/>
+								</a:xfrm>
+								<a:prstGeom prst="rect">
+									<a:avLst/>
+								</a:prstGeom>
+								<a:noFill/>
+							</p:spPr>
+							<p:txBody>
+								<a:bodyPr wrap="square" rtlCol="0">
+									<a:spAutoFit/>
+								</a:bodyPr>
+								<a:lstStyle/>
+								<a:p>
+									<a:pPr algn="ctr"/>
+									<a:r>
+										<a:rPr lang="en-GB" sz="3600" b="1" dirty="0">
+											<a:solidFill>
+												<a:schemeClr val="bg1"/>
+											</a:solidFill>
+											<a:latin typeface="Arial" panose="020B0604020202020204" pitchFamily="34" charset="0"/>
+											<a:cs typeface="Arial" panose="020B0604020202020204" pitchFamily="34" charset="0"/>
+										</a:rPr>
+										<a:t><%= trend_number %></a:t>
+									</a:r>
+								</a:p>
+							</p:txBody>
+						</p:sp>
+				   <% end %>
 			</p:spTree>
 			<p:extLst>
 				<p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">

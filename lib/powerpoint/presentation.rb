@@ -25,7 +25,7 @@ module Powerpoint
     end
 
     def add_intro(title, subtitile = nil)
-      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
+      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::FFTrendIntro}[0]
       slide = Powerpoint::Slide::Intro.new(presentation: self, title: title, subtitile: subtitile)
       if existing_intro_slide
         @slides[@slides.index(existing_intro_slide)] = slide
@@ -50,11 +50,12 @@ module Powerpoint
       @slides << Powerpoint::Slide::DescriptionPic.new(presentation: self, title: title, image_path: image_path, content: content)
     end
 
-    def add_ff_trend_intro_slide(title, subtitle, image_path, coords = {})
-      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
-      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: {})
+    def add_ff_trend_intro_slide(title, subtitle, image_path, trend_number, coords = {})
+      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::FFTrendIntro}[0]
+      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, trend_number: trend_number, coords: {})
       if existing_intro_slide
-        @slides[@slides.index(existing_intro_slide)] = slide
+        @slides << slide
+        #@slides[@slides.index(existing_intro_slide)] = slide
       else
         @slides.insert 0, slide
       end
@@ -101,6 +102,10 @@ module Powerpoint
 
     def add_ff_trend_outro_slide()
       @slides << Powerpoint::Slide::FFTrendOutro.new(presentation: self)
+    end
+
+    def add_ff_trend_list_slide(title, contents = [], links = [])
+      @slides << Powerpoint::Slide::FFTrendList.new(presentation: self, title: title, contents: contents, links: links)
     end
 
     def init_files

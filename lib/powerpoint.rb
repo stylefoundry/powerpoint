@@ -17,6 +17,7 @@ require 'powerpoint/slide/ff_trend_three_row_text'
 require 'powerpoint/slide/ff_trend_sector_impact'
 require 'powerpoint/slide/ff_embeded_slide'
 require 'powerpoint/slide/ff_trend_outro'
+require 'powerpoint/slide/ff_trend_list'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
