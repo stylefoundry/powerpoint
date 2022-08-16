@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
 
   spec.add_dependency 'rubyzip'
-  spec.add_dependency 'fastimage', '~> 2'
+  spec.add_dependency 'fastimage', '~> 1'
   spec.add_dependency 'nokogiri'
   spec.add_dependency 'htmltoooxml'
   spec.add_dependency 'sanitize'
