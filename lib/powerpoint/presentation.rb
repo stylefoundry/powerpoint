@@ -25,7 +25,7 @@ module Powerpoint
     end
 
     def add_intro(title, subtitile = nil)
-      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::FFTrendIntro}[0]
+      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
       slide = Powerpoint::Slide::Intro.new(presentation: self, title: title, subtitile: subtitile)
       if existing_intro_slide
         @slides[@slides.index(existing_intro_slide)] = slide
@@ -51,14 +51,7 @@ module Powerpoint
     end
 
     def add_ff_trend_intro_slide(title, subtitle, image_path, trend_number, coords = {})
-      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::FFTrendIntro}[0]
-      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, trend_number: trend_number, coords: {})
-      if existing_intro_slide
-        @slides << slide
-        #@slides[@slides.index(existing_intro_slide)] = slide
-      else
-        @slides.insert 0, slide
-      end
+      @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, trend_number: trend_number, coords: {})
     end
 
     def add_ff_what_next_slide(title, content = {}, links = [])

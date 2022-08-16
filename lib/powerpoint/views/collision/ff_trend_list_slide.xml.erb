@@ -144,7 +144,7 @@
 											<a:pPr marL="228600" indent="-228600">
 												<a:buSzPct val="100000"/>
 												<a:buFont typeface="+mj-lt"/>
-												<a:buAutoNum type="arabicPeriod" startAt="<%= (idx*data.length)+4 %>"/>
+												<a:buAutoNum type="arabicPeriod" startAt="<%= (idx == 0 ? idx : contents[0...idx].map(&:length).sum) + 4 %>"/>
 											</a:pPr>
 											<a:r>
 												<a:rPr lang="en-GB" sz="1200" b="1" dirty="0">
