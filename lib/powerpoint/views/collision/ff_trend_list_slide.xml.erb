@@ -120,7 +120,7 @@
 						<% idx_lookup = [11,14,15] %>
 						<p:sp>
 							<p:nvSpPr>
-								<p:cNvPr id="5" name="Text Placeholder 4">
+								<p:cNvPr id="<%= 5+idx %>" name="Text Placeholder 4">
 									<a:extLst>
 										<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
 											<a16:creationId
@@ -146,6 +146,10 @@
 												<a:buFont typeface="+mj-lt"/>
 												<a:buAutoNum type="arabicPeriod" startAt="<%= (idx == 0 ? idx : contents[0...idx].map(&:length).sum) + 4 %>"/>
 											</a:pPr>
+											<a:r>
+												<a:rPr lang="en-GB" sz="1200" dirty="0"/>
+												<a:t> </a:t>
+											</a:r>
 											<a:r>
 												<a:rPr lang="en-GB" sz="1200" b="1" dirty="0">
 													<a:hlinkClick r:id="rId<%= 100+item_idx %>"/>
