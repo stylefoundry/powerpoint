@@ -9,7 +9,7 @@ module Powerpoint
       attr_reader :title, :contents, :links, :trend_list_start_num
 
       def initialize(options={})
-        require_arguments [:title, :contents, :links], options
+        require_arguments [:title, :contents, :links, :trend_list_start_num], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
       end
 
