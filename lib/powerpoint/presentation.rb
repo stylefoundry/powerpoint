@@ -97,8 +97,8 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendOutro.new(presentation: self)
     end
 
-    def add_ff_trend_list_slide(title, contents = [], links = [])
-      @slides << Powerpoint::Slide::FFTrendList.new(presentation: self, title: title, contents: contents, links: links)
+    def add_ff_trend_list_slide(title, contents = [], links = [], trend_list_start_num = 4)
+      @slides << Powerpoint::Slide::FFTrendList.new(presentation: self, title: title, contents: contents, links: links, trend_list_start_num: trend_list_start_num)
     end
 
     def init_files

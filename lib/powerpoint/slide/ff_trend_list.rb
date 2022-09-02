@@ -6,7 +6,7 @@ module Powerpoint
     class FFTrendList
       include Powerpoint::Util
 
-      attr_reader :title, :contents, :links
+      attr_reader :title, :contents, :links, :trend_list_start_num
 
       def initialize(options={})
         require_arguments [:title, :contents, :links], options
