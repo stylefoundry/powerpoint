@@ -80,9 +80,9 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     # @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@bullet_html), @image_paths, links
     # @deck.add_ff_three_row_text_slide 'What to do', @three_col_content, three_col_links
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
-    # @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
+    @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
     @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
-    #@deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
+    @deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
 
     ##
     # These are the embeded prenstatoins I have taken a selection of the ones that have tags, drawiings, charts etc

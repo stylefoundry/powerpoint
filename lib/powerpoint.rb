@@ -21,7 +21,7 @@ require 'powerpoint/slide/ff_trend_list'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
-  TEMPLATE_PATH = "#{ROOT_PATH}/templates/collision-template"
+  TEMPLATE_PATH = "#{ROOT_PATH}/templates/collision-ux2022-template"
   VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/collision"
   # TEMPLATE_PATH = "#{ROOT_PATH}/templates/nvision-template"
   # VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/new"
