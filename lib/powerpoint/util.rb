@@ -32,8 +32,8 @@ module Powerpoint
       end
 
       Struct.new(:height, :width, :y, :x, keyword_init: true).new(
-        height: target_height,
-        width: target_width,
+        height: target_height.round,
+        width: target_width.round,
         # Half of remaining height (Round down)
         y: y + ((max_height - target_height) / 2.0).floor,
         # Half of remaining width (Round down)
