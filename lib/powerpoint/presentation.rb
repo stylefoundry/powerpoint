@@ -50,14 +50,8 @@ module Powerpoint
       @slides << Powerpoint::Slide::DescriptionPic.new(presentation: self, title: title, image_path: image_path, content: content)
     end
 
-    def add_ff_trend_intro_slide(title, subtitle, image_path, coords = {})
-      existing_intro_slide = @slides.select {|s| s.class == Powerpoint::Slide::Intro}[0]
-      slide = Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, coords: {})
-      if existing_intro_slide
-        @slides[@slides.index(existing_intro_slide)] = slide
-      else
-        @slides.insert 0, slide
-      end
+    def add_ff_trend_intro_slide(title, subtitle, image_path, trend_number, coords = {})
+      @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path, trend_number: trend_number, coords: {})
     end
 
     def add_ff_what_next_slide(title, content = {}, links = [])
@@ -101,6 +95,10 @@ module Powerpoint
 
     def add_ff_trend_outro_slide()
       @slides << Powerpoint::Slide::FFTrendOutro.new(presentation: self)
+    end
+
+    def add_ff_trend_list_slide(title, contents = [], links = [], trend_list_start_num = 4)
+      @slides << Powerpoint::Slide::FFTrendList.new(presentation: self, title: title, contents: contents, links: links, trend_list_start_num: trend_list_start_num)
     end
 
     def init_files

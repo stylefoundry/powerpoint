@@ -63,7 +63,7 @@
 					<p:txBody>
 						<a:bodyPr/>
 						<a:lstStyle/>
-            <%= content %>
+            <%= content.presence || html_to_ooxml('&nbsp;') %>
             </p:txBody>
           </p:sp>
 					<% if @images.count > 0 %><% @images.each_with_index do |path, index| %>
@@ -84,8 +84,32 @@
             </p:blipFill>
             <p:spPr bwMode="auto">
               <a:xfrm>
-                <a:off x="<%= pixle_to_pt(80) %>" y="<%= pixle_to_pt(193) %>"/>
-                <a:ext cx="<%= pixle_to_pt(542) %>" cy="<%= pixle_to_pt(287) %>"/>
+                <%
+                  min_x = 80
+                  min_y = 193
+                  max_height = 287
+                  max_width = 542
+
+                  if content.blank?
+                    max_height = pt_to_pixle(4645026)
+                    min_y = pt_to_pixle(1736725)
+
+                    if title.blank?
+                      max_height += pt_to_pixle(886397)
+                      min_y = pt_to_pixle(727200)
+                    end
+                  end
+
+                  image_position_data = size_and_position_image(
+                    path.last,
+                    x: min_x,
+                    y: min_y,
+                    max_height: max_height,
+                    max_width: max_width
+                  )
+                %>
+                <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
+                <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) %>"/>
               </a:xfrm>
               <a:prstGeom prst="rect">
                 <a:avLst/>

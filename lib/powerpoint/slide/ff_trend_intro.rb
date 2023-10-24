@@ -9,17 +9,17 @@ module Powerpoint
     class FFTrendIntro
       include Powerpoint::Util
 
-      attr_reader :image_name, :title, :subtitle, :coords, :image_path, :link_path
+      attr_reader :image_name, :title, :subtitle, :coords, :image_path, :trend_number
 
       def initialize(options={})
         require_arguments [:presentation, :title, :subtitle, :image_path], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @coords = default_coords unless @coords.any?
-        @image_name = File.basename(@image_path) if @image_path != nil
+        @image_name = File.basename(@image_path) if @image_path != nil && @image_path != ""
       end
 
       def save(extract_path, index)
-        copy_media(extract_path, @image_path) if @image_path != nil
+        copy_media(extract_path, @image_path) if @image_path != nil && @image_name != ""
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
       end
