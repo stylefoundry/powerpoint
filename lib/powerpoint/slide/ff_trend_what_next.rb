@@ -2,17 +2,39 @@ require 'zip/filesystem'
 require 'fileutils'
 require 'fastimage'
 require 'erb'
+require 'sanitize'
 
 module Powerpoint
   module Slide
     class FFTrendWhatNext
       include Powerpoint::Util
 
-      attr_reader :title, :content
+      attr_reader :title, :content, :cols
 
       def initialize(options={})
         require_arguments [:presentation, :title, :content], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
+
+        @cols = []
+        for i in 0..content["rowsManagerInput"]["value"].length
+           @cols[i] = []
+            if content["rowsManagerInput"]["value"][0] != nil && content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil
+              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"])
+            else
+              @cols[i] << ''
+            end
+            if content["rowsManagerInput"]["value"][1] != nil && content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil
+              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"])
+            else
+              @cols[i] << ''
+            end
+            if content["rowsManagerInput"]["value"][2] != nil && content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil
+              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"])
+            else
+              @cols[i] << ''
+            end
+        end
+
       end
 
       def save(extract_path, index)

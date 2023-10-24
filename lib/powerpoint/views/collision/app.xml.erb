@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Properties
+	xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
+	xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
+	<TotalTime>741</TotalTime>
+	<Words>100</Words>
+	<Application>Microsoft Office PowerPoint</Application>
+	<PresentationFormat>On-screen Show (4:3)</PresentationFormat>
+	<Paragraphs>100</Paragraphs>
+	<Slides><%= slides.length %></Slides>
+	<Notes><%= notes_slides.length %></Notes>
+	<HiddenSlides>0</HiddenSlides>
+	<MMClips>0</MMClips>
+	<ScaleCrop>false</ScaleCrop>
+	<HeadingPairs>
+		<vt:vector size="6" baseType="variant">
+			<vt:variant>
+				<vt:lpstr>Fonts Used</vt:lpstr>
+			</vt:variant>
+			<vt:variant>
+				<vt:i4>6</vt:i4>
+			</vt:variant>
+			<vt:variant>
+				<vt:lpstr>Theme</vt:lpstr>
+			</vt:variant>
+			<vt:variant>
+				<vt:i4><%= themes.length %></vt:i4>
+			</vt:variant>
+			<vt:variant>
+				<vt:lpstr>Slide Titles</vt:lpstr>
+			</vt:variant>
+			<vt:variant>
+				<vt:i4><%= slides.length %></vt:i4>
+			</vt:variant>
+		</vt:vector>
+	</HeadingPairs>
+	<TitlesOfParts>
+    <vt:vector size="<%= slides.length + themes.length + 8 %>" baseType="lpstr">
+     <% themes.each do |theme| %>
+      <vt:lpstr><%= theme[:name] %></vt:lpstr>
+     <% end %>
+      <% slides.each do |slide| %>
+			<vt:lpstr><%= slide.title.nil? ?  "PowerPoint Presentation" : slide.title.strip.encode(:xml => :text)  %></vt:lpstr>
+			<% end %>
+			<vt:lpstr>Arial</vt:lpstr>
+			<vt:lpstr>Calibri</vt:lpstr>
+			<vt:lpstr>Georgia</vt:lpstr>
+			<vt:lpstr>Times New Roman</vt:lpstr>
+			<vt:lpstr>Wingdings</vt:lpstr>
+			<vt:lpstr>Wingdings 3</vt:lpstr>
+			<vt:lpstr>FF2018</vt:lpstr>
+			<vt:lpstr>PowerPoint Presentation</vt:lpstr>
+		</vt:vector>
+	</TitlesOfParts>
+	<LinksUpToDate>false</LinksUpToDate>
+	<SharedDoc>false</SharedDoc>
+	<HyperlinksChanged>false</HyperlinksChanged>
+	<AppVersion>16.0000</AppVersion>
+</Properties>
