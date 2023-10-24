@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'htmltoooxml'
   spec.add_dependency 'sanitize'
   spec.add_dependency 'mimemagic'
+  spec.add_dependency 'rmagick'
 end
