@@ -59,6 +59,7 @@ module Powerpoint
     end
 
     def add_ff_heading_text_slide(title, content, image_paths, links = [])
+      puts content
       @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content, image_paths: image_paths, links: links)
     end
 
@@ -74,6 +75,19 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
+    def add_ff_text_left_image_right_slide(title, content, question, image_path, link_path = nil)
+      @slides << Powerpoint::Slide::FFTrendTextLeftImageRight.new(presentation: self, title: title, content: content, question: question, image_path: image_path, link_path: link_path )
+    end
+
+    def add_ff_text_right_image_left_slide(title, content, question, image_path, link_path = nil)
+      @slides << Powerpoint::Slide::FFTrendTextRightImageLeft.new(presentation: self, title: title, content: content, question: question, image_path: image_path, link_path: link_path )
+    end
+
+    def add_ff_two_column_image_slide(title, content, question, images, link_path = nil)
+      @slides << Powerpoint::Slide::FFTrendTwoColumnImage.new(presentation: self, title: title, content: content, question: question, images: images, link_path: link_path )
+    end
+
+    
     def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides, chart_images)
       @slides << Powerpoint::Slide::FFEmbededSlide.new(
         presentation: self, title: slide_title,
@@ -175,8 +189,8 @@ module Powerpoint
       render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
       render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
       render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
-      #render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
-      #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
+      render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
+      render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
       render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
       render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
       render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
