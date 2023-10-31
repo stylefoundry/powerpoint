@@ -101,20 +101,10 @@
         <p:spPr bwMode="auto">
           <a:xfrm>
             <%
-              min_x = -50
+              min_x = 30
               min_y = 180
-              max_height = 287
-              max_width = 542
-
-              if !@content
-                max_height = pt_to_pixle(4645026)
-                min_y = pt_to_pixle(1736725)
-
-                if @title.blank?
-                  max_height += pt_to_pixle(886397)
-                  min_y = pt_to_pixle(727200)
-                end
-              end
+              max_height = 280
+              max_width = 374
 
               image_position_data = size_and_position_image(
                 @image_path,

@@ -75,16 +75,16 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_text_left_image_right_slide(title, content, question, image_path, link_path = nil)
-      @slides << Powerpoint::Slide::FFTrendTextLeftImageRight.new(presentation: self, title: title, content: content, question: question, image_path: image_path, link_path: link_path )
+    def add_ff_text_left_image_right_slide(title, content, question, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextLeftImageRight.new(presentation: self, title: title, content: content, question: question, image_path: image_path, links: links)
     end
 
-    def add_ff_text_right_image_left_slide(title, content, question, image_path, link_path = nil)
-      @slides << Powerpoint::Slide::FFTrendTextRightImageLeft.new(presentation: self, title: title, content: content, question: question, image_path: image_path, link_path: link_path )
+    def add_ff_text_right_image_left_slide(title, content, question, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextRightImageLeft.new(presentation: self, title: title, content: content, question: question, image_path: image_path, links: links )
     end
 
-    def add_ff_two_column_image_slide(title, content, question, images, link_path = nil)
-      @slides << Powerpoint::Slide::FFTrendTwoColumnImage.new(presentation: self, title: title, content: content, question: question, images: images, link_path: link_path )
+    def add_ff_two_column_image_slide(title, content, question, images, links = [])
+      @slides << Powerpoint::Slide::FFTrendTwoColumnImage.new(presentation: self, title: title, content: content, question: question, images: images, links: links )
     end
 
     

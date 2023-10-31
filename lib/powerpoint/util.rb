@@ -1,5 +1,6 @@
 require 'htmltoooxml'
 require 'rmagick'
+require 'pry'
 
 module Powerpoint
   module Util
@@ -19,16 +20,15 @@ module Powerpoint
       image = Magick::ImageList.new(image_path).first
       image_height = image.rows
       image_width = image.columns
-      image_ratio = image_height.to_f / image_width
-
+      image_ratio = image_width / image_height.to_f
       # Maximise image height
       target_height = max_height
-      target_width = target_height / image_ratio
+      target_width = target_height * image_ratio
 
       # Image height is less constrained than width, swap to maximise width
       if target_width > max_width
         target_width = max_width
-        target_height = target_width * image_ratio
+        target_height = target_width / image_ratio
       end
 
       Struct.new(:height, :width, :y, :x, keyword_init: true).new(

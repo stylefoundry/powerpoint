@@ -9,10 +9,10 @@ module Powerpoint
     class FFTrendTextRightImageLeft
       include Powerpoint::Util
 
-      attr_reader :title, :content, :question, :image_path, :link_path
+      attr_reader :title, :content, :question, :image_path, :links
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :content, :question, :image_path, :link_path], options
+        require_arguments [:presentation, :title, :content, :question, :image_path, :links], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @image_name = File.basename(@image_path) if @image_path != nil && @image_path != ""
       end
