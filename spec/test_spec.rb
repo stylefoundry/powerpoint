@@ -18,7 +18,7 @@ describe 'Powerpoint parsing a sample PPTX file' do
 <strong>Bedtime</strong>, and <i>evening</i> time in general, is being re-defined. For a significant number, the hours before sleep can be penetrated by a kind of light work; it is now so easy to curl round a laptop or a tablet and drop your boss an email, while scanning the latest news, while streaming on-demand movies, while online shopping for your mother’s birthday present, and so on.
 </p>
 <p>
-<img height="770" src="samples/images/image4.jpeg" width="1543">
+<img height="770" src="samples/images/image5.jpeg" width="1543">
 </p>
 <p>
 Work-life <a href="http://www.spicerack.co.uk">balance</a> is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
@@ -72,7 +72,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     ##
     # @deck.add_textual_slide 'test head', ['test body'] 
 
-    @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image4.jpeg', nil
+    @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image5.jpeg', nil
     @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets.', "samples/images/white.jpeg", '2'
     
     @deck.add_ff_heading_text_slide @header.inner_html ,html_to_ooxml(@final.to_s), @image_paths, links
@@ -85,10 +85,10 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
     @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
     @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
-    @deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image4.jpeg', {}, 'sample.pptx'
-    @deck.add_ff_text_left_image_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image4.jpeg", links 
-    @deck.add_ff_text_right_image_left_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image4.jpeg", links 
-    @deck.add_ff_two_column_image_slide @header.inner_html ,html_to_ooxml(@final.to_s), ["Which of these websites/apps have you used in the past month? TikTok(Douyin1)", "Which of these websites/apps have you used in the past month? TikTok(Douyin2)"], ["samples/images/image1.png", "samples/images/image4.jpeg"], links 
+    @deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image5.jpeg', {}, 'sample.pptx'
+    @deck.add_ff_text_left_image_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image5.jpeg", links 
+    @deck.add_ff_text_right_image_left_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image5.jpeg", links 
+    @deck.add_ff_two_column_image_slide @header.inner_html ,html_to_ooxml(@final.to_s), ["Which of these websites/apps have you used in the past month? TikTok(Douyin1)", "Which of these websites/apps have you used in the past month? TikTok(Douyin2)"], ["samples/images/image1.png", "samples/images/image5.jpeg"], links 
  
     ##
     # These are the embeded prenstatoins I have taken a selection of the ones that have tags, drawiings, charts etc
