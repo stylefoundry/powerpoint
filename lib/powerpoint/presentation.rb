@@ -75,18 +75,70 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_text_left_image_right_slide(title, content, question, image_path, links = [])
-      @slides << Powerpoint::Slide::FFTrendTextLeftImageRight.new(presentation: self, title: title, content: content, question: question, image_path: image_path, links: links)
+    def add_ff_text_left_chart_right_slide(title, content, question, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextLeftChartRight.new(
+        presentation: self, 
+        title: title, 
+        content: content, 
+        question: question, 
+        image_path: image_path, 
+        links: links
+      )
     end
 
-    def add_ff_text_right_image_left_slide(title, content, question, image_path, links = [])
-      @slides << Powerpoint::Slide::FFTrendTextRightImageLeft.new(presentation: self, title: title, content: content, question: question, image_path: image_path, links: links )
+    def add_ff_text_right_chart_left_slide(title, content, question, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextRightChartLeft.new(
+        presentation: self, 
+        title: title, 
+        content: content, 
+        question: question, 
+        image_path: image_path, 
+        links: links 
+      )
     end
 
-    def add_ff_two_column_image_slide(title, content, question, images, links = [])
-      @slides << Powerpoint::Slide::FFTrendTwoColumnImage.new(presentation: self, title: title, content: content, question: question, images: images, links: links )
+    def add_ff_text_right_image_left_slide(title, content, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextRightImageLeft.new(
+        presentation: self, 
+        title: title, 
+        content: content,
+        image_path: image_path, 
+        links: links 
+      )
     end
 
+    def add_ff_text_left_image_right_slide(title, content, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextLeftImageRight.new(
+        presentation: self, 
+        title: title, 
+        content: content,
+        image_path: image_path, 
+        links: links 
+      )
+    end
+
+    def add_ff_two_column_chart_slide(title, content, question, images, links = [])
+      @slides << Powerpoint::Slide::FFTrendTwoColumnChart.new(
+        presentation: self, 
+        title: title, 
+        content: content, 
+        question: question, 
+        images: images, 
+        links: links 
+      )
+    end
+
+    def add_ff_two_column_text_slide(title, left_col_title, right_col_title, left_col_content, right_col_content,links = [])
+      @slides << Powerpoint::Slide::FFTrendTwoColumnText.new(
+        presentation: self,
+        title: title,
+        left_col_title: left_col_title, 
+        right_col_title: right_col_title, 
+        left_col_content: left_col_content, 
+        right_col_content: right_col_content, 
+        links: links 
+      )
+    end
     
     def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides, chart_images)
       @slides << Powerpoint::Slide::FFEmbededSlide.new(

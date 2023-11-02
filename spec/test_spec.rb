@@ -86,10 +86,12 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
     @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
     @deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image5.jpeg', {}, 'sample.pptx'
-    @deck.add_ff_text_left_image_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image5.jpeg", links 
-    @deck.add_ff_text_right_image_left_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image5.jpeg", links 
-    @deck.add_ff_two_column_image_slide @header.inner_html ,html_to_ooxml(@final.to_s), ["Which of these websites/apps have you used in the past month? TikTok(Douyin1)", "Which of these websites/apps have you used in the past month? TikTok(Douyin2)"], ["samples/images/image1.png", "samples/images/image5.jpeg"], links 
- 
+    @deck.add_ff_text_left_chart_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image5.jpeg", links 
+    @deck.add_ff_text_right_chart_left_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "samples/images/image5.jpeg", links 
+    @deck.add_ff_text_right_image_left_slide @header.inner_html ,html_to_ooxml(@final.to_s), "samples/images/image5.jpeg", links 
+    @deck.add_ff_text_left_image_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "samples/images/image5.jpeg", links 
+    @deck.add_ff_two_column_chart_slide @header.inner_html ,html_to_ooxml(@final.to_s), ["Which of these websites/apps have you used in the past month? TikTok(Douyin1)", "Which of these websites/apps have you used in the past month? TikTok(Douyin2)"], ["samples/images/image1.png", "samples/images/image5.jpeg"], links 
+    @deck.add_ff_two_column_text_slide 'Test title', @header.inner_html, @header.inner_html, html_to_ooxml(@final.to_s), html_to_ooxml(@final.to_s), links
     ##
     # These are the embeded prenstatoins I have taken a selection of the ones that have tags, drawiings, charts etc
     #
