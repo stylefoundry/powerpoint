@@ -78,7 +78,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @deck.add_ff_heading_text_slide @header.inner_html ,html_to_ooxml(@final.to_s), @image_paths, links
     # # #
     # # # # loop through total content remove 1st three and then work out how many slides needed based on 21 content items per slide
-    # @deck.add_ff_trend_list_slide "test title", @contents, @content_links
+    @deck.add_ff_trend_list_slide "test title", @contents, @content_links
     # # #
     # @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@bullet_html), @image_paths, links
     # # @deck.add_ff_three_row_text_slide 'What to do', @three_col_content, three_col_links
