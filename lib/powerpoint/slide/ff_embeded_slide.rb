@@ -134,7 +134,7 @@ module Powerpoint
             #chart_xml.search('//c:chartSpace/c:lang').first.add_next_sibling('<c:style val="2"/>')
             #chart_xml.search('//c:chartSpace/c:externalData').first.add_child '<c:autoUpdate val="0"/>'
 
-            if chart_xml.namespaces['xmlns:c'].present?
+            if chart_xml.namespaces['xmlns:c']
               # bar_xml = chart_xml.search('//c:barChart/c:ser/c:spPr')
               # if bar_xml.count > 0
               #   data_label_xml = <<~XML
