@@ -56,10 +56,10 @@
 				<p:txBody>
 				<a:bodyPr/>
 				<a:lstStyle/>
-				<%= @content || html_to_ooxml('&nbsp;')  %>
+				<%= ooxml_blank?(@content) ? html_to_ooxml('&nbsp;') : @content %>
 				</p:txBody>
 			</p:sp>
-			<% if @images.count > 0 %><% @images.each_with_index do |path, index| %>
+			<% @images.each_with_index do |path, index| %>
 				<p:pic>
 				<p:nvPicPr>
 				<p:cNvPr id="<%= index + 1 %>" name="Picture <%= index + 1 %>" descr="Picture <%= index + 1 %>"/>
@@ -81,16 +81,11 @@
 								min_x = 30
 								min_y = 180
 								max_height = 280
-								max_width = 374
+								max_width = 907
 
-								if !@content
-									max_height = pt_to_pixle(4645026)
-									min_y = pt_to_pixle(1736725)
-
-									if @title.blank?
-										max_height += pt_to_pixle(886397)
-										min_y = pt_to_pixle(727200)
-									end
+								if ooxml_blank?(@content)
+									max_height = 365
+									min_y = 136
 								end
 
 								image_position_data = size_and_position_image(
@@ -110,7 +105,7 @@
 						<a:noFill/>
 					</p:spPr>
 				</p:pic>
-			<% end %><% end %>
+			<% end %>
 			<p:sp>
 				<p:nvSpPr>
 					<p:cNvPr id="8" name="Title 7">
@@ -134,7 +129,7 @@
 					<a:p>
 						<a:r>
 							<a:rPr lang="en-GB" dirty="0"/>
-							<a:t><%= @title.strip.encode(:xml => :text) %></a:t>
+							<a:t><%= (@title.nil? || @title.empty?) ? html_to_ooxml('&nbsp;') : @title.strip.encode(:xml => :text) %></a:t>
 						</a:r>
 					</a:p>
 				</p:txBody>

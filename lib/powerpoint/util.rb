@@ -75,6 +75,23 @@ module Powerpoint
       result
     end
 
+    def ooxml_blank?(ooxml)
+      if ooxml.nil?
+        true
+      else
+        is_blank_node = -> (node) do
+          case node
+          when Nokogiri::XML::Text
+            /\A[[:space:]]*\z/ =~ node.content
+          else
+            node.children.all?(&is_blank_node)
+          end
+        end
+
+        Nokogiri::XML.parse(ooxml).children.all?(&is_blank_node)
+      end
+    end
+
     def remove_whitespace(ooxml)
       ooxml.gsub(/\s+/, ' ').gsub(/>\s+</, '><').strip
     end
