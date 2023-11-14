@@ -15,26 +15,23 @@ module Powerpoint
         require_arguments [:presentation, :title, :content], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
 
-        @cols = []
-        for i in 0..content["rowsManagerInput"]["value"].length
-           @cols[i] = []
-            if content["rowsManagerInput"]["value"][0] != nil && content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"] != nil
-              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][0]["item"]["items"]["textInput#{i+1}"]["value"])
-            else
-              @cols[i] << ''
-            end
-            if content["rowsManagerInput"]["value"][1] != nil && content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"] != nil
-              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][1]["item"]["items"]["textInput#{i+1}"]["value"])
-            else
-              @cols[i] << ''
-            end
-            if content["rowsManagerInput"]["value"][2] != nil && content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"] != nil
-              @cols[i] << Sanitize.clean(content["rowsManagerInput"]["value"][2]["item"]["items"]["textInput#{i+1}"]["value"])
-            else
-              @cols[i] << ''
-            end
-        end
+        format_content = -> (html) {
+          case html
+          when String
+            text = Sanitize.clean(html).strip
+            text.empty? ? nil : text
+          else
+            nil
+          end
+        }
 
+        @cols = content["rowsManagerInput"]["value"].each_with_index.map do |(row, row_num)|
+          columns = row['item']['items']
+
+          (0..2).map do |col_num|
+            format_content.call columns["textInput#{col_num + 1}"].dig('value')
+          end
+        end.transpose
       end
 
       def save(extract_path, index)
