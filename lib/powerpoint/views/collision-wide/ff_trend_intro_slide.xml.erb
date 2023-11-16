@@ -59,12 +59,6 @@
               </a:rPr>
 								<a:t><%= subtitle.strip.encode(:xml => :text) %></a:t>
 						</a:r>
-            <a:r>
-              <a:rPr lang="en-GB">
-                <a:cs typeface="Arial"/>
-              </a:rPr>
-              <a:t>changing climate</a:t>
-            </a:r>
             <a:endParaRPr lang="en-GB" dirty="0">
               <a:cs typeface="Arial"/>
             </a:endParaRPr>
@@ -93,7 +87,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-							<a:t><%= title.length > 30 ? title.strip.encode(:xml => :text)[0..30].gsub(/\s\w+\s*$/,'...') : title.strip.encode(:xml => :text) %></a:t>
+							<a:t><%= title.strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

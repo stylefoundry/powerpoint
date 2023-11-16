@@ -88,13 +88,12 @@
 					<a:p>
 						<a:r>
 							<a:rPr lang="en-GB" dirty="0"/>
-							<a:t><%= title.empty? ? ' ' : title.strip.encode(:xml => :text) %></a:t>
+							<a:t><%= (title.nil? || title.empty?) ? html_to_ooxml('&nbsp;') : title.strip.encode(:xml => :text) %></a:t>
 						</a:r>
 					</a:p>
 				</p:txBody>
 			</p:sp>
 			<% cols.each_with_index do |block, i| %>
-			<% next if block[i].nil? %>
 			<p:sp>
 				<p:nvSpPr>
 					<p:cNvPr id="<%= 8 + (i *3) %>" name="<%= 6 + (i *3)%>"/>
@@ -112,7 +111,7 @@
 					<a:p>
 						<a:r>
 							<a:rPr lang="en-GB" dirty="0"/>
-							<a:t><%= block.count > 0 ? block[0].strip.encode(:xml => :text) : '' %></a:t>
+							<a:t><%= block[0].nil? ? html_to_ooxml('&nbsp;') : block[0].strip.encode(:xml => :text) %></a:t>
 						</a:r>
 					</a:p>
 				</p:txBody>
@@ -134,7 +133,7 @@
 					<a:p>
 						<a:r>
 							<a:rPr lang="en-GB" dirty="0"/>
-							<a:t><%= block.count > 1 ? block[1].strip.encode(:xml => :text) : '' %></a:t>
+							<a:t><%= block[1].nil? ? html_to_ooxml('&nbsp;') : block[1].strip.encode(:xml => :text) %></a:t>
 						</a:r>
 					</a:p>
 				</p:txBody>
@@ -156,7 +155,7 @@
 					<a:p>
 						<a:r>
 							<a:rPr lang="en-GB" dirty="0"/>
-							<a:t><%= block.count > 2 ? block[2].strip.encode(:xml => :text)  : '' %></a:t>
+							<a:t><%= block[2].nil? ? html_to_ooxml('&nbsp;') : block[2].strip.encode(:xml => :text) %></a:t>
 						</a:r>
 					</a:p>
 				</p:txBody>
