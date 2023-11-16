@@ -96,12 +96,7 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['column1']['items']['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
-            </a:r>
-          </a:p>
+          <%= @heading_one %>
           <a:p>
             <a:endParaRPr lang="en-GB" />
           </a:p>
@@ -128,12 +123,7 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['column2']['items']['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
-            </a:r>
-          </a:p>
+          <%= @heading_two %>
           <a:p>
             <a:endParaRPr lang="en-GB" />
           </a:p>
@@ -160,12 +150,7 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <a:p>
-            <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['column3']['items']['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
-            </a:r>
-          </a:p>
+          <%= @heading_three %>
           <a:p>
             <a:endParaRPr lang="en-GB" />
           </a:p>
@@ -192,7 +177,7 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <%= html_to_ooxml(content['column2']['items']['textInput']['value']) %>
+          <%= @text_one %>
           <a:p>
             <a:endParaRPr lang="en-GB" />
           </a:p>
@@ -219,7 +204,7 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <%= html_to_ooxml(content['column3']['items']['textInput']['value']) %>
+          <%= @text_two %>
           <a:p>
             <a:endParaRPr lang="en-GB" />
           </a:p>
@@ -246,7 +231,7 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <%= html_to_ooxml(content['column1']['items']['textInput']['value']) %>
+          <%= @text_three %>
           <a:p>
             <a:endParaRPr lang="en-GB" />
           </a:p>
