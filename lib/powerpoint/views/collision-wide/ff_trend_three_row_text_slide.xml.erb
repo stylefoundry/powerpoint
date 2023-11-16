@@ -66,12 +66,10 @@
           <a:lstStyle />
           <a:p>
             <a:r>
-              <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= content['headingInput']['value'].empty? ? ' ' : content['headingInput']['value'].strip.encode(:xml => :text) %></a:t>
+              <a:rPr lang="en-GB" dirty="0" smtClean="0" />
+              <a:t><%= @main_heading_text %></a:t>
             </a:r>
-          </a:p>
-          <a:p>
-            <a:endParaRPr lang="en-GB" />
+            <a:endParaRPr lang="en-GB" dirty="0" />
           </a:p>
         </p:txBody>
       </p:sp>
@@ -96,9 +94,12 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <%= @heading_one %>
           <a:p>
-            <a:endParaRPr lang="en-GB" />
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0" smtClean="0" />
+              <a:t><%= @heading_one_text %></a:t>
+            </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0" />
           </a:p>
         </p:txBody>
       </p:sp>
@@ -123,9 +124,12 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <%= @heading_two %>
           <a:p>
-            <a:endParaRPr lang="en-GB" />
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0" smtClean="0" />
+              <a:t><%= @heading_two_text %></a:t>
+            </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0" />
           </a:p>
         </p:txBody>
       </p:sp>
@@ -150,9 +154,12 @@
         <p:txBody>
           <a:bodyPr />
           <a:lstStyle />
-          <%= @heading_three %>
           <a:p>
-            <a:endParaRPr lang="en-GB" />
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0" smtClean="0" />
+              <a:t><%= @heading_three_text %></a:t>
+            </a:r>
+            <a:endParaRPr lang="en-GB" dirty="0" />
           </a:p>
         </p:txBody>
       </p:sp>
