@@ -104,7 +104,7 @@
               min_x = 490
               min_y = 180
               max_height = 280
-              max_width = 374
+              max_width = 444
 
               image_position_data = size_and_position_image(
                 @image_path,
@@ -142,6 +142,39 @@
         <p:spPr>
           <a:xfrm>
             <a:off x="6114519" y="1304492"/>
+            <a:ext cx="5640037" cy="387798"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB"/>
+              <a:t><%= !question_title.nil? ? question_title.strip.encode(:xml => :text) : '' %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="19" name="Text Placeholder 18">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6E0DE548-A7E2-2B50-69B0-4A014DBB88E4}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="13"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6114519" y="1692290"/>
             <a:ext cx="5640037" cy="193899"/>
           </a:xfrm>
         </p:spPr>
@@ -151,7 +184,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB"/>
-              <a:t><%= !@question.nil? ? @question.strip.encode(:xml => :text) : '' %></a:t>
+              <a:t><%= !question_subtitle.nil? ? question_subtitle.strip.encode(:xml => :text) : '' %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

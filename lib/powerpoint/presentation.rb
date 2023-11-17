@@ -75,23 +75,25 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
     end
 
-    def add_ff_text_left_chart_right_slide(title, content, question, image_path, links = [])
+    def add_ff_text_left_chart_right_slide(title, content, question_title, question_subtitle, image_path, links = [])
       @slides << Powerpoint::Slide::FFTrendTextLeftChartRight.new(
         presentation: self,
         title: title,
         content: content,
-        question: question,
+        question_title: question_title,
+        question_subtitle: question_subtitle,
         image_path: image_path,
         links: links
       )
     end
 
-    def add_ff_text_right_chart_left_slide(title, content, question, image_path, links = [])
+    def add_ff_text_right_chart_left_slide(title, content, question_title, question_subtitle, image_path, links = [])
       @slides << Powerpoint::Slide::FFTrendTextRightChartLeft.new(
         presentation: self,
         title: title,
         content: content,
-        question: question,
+        question_title: question_title,
+        question_subtitle: question_subtitle,
         image_path: image_path,
         links: links
       )
