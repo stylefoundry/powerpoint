@@ -134,7 +134,7 @@
         <p:spPr>
           <a:xfrm>
             <a:off x="334435" y="1423729"/>
-            <a:ext cx="5687999" cy="193898"/>
+            <a:ext cx="5687999" cy="387798"/>
           </a:xfrm>
         </p:spPr>
         <p:txBody>
@@ -143,7 +143,43 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB"/>
-              <a:t><%= @question[0].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @question_titles[0].strip.encode(:xml => :text) %></a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:endParaRPr lang="en-GB"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="10" name="Text Placeholder 9">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{83A6E8E5-A2AE-FE0D-5537-46CA6E2F3457}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="11"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="334435" y="1811527"/>
+            <a:ext cx="5687999" cy="387798"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB"/>
+              <a:t><%= @question_subtitles[0].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
           <a:p>
@@ -170,7 +206,7 @@
         <p:spPr>
           <a:xfrm>
             <a:off x="6169565" y="1423729"/>
-            <a:ext cx="5688000" cy="193899"/>
+            <a:ext cx="5688000" cy="387798"/>
           </a:xfrm>
         </p:spPr>
         <p:txBody>
@@ -179,12 +215,48 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB"/>
-              <a:t><%= @question[1].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @question_titles[1].strip.encode(:xml => :text) %></a:t>
             </a:r>
           </a:p>
           <a:p>
             <a:endParaRPr lang="en-GB"/>
-          </a:p>          
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="12" name="Text Placeholder 11">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8AA206CC-C160-639E-317C-F74BE0059E49}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="13"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6169565" y="1811527"/>
+            <a:ext cx="5688000" cy="387798"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB"/>
+              <a:t><%= @question_subtitles[1].strip.encode(:xml => :text) %></a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:endParaRPr lang="en-GB"/>
+          </a:p>
         </p:txBody>
       </p:sp>
       <p:pic>
