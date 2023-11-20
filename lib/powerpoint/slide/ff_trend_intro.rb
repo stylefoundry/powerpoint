@@ -9,12 +9,12 @@ module Powerpoint
     class FFTrendIntro
       include Powerpoint::Util
 
-      attr_reader :image_name, :title, :subtitle, :coords, :image_path, :trend_number
+      attr_reader :image_name, :title, :subtitle, :image_path, :trend_number
 
       def initialize(options={})
         require_arguments [:presentation, :title, :subtitle, :image_path], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
-        @coords = default_coords unless @coords.any?
+        resize_image!
         @image_name = File.basename(@image_path) if @image_path != nil && @image_path != ""
       end
 
@@ -28,19 +28,33 @@ module Powerpoint
         [{ type: MimeMagic.by_magic(File.open(image_path)).type, path: "/ppt/media/#{image_name}" }]
       end
 
-      def default_coords
-        slide_width = pixle_to_pt(720)
-        default_width = pixle_to_pt(720)
-        default_height = pixle_to_pt(481)
+      def resize_image!
+        unless image_path && File.file?(image_path)
+          return nil
+        end
 
-        return {} unless dimensions = FastImage.size(image_path)
-        image_width, image_height = dimensions.map {|d| pixle_to_pt(d)}
-        new_width = default_width < image_width ? default_width : image_width
-        ratio = new_width / image_width.to_f
-        new_height = default_height #(image_height.to_f * ratio).round
-        {x: 0, y: 0, cx: new_width, cy: new_height}
+        # See presentation.xml.erb p:sldSz cx/cy
+        slide_width = pt_to_pixle 12192000
+        slide_height = pt_to_pixle 6858000
+
+        image = Magick::ImageList.new(image_path).first
+        image_height = image.rows
+        image_width = image.columns
+        image_ratio = image_width / image_height.to_f
+
+        width = slide_width
+        height = slide_width / image_ratio
+
+        if height < slide_height
+          height = slide_height
+          width = slide_height * image_ratio
+        end
+
+        image.resize!(width, height)
+        image.crop!(Magick::CenterGravity, slide_width, slide_height)
+        image.write(image_path)
       end
-      private :default_coords
+      private :resize_image!
 
       def save_rel_xml(extract_path, index)
         render_view('ff_trend_intro_rel.xml.erb', "#{extract_path}/ppt/slides/_rels/slide#{index}.xml.rels")
