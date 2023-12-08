@@ -70,7 +70,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0"/>
-              <a:t><%= @title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @title ? @title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
