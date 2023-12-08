@@ -12,7 +12,7 @@ module Powerpoint
       attr_reader :title, :content, :question, :images, :links
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :content, :question, :images, :links], options
+        require_arguments [:presentation, :title, :content, :question_titles, :question_subtitles, :images, :links], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @images = images.each.map { |image_path|  [ File.basename(image_path), image_path ] }
       end
@@ -24,7 +24,7 @@ module Powerpoint
       def save(extract_path, index)
         @images.each do |image_name, image_path|
           copy_media(extract_path, image_path) if image_path != nil
-        end        
+        end
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
       end
