@@ -74,6 +74,7 @@ module Powerpoint
         @tmp_content = rel_content.to_s
         @tmp_content.gsub!('charts',"charts/slide_#{@index}")
         @tmp_content.gsub!('media',"media/slide_#{@index}")
+        @tmp_content.gsub!('embeddings',"embeddings/slide_#{@index}")
         @tmp_content.gsub!('../tags',"../tags/slide_#{@index}")
         xml = Nokogiri::XML::Document.parse @tmp_content
         xml.css('Relationship').select{ |node|
