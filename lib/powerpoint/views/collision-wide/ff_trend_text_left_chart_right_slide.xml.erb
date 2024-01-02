@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+  xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+  <p:cSld>
+    <p:spTree>
+      <p:nvGrpSpPr>
+        <p:cNvPr id="1" name=""/>
+        <p:cNvGrpSpPr/>
+        <p:nvPr/>
+      </p:nvGrpSpPr>
+      <p:grpSpPr>
+        <a:xfrm>
+          <a:off x="0" y="0"/>
+          <a:ext cx="0" cy="0"/>
+          <a:chOff x="0" y="0"/>
+          <a:chExt cx="0" cy="0"/>
+        </a:xfrm>
+      </p:grpSpPr>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="16" name="Text Placeholder 15">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{E00EF1AC-F2C4-3FE0-A637-A6DA5246FB77}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="10"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="334433" y="6524626"/>
+            <a:ext cx="11150963" cy="194925"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0"/>
+              <a:t>Source: Foresight Factory</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="10" name="Title 9">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9A2FC6F5-1D8B-D764-D7F8-8E9568A25074}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="title"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="334963" y="363538"/>
+            <a:ext cx="11522075" cy="443198"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB" dirty="0"/>
+              <a:t><%= @title.strip.encode(:xml => :text) %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:pic>
+      <p:nvPicPr>
+      <p:cNvPr id="1" name="Picture 1" descr="Picture 1"/>
+          <p:cNvPicPr>
+            <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+          </p:cNvPicPr>
+          <p:nvPr/>
+        </p:nvPicPr>
+        <p:blipFill>
+          <a:blip r:embed="rId2" cstate="print"/>
+          <a:srcRect />
+          <a:stretch>
+            <a:fillRect/>
+          </a:stretch>
+        </p:blipFill>
+        <p:spPr bwMode="auto">
+          <a:xfrm>
+            <%
+              min_x = 490
+              min_y = 180
+              max_height = 280
+              max_width = 444
+
+              image_position_data = size_and_position_image(
+                @image_path,
+                x: min_x,
+                y: min_y,
+                max_height: max_height,
+                max_width: max_width
+              )
+            %>
+            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
+            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) %>"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+      </p:pic>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="19" name="Text Placeholder 18">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6E0DE548-A7E2-2B50-69B0-4A014DBB88E4}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="13"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6114519" y="1304492"/>
+            <a:ext cx="5640037" cy="387798"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB"/>
+              <a:t><%= !question_title.nil? ? question_title.strip.encode(:xml => :text) : '' %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="19" name="Text Placeholder 18">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6E0DE548-A7E2-2B50-69B0-4A014DBB88E4}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="13"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6114519" y="1692290"/>
+            <a:ext cx="5640037" cy="193899"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="en-GB"/>
+              <a:t><%= !question_subtitle.nil? ? question_subtitle.strip.encode(:xml => :text) : '' %></a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="17" name="Text Placeholder 16">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{7E9C7B4C-C8D9-7A85-D1C3-8CAD3D03329A}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr>
+            <p:ph type="body" sz="quarter" idx="11"/>
+          </p:nvPr>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="314768" y="1304492"/>
+            <a:ext cx="5498203" cy="5220134"/>
+          </a:xfrm>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <%= @content || html_to_ooxml('&nbsp;')  %>
+        </p:txBody>
+      </p:sp>
+    </p:spTree>
+    <p:extLst>
+      <p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
+        <p14:creationId xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="4056883167"/>
+      </p:ext>
+    </p:extLst>
+  </p:cSld>
+  <p:clrMapOvr>
+    <a:masterClrMapping/>
+  </p:clrMapOvr>
+  <p:transition/>
+</p:sld>

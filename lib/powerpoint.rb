@@ -18,11 +18,19 @@ require 'powerpoint/slide/ff_trend_sector_impact'
 require 'powerpoint/slide/ff_embeded_slide'
 require 'powerpoint/slide/ff_trend_outro'
 require 'powerpoint/slide/ff_trend_list'
+require 'powerpoint/slide/ff_trend_text_left_chart_right'
+require 'powerpoint/slide/ff_trend_text_right_chart_left'
+require 'powerpoint/slide/ff_trend_text_right_image_left'
+require 'powerpoint/slide/ff_trend_text_left_image_right'
+require 'powerpoint/slide/ff_trend_two_column_chart'
+require 'powerpoint/slide/ff_trend_two_column_text'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
-  TEMPLATE_PATH = "#{ROOT_PATH}/templates/collision-ux2022-template"
-  VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/collision"
+  TEMPLATE_PATH = "#{ROOT_PATH}/templates/collision-2023-widescreen"
+  VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/collision-wide"
+  # TEMPLATE_PATH = "#{ROOT_PATH}/templates/collision-ux2022-template"
+  # VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/collision"
   # TEMPLATE_PATH = "#{ROOT_PATH}/templates/nvision-template"
   # VIEW_PATH = "#{ROOT_PATH}/lib/powerpoint/views/new"
 end

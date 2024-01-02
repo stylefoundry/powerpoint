@@ -74,6 +74,7 @@ module Powerpoint
         @tmp_content = rel_content.to_s
         @tmp_content.gsub!('charts',"charts/slide_#{@index}")
         @tmp_content.gsub!('media',"media/slide_#{@index}")
+        @tmp_content.gsub!('embeddings',"embeddings/slide_#{@index}")
         @tmp_content.gsub!('../tags',"../tags/slide_#{@index}")
         xml = Nokogiri::XML::Document.parse @tmp_content
         xml.css('Relationship').select{ |node|
@@ -134,36 +135,39 @@ module Powerpoint
             #chart_xml.search('//c:chartSpace/c:lang').first.add_next_sibling('<c:style val="2"/>')
             #chart_xml.search('//c:chartSpace/c:externalData').first.add_child '<c:autoUpdate val="0"/>'
 
-            data_label_xml = <<-EOXML
-            <c:dLbls>
-              <c:showLegendKey val="0"/>
-              <c:showVal val="0"/>
-              <c:showCatName val="0"/>
-              <c:showSerName val="0"/>
-              <c:showPercent val="0"/>
-              <c:showBubbleSize val="0"/>
-              <c:showLeaderLines val="0"/>
-            </c:dLbls>
-            EOXML
-            bar_xml = chart_xml.search('//c:barChart/c:ser/c:spPr')
-            if bar_xml.count > 0
-              bar_xml.each do |node|
-                #node.add_next_sibling(data_label_xml) unless chart_xml.search('//c:barChart/c:ser').count > 0
+            if chart_xml.namespaces['xmlns:c']
+              # bar_xml = chart_xml.search('//c:barChart/c:ser/c:spPr')
+              # if bar_xml.count > 0
+              #   data_label_xml = <<~XML
+              #     <c:dLbls>
+              #       <c:showLegendKey val="0"/>
+              #       <c:showVal val="0"/>
+              #       <c:showCatName val="0"/>
+              #       <c:showSerName val="0"/>
+              #       <c:showPercent val="0"/>
+              #       <c:showBubbleSize val="0"/>
+              #       <c:showLeaderLines val="0"/>
+              #     </c:dLbls>
+              #   XML
+              #   bar_xml.each do |node|
+              #     #node.add_next_sibling(data_label_xml) unless chart_xml.search('//c:barChart/c:ser').count > 0
+              #   end
+              # end
+
+              cat_ax_xml = chart_xml.search('//c:catAx/c:delete')
+              if cat_ax_xml.count < 1
+                chart_xml.search('//c:catAx/c:scaling').each do |node|
+                  node.add_next_sibling '<c:delete val="0"/>'
+                end
+              end
+              val_ax_xml = chart_xml.search('//c:valAx/c:delete')
+              if val_ax_xml.count < 1
+                chart_xml.search('//c:valAx/c:scaling').each do |node|
+                  node.add_next_sibling '<c:delete val="0"/>'
+                end
               end
             end
 
-            cat_ax_xml = chart_xml.search('//c:catAx/c:delete')
-            if cat_ax_xml.count < 1
-              chart_xml.search('//c:catAx/c:scaling').each do |node|
-                node.add_next_sibling '<c:delete val="0"/>'
-              end
-            end
-            val_ax_xml = chart_xml.search('//c:valAx/c:delete')
-            if val_ax_xml.count < 1
-              chart_xml.search('//c:valAx/c:scaling').each do |node|
-                node.add_next_sibling '<c:delete val="0"/>'
-              end
-            end
             begin
               File.open("#{extract_path}/" + file_path , 'wb:UTF-8') do |f|
                 f.write chart_xml.to_xml.gsub('smtClean="0"','').strip

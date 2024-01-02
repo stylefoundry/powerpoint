@@ -1,5 +1,6 @@
 require 'htmltoooxml'
 require 'rmagick'
+require 'pry'
 
 module Powerpoint
   module Util
@@ -19,16 +20,15 @@ module Powerpoint
       image = Magick::ImageList.new(image_path).first
       image_height = image.rows
       image_width = image.columns
-      image_ratio = image_height.to_f / image_width
-
+      image_ratio = image_width / image_height.to_f
       # Maximise image height
       target_height = max_height
-      target_width = target_height / image_ratio
+      target_width = target_height * image_ratio
 
       # Image height is less constrained than width, swap to maximise width
       if target_width > max_width
         target_width = max_width
-        target_height = target_width * image_ratio
+        target_height = target_width / image_ratio
       end
 
       Struct.new(:height, :width, :y, :x, keyword_init: true).new(
@@ -73,6 +73,23 @@ module Powerpoint
       result = remove_declaration(result)
       result = remove_whitespace(result)
       result
+    end
+
+    def ooxml_blank?(ooxml)
+      if ooxml.nil?
+        true
+      else
+        is_blank_node = -> (node) do
+          case node
+          when Nokogiri::XML::Text
+            /\A[[:space:]]*\z/ =~ node.content
+          else
+            node.children.all?(&is_blank_node)
+          end
+        end
+
+        Nokogiri::XML.parse(ooxml).children.all?(&is_blank_node)
+      end
     end
 
     def remove_whitespace(ooxml)

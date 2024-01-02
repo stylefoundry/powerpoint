@@ -59,6 +59,7 @@ module Powerpoint
     end
 
     def add_ff_heading_text_slide(title, content, image_paths, links = [])
+      puts content
       @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content, image_paths: image_paths, links: links)
     end
 
@@ -72,6 +73,74 @@ module Powerpoint
 
     def add_ff_associated_content_slide(title, subtitle, image_path, coords = {}, link_path = nil)
       @slides << Powerpoint::Slide::FFTrendIntro.new(presentation: self, title: title, subtitle: subtitle, image_path: image_path,  coords: {}, link_path: link_path)
+    end
+
+    def add_ff_text_left_chart_right_slide(title, content, question_title, question_subtitle, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextLeftChartRight.new(
+        presentation: self,
+        title: title,
+        content: content,
+        question_title: question_title,
+        question_subtitle: question_subtitle,
+        image_path: image_path,
+        links: links
+      )
+    end
+
+    def add_ff_text_right_chart_left_slide(title, content, question_title, question_subtitle, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextRightChartLeft.new(
+        presentation: self,
+        title: title,
+        content: content,
+        question_title: question_title,
+        question_subtitle: question_subtitle,
+        image_path: image_path,
+        links: links
+      )
+    end
+
+    def add_ff_text_right_image_left_slide(title, content, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextRightImageLeft.new(
+        presentation: self,
+        title: title,
+        content: content,
+        image_path: image_path,
+        links: links
+      )
+    end
+
+    def add_ff_text_left_image_right_slide(title, content, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextLeftImageRight.new(
+        presentation: self,
+        title: title,
+        content: content,
+        image_path: image_path,
+        links: links
+      )
+    end
+
+    def add_ff_two_column_chart_slide(title, content, question_titles, question_subtitles, images, links = [])
+      @slides << Powerpoint::Slide::FFTrendTwoColumnChart.new(
+        presentation: self,
+        title: title,
+        content: content,
+        question_titles: question_titles,
+        question_subtitles: question_subtitles,
+        images: images,
+        links: links
+      )
+    end
+
+    def add_ff_two_column_text_slide(title, left_col_title, right_col_title, left_col_content, right_col_content,links = [])
+      @slides << Powerpoint::Slide::FFTrendTwoColumnText.new(
+        presentation: self,
+        title: title,
+        left_col_title: left_col_title,
+        right_col_title: right_col_title,
+        left_col_content: left_col_content,
+        right_col_content: right_col_content,
+        links: links
+      )
     end
 
     def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides, chart_images)
@@ -175,8 +244,8 @@ module Powerpoint
       render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
       render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
       render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
-      #render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
-      #render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
+      render_view('view_props.xml.erb', "#{extract_path}/ppt/viewProps.xml")
+      render_view('table_styles.xml.erb', "#{extract_path}/ppt/tableStyles.xml")
       render_view('pres_props.xml.erb', "#{extract_path}/ppt/presProps.xml")
       render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
       render_view('core.xml.erb', "#{extract_path}/docProps/core.xml")
