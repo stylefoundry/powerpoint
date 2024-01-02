@@ -26,6 +26,8 @@ module Powerpoint
       attr_reader :layout
       attr_reader :file_types
       attr_reader :chart_images
+      attr_reader :chart_styles
+      attr_reader :chart_color_styles
 
       def initialize(options={})
         require_arguments [
@@ -42,14 +44,15 @@ module Powerpoint
           :notes_master,
           :layout,
           :theme_overrides,
-          :chart_images
+          :chart_images,
+          :chart_styles,
+          :chart_color_styles
           ], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
         @file_types = []
         @notes_slides = []
-        puts chart_images
       end
-
+      
       def save(extract_path, index)
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
@@ -57,6 +60,8 @@ module Powerpoint
         save_theme_overrides(extract_path, index) if theme_overrides && theme_overrides.length > 0
         save_charts(extract_path, index) if charts && charts.length > 0
         save_embeddings(extract_path, index) if embeddings && embeddings.length > 0
+        save_chart_color_styles(extract_path, index) if chart_color_styles && chart_color_styles.length > 0
+        save_chart_styles(extract_path, index) if chart_styles && chart_styles.length > 0
         save_images(extract_path,index, chart_images) if chart_images && chart_images.length > 0
         save_notes(extract_path, index) if notes && notes.length > 0
         save_tags(extract_path, index) if tags && tags.length > 0
@@ -127,11 +132,12 @@ module Powerpoint
                   .gsub('../media',"../../media/slide_#{index}")
                   .gsub('smtClean="0"','')
               end
-              rescue Exception => e
-                puts "Error writing file #{e}"
-              end
-            else
-              chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
+            rescue Exception => e
+              puts "Error writing file #{e}"
+            end
+          else
+            chart_xml = Nokogiri::XML::Document.parse zip_entry.get_input_stream.read
+            
             #chart_xml.search('//c:chartSpace/c:lang').first.add_next_sibling('<c:style val="2"/>')
             #chart_xml.search('//c:chartSpace/c:externalData').first.add_child '<c:autoUpdate val="0"/>'
 
@@ -175,7 +181,7 @@ module Powerpoint
             rescue Exception => e
               puts "Error writing file #{e}"
             end
-            @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" }
+            @file_types << { type: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml" , path: "/#{file_path}" }    
           end
           chart.close
         end
@@ -196,6 +202,40 @@ module Powerpoint
 
         end
       end
+
+      def save_chart_styles(extract_path, index)
+        FileUtils::mkdir_p "#{extract_path}/ppt/charts/slide_#{index}"
+        chart_styles.each do |file|
+          begin
+            zip_entry = file.rewind
+            File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}"), 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+            end
+          file.close
+          rescue Exception => e
+            puts "Error writing file #{e}"
+          end
+
+        end
+      end
+
+      def save_chart_color_styles(extract_path, index)
+        FileUtils::mkdir_p "#{extract_path}/ppt/charts/slide_#{index}"
+        chart_color_styles.each do |file|
+          begin
+            zip_entry = file.rewind
+            File.open("#{extract_path}/" + zip_entry.name.to_s.gsub('charts',"charts/slide_#{index}"), 'wb') do |f|
+              f.write zip_entry.get_input_stream.read
+            end
+          file.close
+          rescue Exception => e
+            puts "Error writing file #{e}"
+          end
+
+        end
+      end
+
+
 
       def save_drawings(extract_path, index)
         FileUtils::mkdir_p "#{extract_path}/ppt/drawings/slide_#{index}"

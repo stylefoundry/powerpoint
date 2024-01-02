@@ -8,7 +8,9 @@ module Powerpoint
                 :slide_number,
                 :slide_number,
                 :slide_file_name,
-                :chart_images
+                :chart_images,
+                :chart_styles,
+                :chart_color_styles
 
     def initialize presentation, slide_xml_path
       @presentation = presentation
@@ -16,6 +18,8 @@ module Powerpoint
       @slide_number = extract_slide_number_from_path slide_xml_path
       @slide_file_name = extract_slide_file_name_from_path slide_xml_path
       @chart_images = []
+      @chart_styles = []
+      @chart_color_styles = []
       parse_slide
       parse_relation
       node = note_elements(@relation_xml).first
@@ -120,6 +124,20 @@ module Powerpoint
       files.compact
     end
 
+    # def chart_styles
+    #   chart_style_elements(@relation_xml)
+    #     .map.each do |node|
+    #       open_package_file node['Target']
+    #   end
+    # end
+
+    # def chart_color_styles
+    #   chart_color_elements(@relation_xml)
+    #     .map.each do |node|
+    #       open_package_file node['Target']
+    #   end
+    # end
+
     def embeddings
       embeds = nil
       chart_elements(@relation_xml).each do |node|
@@ -144,6 +162,17 @@ module Powerpoint
           .map.each do |node|
             open_package_file node['Target']
         end
+
+        @chart_styles += chart_style_elements(embed_xml)
+        .map.each do |node|
+          open_package_file "../charts/#{node['Target']}"
+        end
+
+        @chart_color_styles += chart_color_elements(embed_xml)
+        .map.each do |node|
+          open_package_file "../charts/#{node['Target']}"
+        end
+
         rel_file.close
       end
       embeds
@@ -252,11 +281,19 @@ module Powerpoint
     end
 
     def chart_elements(xml)
-       xml.css('Relationship').select{ |node| node_is?(node, 'chart') }
+      xml.css('Relationship').select{ |node| node_is?(node, 'chart') } 
+    end
+
+    def chart_style_elements(xml)
+      xml.css('Relationship').select{ |node| node_is?(node, 'chartStyle') }
+    end
+
+    def chart_color_elements(xml)
+      xml.css('Relationship').select{ |node| node_is?(node, 'chartColorStyle') }
     end
 
     def embedding_elements(xml)
-      xml.css('Relationship').select{ |node| node_is?(node, 'package') }
+      xml.css('Relationship').select{ |node| node_is?(node, 'package')}
     end
 
     def theme_override_elements(xml)
