@@ -143,7 +143,7 @@ module Powerpoint
       )
     end
 
-    def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides, chart_images)
+    def add_ff_embeded_slide(slide_title, slide_content, slide_rel_content, images, charts, embeddings, notes, tags, drawings, master, notes_master, layout, theme_overrides, chart_images, chart_styles, chart_color_styles)
       @slides << Powerpoint::Slide::FFEmbededSlide.new(
         presentation: self, title: slide_title,
         content: slide_content,
@@ -159,6 +159,8 @@ module Powerpoint
         master: master,
         notes_master: notes_master,
         layout: layout,
+        chart_styles: chart_styles,
+        chart_color_styles: chart_color_styles
       )
     end
 

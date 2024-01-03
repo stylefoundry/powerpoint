@@ -73,7 +73,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     # @deck.add_textual_slide 'test head', ['test body'] 
 
     @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets continue to transform the future of payment methods  -  with major implications for the way we will shop and interact with brands in the future.', 'samples/images/image5.jpeg', nil
-    @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets.', "samples/images/white.jpeg", '2'
+    # @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets.', "samples/images/white.jpeg", '2'
     
     @deck.add_ff_heading_text_slide @header.inner_html ,html_to_ooxml(@final.to_s), @image_paths, links
     # # #
@@ -98,8 +98,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     #  Loop through each and add the masters and layouts to the main output presentation
     #  The other emedding is taken care of by the lib/powerpoint/ff_embed_slide.rb as it's slide specific behaviour
     ##
-    embed_decks = ["samples/pptx/35051.pptx","samples/pptx/35848.pptx", "samples/pptx/43366.pptx", "samples/pptx/41209.pptx","samples/pptx/TR_EU_Reasons_for_going_on_a_holiday_eb2016_2016.pptx"]
-    # embed_decks = ["samples/pptx/new-chart.pptx","samples/pptx/35848.pptx"]
+    embed_decks = ["samples/pptx/new-chart.pptx","samples/pptx/35848.pptx","samples/pptx/trend-intensity.pptx"]
     # comment out this loop for a single slide test
     embed_decks.each do |deck_path|
       @embed_deck = Powerpoint::ReadPresentation.new deck_path
@@ -149,7 +148,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
       @deck.update_slide_masters
     
       @embed_deck.slides.each do |slide|
-        @deck.add_ff_embeded_slide slide.title, slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides, slide.chart_images
+        @deck.add_ff_embeded_slide slide.title, slide.raw_content, slide.raw_relation_content, slide.images, slide.charts, slide.embeddings, slide.notes, slide.tags, slide.drawings, @master_refs[slide.master], @deck.notes_masters.first, @layout_refs[slide.layout], slide.theme_overrides, slide.chart_images, slide.chart_styles, slide.chart_color_styles
       end
     end
     @deck.add_ff_trend_outro_slide
