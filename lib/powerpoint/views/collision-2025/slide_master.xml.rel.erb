@@ -15,4 +15,8 @@
   <Relationship Id="rId<%= @last_layout_id + (@last_embed_id || 0) + 1 %>"
     Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme"
     Target="<%= master_rel[:theme] %>"/>
+
+  <Relationship Id="ffLogoSmall"
+    Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"
+    Target="../media/image1.png" />
 </Relationships>
