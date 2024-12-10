@@ -224,7 +224,6 @@ module Powerpoint
     end
 
     def save(path)
-      puts @themes.count
       # Save slides
       slides.each_with_index do |slide, index|
         slide.save(extract_path, index + 1)
