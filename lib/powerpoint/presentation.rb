@@ -59,8 +59,27 @@ module Powerpoint
     end
 
     def add_ff_heading_text_slide(title, content, image_paths, links = [])
-      puts content
-      @slides << Powerpoint::Slide::FFTrendHeadingText.new(presentation: self, title: title, content: content, image_paths: image_paths, links: links)
+      @slides << if image_paths&.any?
+        Powerpoint::Slide::FFTrendTextLeftImageRight.new(
+          presentation: self,
+          title: title,
+          content: content,
+          image_path: image_paths[0],
+          links: links
+        )
+      else
+        Powerpoint::Slide::FFTrendHeadingText.new(
+          presentation: self,
+          title: title,
+          content: content,
+          image_paths: image_paths,
+          links: links
+        )
+      end
+    end
+
+    def add_ff_text_with_image_slide(title, content, source, image_path, links = [])
+      @slides << Powerpoint::Slide::FFTrendTextWithImage.new(presentation: self, title: title, content: content || '', source: source, image_path: image_path, links: links)
     end
 
     def add_ff_three_row_text_slide(title, content, links = [])
