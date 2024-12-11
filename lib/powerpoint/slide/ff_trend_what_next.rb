@@ -32,6 +32,16 @@ module Powerpoint
             format_content.call columns["textInput#{col_num + 1}"].dig('value')
           end
         end.transpose
+
+        default_headers = [
+          'Previously',
+          'Now',
+          'In the future',
+        ]
+        @headers = (1..3).map do |i|
+          header = content.dig('headers', 'items', "headerInput#{i}", 'value')&.strip
+          header.nil? || header.empty? ? default_headers[i - 1] : header
+        end
       end
 
       def save(extract_path, index)
@@ -44,12 +54,12 @@ module Powerpoint
       end
 
       def save_rel_xml(extract_path, index)
-        render_view('ff_trend_what_next_rel.xml.erb', "#{extract_path}/ppt/slides/_rels/slide#{index}.xml.rels")
+        render_view('ff_what_next_rel.xml.erb', "#{extract_path}/ppt/slides/_rels/slide#{index}.xml.rels")
       end
       private :save_rel_xml
 
       def save_slide_xml(extract_path, index)
-        render_view('ff_trend_what_next_slide.xml.erb', "#{extract_path}/ppt/slides/slide#{index}.xml")
+        render_view('ff_what_next_slide.xml.erb', "#{extract_path}/ppt/slides/slide#{index}.xml")
       end
       private :save_slide_xml
     end
