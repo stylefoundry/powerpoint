@@ -49,13 +49,27 @@
               </a:ext>
             </a:extLst>
           </a:blip>
-          <a:srcRect l="17849" t="4796" r="28349" b="18864" />
+          <a:srcRect  />
           <a:stretch />
         </p:blipFill>
         <p:spPr bwMode="auto">
           <a:xfrm flipH="1">
-            <a:off x="1" y="780756" />
-            <a:ext cx="6096000" cy="5769356" />
+            <%
+              min_x = pt_to_pixle(1)
+              min_y = pt_to_pixle(780756)
+              max_width = pt_to_pixle(6096000)
+              max_height = pt_to_pixle(5769356)
+
+              image_position_data = size_and_position_image(
+                @image_path,
+                x: min_x,
+                y: min_y,
+                max_height: max_height,
+                max_width: max_width
+              )
+            %>
+            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
+            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) %>"/>
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst />

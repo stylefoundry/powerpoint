@@ -667,13 +667,27 @@
         </p:nvPicPr>
         <p:blipFill>
           <a:blip r:embed="rId2" />
-          <a:srcRect l="4042" r="4042" />
+          <a:srcRect />
           <a:stretch />
         </p:blipFill>
         <p:spPr>
           <a:xfrm>
-            <a:off x="565026" y="3480436" />
-            <a:ext cx="5530973" cy="3126419" />
+            <%
+              min_x = pt_to_pixle(565026)
+              min_y = pt_to_pixle(3480436)
+              max_width = pt_to_pixle(6187575)
+              max_height = pt_to_pixle(3126419)
+
+              image_position_data = size_and_position_image(
+                @image_path,
+                x: min_x,
+                y: min_y,
+                max_height: max_height,
+                max_width: max_width
+              )
+            %>
+            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
+            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) %>"/>
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst />
