@@ -201,7 +201,7 @@
           <p:nvPr userDrawn="1" />
         </p:nvPicPr>
         <p:blipFill>
-          <a:blip r:embed="rId17" cstate="screen">
+          <a:blip r:embed="rId16" cstate="screen">
             <a:extLst>
               <a:ext uri="{28A0092B-C50C-407E-A947-70E740481C1C}">
                 <a14:useLocalDpi xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main" />
