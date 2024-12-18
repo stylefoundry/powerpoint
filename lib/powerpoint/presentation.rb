@@ -87,6 +87,7 @@ module Powerpoint
     end
 
     def add_ff_sector_impact_slide(title, content, image_path, links = [])
+      raise NotImplementedError, 'This slide has been removed'
       @slides << Powerpoint::Slide::FFTrendSectorImpact.new(presentation: self, title: title, content: content, image_path: image_path, links: links)
     end
 
