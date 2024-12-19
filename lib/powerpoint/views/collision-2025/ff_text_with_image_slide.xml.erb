@@ -132,7 +132,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= title %></a:t>
+              <a:t><%= title || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -361,7 +361,7 @@
                   <a:schemeClr val="tx2" />
                 </a:solidFill>
               </a:rPr>
-              <a:t><%= source %></a:t>
+              <a:t><%= source || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
