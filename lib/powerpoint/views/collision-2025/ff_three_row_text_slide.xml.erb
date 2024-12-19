@@ -84,7 +84,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= @main_heading_text %></a:t>
+              <a:t><%= @main_heading_text || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -181,7 +181,7 @@
             <a:spAutoFit />
           </a:bodyPr>
           <a:lstStyle />
-          <%= @text_one %>
+          <%= @text_one || html_to_ooxml('&nbsp;') %>
         </p:txBody>
       </p:sp>
       <p:sp>
@@ -281,7 +281,7 @@
             <a:spAutoFit />
           </a:bodyPr>
           <a:lstStyle />
-          <%= @text_two %>
+          <%= @text_two || html_to_ooxml('&nbsp;') %>
         </p:txBody>
       </p:sp>
       <p:sp>
@@ -381,7 +381,7 @@
             <a:spAutoFit />
           </a:bodyPr>
           <a:lstStyle />
-          <%= @text_three %>
+          <%= @text_three || html_to_ooxml('&nbsp;') %>
         </p:txBody>
       </p:sp>
       <p:sp>
@@ -416,7 +416,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1600" dirty="0" />
-              <a:t><%= @heading_two_text %></a:t>
+              <a:t><%= @heading_two_text || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -453,7 +453,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1600" dirty="0" />
-              <a:t><%= @heading_three_text %></a:t>
+              <a:t><%= @heading_three_text || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -490,7 +490,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1600" dirty="0" />
-              <a:t><%= @heading_one_text %></a:t>
+              <a:t><%= @heading_one_text || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

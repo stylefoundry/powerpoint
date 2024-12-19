@@ -27,7 +27,7 @@
       <p:pic>
         <p:nvPicPr>
           <p:cNvPr id="11" name="Picture 10"
-            descr="<%= title.strip.encode(:xml => :text) %>">
+            descr="<%= title ? title.strip.encode(:xml => :text) : nil %>">
             <a:extLst>
               <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
                 <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main"
@@ -203,7 +203,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= title ? title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -244,7 +244,7 @@
             </a:pPr>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= subtitle.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= subtitle ? subtitle.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -535,7 +535,7 @@
                 <a:latin typeface="Arial" panose="020B0604020202020204" pitchFamily="34" charset="0"/>
                 <a:cs typeface="Arial" panose="020B0604020202020204" pitchFamily="34" charset="0"/>
               </a:rPr>
-              <a:t><%= trend_number %></a:t>
+              <a:t><%= trend_number || "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

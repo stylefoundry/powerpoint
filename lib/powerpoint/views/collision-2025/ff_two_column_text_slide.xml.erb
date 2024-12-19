@@ -155,7 +155,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1600" b="1" dirty="0" />
-              <a:t><%= @left_col_title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @left_col_title ? @left_col_title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -548,7 +548,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1600" b="1" dirty="0" />
-              <a:t><%= @right_col_title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @right_col_title ? @right_col_title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>

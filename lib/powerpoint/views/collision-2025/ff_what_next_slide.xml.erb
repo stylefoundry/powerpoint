@@ -76,7 +76,7 @@
                   <a:schemeClr val="tx2" />
                 </a:solidFill>
               </a:rPr>
-              <a:t><%= @headers[0].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @headers[0] ? @headers[0].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>
@@ -116,7 +116,7 @@
                   <a:schemeClr val="bg1" />
                 </a:solidFill>
               </a:rPr>
-              <a:t><%= @headers[1].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @headers[1] ? @headers[1].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>
@@ -152,7 +152,7 @@
                   <a:schemeClr val="bg1" />
                 </a:solidFill>
               </a:rPr>
-              <a:t><%= @headers[2].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @headers[2] ? @headers[2].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>

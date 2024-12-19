@@ -167,7 +167,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1200" b="0" dirty="0" />
-              <a:t><%= @question_subtitles[1].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @question_subtitles[1] ? @question_subtitles[1].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>
@@ -201,7 +201,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= @question_titles[0].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @question_subtitles[0] ? @question_titles[0].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>
@@ -235,7 +235,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= @question_titles[1].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @question_subtitles[1] ? @question_titles[1].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
           <a:p>
@@ -267,7 +267,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" />
-              <a:t><%= @title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @title ? @title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
             <a:endParaRPr lang="en-GB" dirty="0" />
           </a:p>
@@ -446,7 +446,7 @@
             </a:pPr>
             <a:r>
               <a:rPr lang="en-GB" b="0" dirty="0" />
-              <a:t><%= @question_subtitles[0].strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @question_subtitles[0] ? @question_subtitles[0].strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>

@@ -84,7 +84,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" dirty="0" />
-              <a:t><%= @title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= @title ? @title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -312,7 +312,7 @@
           <a:p>
             <a:r>
               <a:rPr lang="en-GB" sz="1600" dirty="0" />
-              <a:t><%= question_title.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= question_title ? question_title.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
@@ -490,7 +490,7 @@
             </a:pPr>
             <a:r>
               <a:rPr lang="en-GB" b="0" dirty="0" />
-              <a:t><%= question_subtitle.strip.encode(:xml => :text) %></a:t>
+              <a:t><%= question_subtitle ? question_subtitle.strip.encode(:xml => :text) : "\u00A0" %></a:t>
             </a:r>
           </a:p>
         </p:txBody>
