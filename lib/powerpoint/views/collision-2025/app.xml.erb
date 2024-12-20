@@ -12,7 +12,7 @@
   <MMClips>0</MMClips>
   <ScaleCrop>false</ScaleCrop>
   <HeadingPairs>
-    <vt:vector size="4" baseType="variant">
+    <vt:vector size="6" baseType="variant">
       <vt:variant>
         <vt:lpstr>Theme</vt:lpstr>
       </vt:variant>
@@ -29,25 +29,21 @@
         <vt:lpstr>Fonts Used</vt:lpstr>
       </vt:variant>
       <vt:variant>
-        <vt:i4>7</vt:i4>
+        <vt:i4>3</vt:i4>
       </vt:variant>
     </vt:vector>
   </HeadingPairs>
   <TitlesOfParts>
-    <vt:vector size="<%= slides.length + themes.length + 7 %>" baseType="lpstr">
+    <vt:vector size="<%= slides.length + themes.length + 3 %>" baseType="lpstr">
       <% themes.each do |theme| %>
       <vt:lpstr><%= theme[:name] %></vt:lpstr>
       <% end %>
       <% slides.each do |slide| %>
       <vt:lpstr><%= slide.title.nil? ? "PowerPoint Presentation" : slide.title.strip.encode(:xml => :text) %></vt:lpstr>
       <% end %>
+      <vt:lpstr>Aptos</vt:lpstr>
       <vt:lpstr>Arial</vt:lpstr>
-      <vt:lpstr>Calibri</vt:lpstr>
-      <vt:lpstr>Georgia</vt:lpstr>
-      <vt:lpstr>Times New Roman</vt:lpstr>
-      <vt:lpstr>Helvetica Neue Medium</vt:lpstr>
       <vt:lpstr>Wingdings</vt:lpstr>
-      <vt:lpstr>Wingdings 3</vt:lpstr>
     </vt:vector>
   </TitlesOfParts>
   <Company></Company>
