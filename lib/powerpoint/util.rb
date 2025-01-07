@@ -56,8 +56,9 @@ module Powerpoint
       File.read("#{Powerpoint::VIEW_PATH}/#{filename}")
     end
 
-    def require_arguments(required_argements, argements)
-      raise ArgumentError unless required_argements.all? {|required_key| argements.keys.include? required_key}
+    def require_arguments(required_arguments, arguments)
+      missing = required_arguments - arguments.keys
+      raise ArgumentError, "Missing required arguments: #{missing.join(', ')}" unless missing.empty?
     end
 
     def copy_media(extract_path, image_path)

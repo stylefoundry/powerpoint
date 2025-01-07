@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p188:authorLst xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+  xmlns:p188="http://schemas.microsoft.com/office/powerpoint/2018/8/main">
+  <p188:author id="{1BA2220E-EAF1-36E2-996E-E941808F1272}" name="Emily Cullen" initials="EC"
+    userId="S::emilyc@foresightfactory.co::b70753b4-59c5-4412-9192-e5ab11c768a4" providerId="AD" />
+  <p188:author id="{218E199A-E653-00D4-4398-AB8FF8CF7703}" name="Sarah Keyes" initials="SK"
+    userId="S::sarahk@foresightfactory.co::7c56f00a-7aa0-483b-93e1-8cb4a792377b" providerId="AD" />
+</p188:authorLst>
