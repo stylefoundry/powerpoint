@@ -3,6 +3,14 @@
   xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
   xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" preserve="1" userDrawn="1">
   <p:cSld name="Commercial volume chart component">
+    <p:bg>
+      <p:bgPr>
+        <a:solidFill>
+          <a:prstClr val="white" />
+        </a:solidFill>
+        <a:effectLst />
+      </p:bgPr>
+    </p:bg>
     <p:spTree>
       <p:nvGrpSpPr>
         <p:cNvPr id="1" name="" />
