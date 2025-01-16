@@ -229,7 +229,7 @@
         </p:spPr>
         <p:txBody>
           <a:bodyPr>
-            <a:normAutofit />
+            <a:noAutofit />
           </a:bodyPr>
           <a:lstStyle>
             <a:lvl1pPr marL="0" indent="0" algn="l">
