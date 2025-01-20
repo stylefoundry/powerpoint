@@ -73,7 +73,14 @@ module Powerpoint
       result.gsub!(/\s*<!--(.*?)-->\s*/m, '')
       result = remove_declaration(result)
       result = remove_newlines(result)
-      # result = remove_whitespace(result)
+      
+      # Add proper paragraph spacing
+      # Replace each paragraph start with one that includes proper spacing
+      # result = result.gsub(/<a:p>/, '<a:p><a:pPr><a:spcBef><a:spcPts val="0"/></a:spcBef><a:spcAft><a:spcPts val="1000"/></a:spcAft></a:pPr>')
+      
+      # Handle any existing paragraph properties
+      # result = result.gsub(/<a:p><a:pPr>/, '<a:p><a:pPr><a:spcBef><a:spcPts val="0"/></a:spcBef><a:spcAft><a:spcPts val="1000"/></a:spcAft>')
+      
       result
     end
 

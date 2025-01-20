@@ -202,6 +202,16 @@ module Powerpoint
       @slides << Powerpoint::Slide::FFTrendList.new(presentation: self, title: title, contents: contents, links: links, trend_list_start_num: trend_list_start_num)
     end
 
+    def add_ff_trend_summary_slide(title, content, image_path, link)
+      @slides << Powerpoint::Slide::FFTrendSummary.new(
+        presentation: self,
+        title: title,
+        content: content,
+        image_path: image_path,
+        link: link
+      )
+    end
+
     def init_files
       @dir = Dir.mktmpdir
       @extract_path = "#{@dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"

@@ -25,6 +25,7 @@ require 'powerpoint/slide/ff_trend_text_right_image_left'
 require 'powerpoint/slide/ff_trend_text_left_image_right'
 require 'powerpoint/slide/ff_trend_two_column_chart'
 require 'powerpoint/slide/ff_trend_two_column_text'
+require 'powerpoint/slide/ff_trend_summary'
 
 module Powerpoint
   ROOT_PATH = File.expand_path("../..", __FILE__)
