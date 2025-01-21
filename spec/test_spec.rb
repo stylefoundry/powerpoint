@@ -14,7 +14,7 @@ describe 'Powerpoint parsing a sample PPTX file' do
     @three_col_content = {"global"=>{"title"=>"Global", "dataType"=>"fieldset", "items"=>{"downloadableInput"=>{"title"=>"Downloadable: ", "dataType"=>"checkBox", "disabled"=>true, "items"=>["as PowerPoint", "as PDF"], "value"=>["as PowerPoint", "as PDF"]}}}, "headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Lorem Ipsum Dolor Sit Amet"}, "column1"=>{"dataType"=>"fieldset", "items"=>{"headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Lorem Ipsum Dolor Consec"}, "textInput"=>{"dataType"=>"richText", "title"=>"Text: ", "value"=>"<p><a href=\"http://www.spicerack.co.uk/\">Foo bar bob link</a>Sum expectantes. Ego hodie expectantes. Expectantes, et misit unum de pueris Gus interficere. Et suus vos. Nescio quis, qui est bonus usus liberi ad Isai? Qui nosti ... Quis dimisit filios ad necem ... hmm? Gus! Est, ante me factus singulis decem gradibus. Et nunc ad aliud opus mihi tandem tollendum est puer ille consensus et nunc fugit. Ipse suus obtinuit eam. Non solum autem illa, sed te tractantur in se trahens felis. </p>"}}, "disabled"=>false, "title"=>"Column 1"}, "column2"=>{"dataType"=>"fieldset", "items"=>{"headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Consectetur Adipiscing"}, "textInput"=>{"dataType"=>"richText", "title"=>"Text: ", "value"=>"<p>Sum expectantes. Ego hodie expectantes. Expectantes, et misit unum de pueris Gus interficere. Et suus vos. Nescio quis, qui est bonus usus liberi ad Isai?</p><p>Qui nosti ... Quis dimisit filios ad necem ... hmm? Gus! Est, ante me factus singulis decem gradibus.</p><p>Et nunc ad aliud opus mihi tandem tollendum est puer ille consensus et nunc fugit. Ipse suus obtinuit eam. Non solum autem illa, sed te tractantur in se trahens felis. </p>"}}, "title"=>"Column 2"}, "column3"=>{"dataType"=>"fieldset", "items"=>{"headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Pariatur Consectetur"}, "textInput"=>{"dataType"=>"richText", "title"=>"Text: ", "value"=>"<p>Sum expectantes. Ego hodie expectantes. Expectantes, et misit unum de pueris Gus interficere. Et suus vos. Nescio quis, qui est bonus usus liberi ad Isai? Qui nosti ... Quis dimisit filios ad necem ... hmm? Gus! </p><p>Est, ante me factus singulis decem gradibus.</p>"}}, "title"=>"Column 3"}}
     @three_col_content = {"global"=>{"title"=>"Global", "dataType"=>"fieldset", "items"=>{"subPageNavigationMenu"=>{"dataType"=>"subPageNavigationMenu"}, "downloadableInput"=>{"title"=>"Downloadable: ", "dataType"=>"checkBox", "disabled"=>true, "items"=>["as PowerPoint", "as PDF"], "value"=>["as PowerPoint", "as PDF"]}}}, "headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Lorem Ipsum Dolor Sit Amet"}, "column1"=>{"dataType"=>"fieldset", "items"=>{"headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Lorem Ipsum Dolor Consec"}, "textInput"=>{"dataType"=>"richText", "title"=>"Text: ", "value"=>"<p>\n    Testing <a href=\"https://stylefoundry.atlassian.net/\">blah blah</a>\n</p>"}}, "disabled"=>false, "title"=>"Column 1"}, "column2"=>{"dataType"=>"fieldset", "items"=>{"headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Consectetur Adipiscing"}, "textInput"=>{"dataType"=>"richText", "title"=>"Text: ", "value"=>"<p>\n    test\n</p>"}}, "title"=>"Column 2"}, "column3"=>{"dataType"=>"fieldset", "items"=>{"headingInput"=>{"dataType"=>"text", "title"=>"Heading: ", "value"=>"Pariatur Consectetur"}, "textInput"=>{"dataType"=>"richText", "title"=>"Text: ", "value"=>"<p>\n    test\n</p>"}}, "title"=>"Column 3"}}
     @html = '
-      <h1>A very long title to test breaking over two lines works correctly</h1><p>
+<h1>A very long title to test breaking over two lines works correctly</h1><p>
 <strong>Bedtime</strong>, and <i>evening</i> time in general, is being re-defined. For a significant number, the hours before sleep can be penetrated by a kind of light work; it is now so easy to curl round a laptop or a tablet and drop your boss an email, while scanning the latest news, while streaming on-demand movies, while online shopping for your mother’s birthday present, and so on.
 </p>
 <p>
@@ -24,7 +24,7 @@ describe 'Powerpoint parsing a sample PPTX file' do
 Work-life <a href="http://www.spicerack.co.uk">balance</a> is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
 </p>
 <p>
-More, online media and retail are accessed differently in these arenas. Remote technology for both work and socialising means that consumers are engaging with their devices, and their fellow human beings, in a totally new way.
+More, online media and retail are <b>accessed</b> <i>differently</i> in these arenas. Remote technology for both work and socialising means that consumers are engaging with their devices, and their fellow human beings, in a totally new way.
 </p>
 <p>
 Work-life balance is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
@@ -76,15 +76,21 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     # @deck.add_ff_trend_intro_slide 'Abcdefghijklmnopqrstuvwxyz12345678910112', 'Contactless credit/debit cards, NFC- and web-enabled phones and digital wallets.', "samples/images/white.jpeg", '2'
     
     @deck.add_ff_heading_text_slide @header.inner_html ,html_to_ooxml(@final.to_s), @image_paths, links
+    
     # # #
     # # # # loop through total content remove 1st three and then work out how many slides needed based on 21 content items per slide
+    
     @deck.add_ff_trend_list_slide "test title", @contents, @content_links
+    
     # # #
     # @deck.add_ff_heading_text_slide @header.inner_html, html_to_ooxml(@bullet_html), @image_paths, links
     # # @deck.add_ff_three_row_text_slide 'What to do', @three_col_content, three_col_links
+    
     @deck.add_ff_what_next_slide 'What will happen next', @what_content
     @deck.add_ff_what_next_slide 'What will happen next 2', @what_missing_content
-    @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
+    
+    # @deck.add_ff_sector_impact_slide @sector_content.first[1]['title'], @sector_content.first[1]['items'].first[1]['value'], sector_image_path, sector_impact_links
+
     @deck.add_ff_associated_content_slide 'Sample Asscociated Content Item', 'Test Associated Content Subtitle', 'samples/images/image5.jpeg', {}, 'sample.pptx'
     @deck.add_ff_text_left_chart_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "subtitle", "samples/images/image5.jpeg", links 
     @deck.add_ff_text_right_chart_left_slide @header.inner_html ,html_to_ooxml(@final.to_s), "Which of these websites/apps have you used in the past month? TikTok(Douyin)", "subtitle", "samples/images/image5.jpeg", links 
@@ -92,7 +98,8 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     @deck.add_ff_text_left_image_right_slide @header.inner_html ,html_to_ooxml(@final.to_s), "samples/images/image5.jpeg", links 
     @deck.add_ff_two_column_chart_slide @header.inner_html ,html_to_ooxml(@final.to_s), ["Which of these websites/apps have you used in the past month? TikTok(Douyin1)", "Which of these websites/apps have you used in the past month? TikTok(Douyin2)"], ["subtitle", "subtitle"], ["samples/images/image1.png", "samples/images/image5.jpeg"], links 
     @deck.add_ff_two_column_text_slide 'Test title', @header.inner_html, @header.inner_html, html_to_ooxml(@final.to_s), html_to_ooxml(@final.to_s), links
-    ##
+    @deck.add_ff_trend_summary_slide "Test Trend" ,html_to_ooxml("<p>Some test trend content that describes the trend in an sumarrised way."), "samples/images/image5.jpeg", links[0]
+    # ##
     # These are the embeded prenstatoins I have taken a selection of the ones that have tags, drawiings, charts etc
     #
     #  Loop through each and add the masters and layouts to the main output presentation
@@ -100,6 +107,7 @@ Work-life balance is redrawn under wider horizons. This is not just a story of m
     ##
     embed_decks = ["samples/pptx/new-chart.pptx","samples/pptx/35848.pptx","samples/pptx/trend-intensity.pptx"]
     # comment out this loop for a single slide test
+    # embed_decks = []
     embed_decks.each do |deck_path|
       @embed_deck = Powerpoint::ReadPresentation.new deck_path
     
