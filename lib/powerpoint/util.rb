@@ -72,8 +72,7 @@ module Powerpoint
       result = Htmltoooxml::Document.new().transform_doc_xml(source, false)
       result.gsub!(/\s*<!--(.*?)-->\s*/m, '')
       result = remove_declaration(result)
-      result = remove_whitespace(result)
-      result
+      result = remove_newlines(result)
     end
 
     def ooxml_blank?(ooxml)
@@ -99,6 +98,10 @@ module Powerpoint
 
     def remove_declaration(ooxml)
       ooxml.sub(/<\?xml (.*?)>/, '').gsub(/\s*xmlns:(\w+)="(.*?)\s*"/, '')
+    end
+
+    def remove_newlines(ooxml)
+      ooxml.gsub("\n","")
     end
   end
 end
