@@ -14,7 +14,7 @@ include Htmltoooxml::XSLTHelper
 # end
 
 def remove_whitespace(ooxml)
-  ooxml.gsub(/\s+/, ' ').gsub(/>\s+</, '><').strip
+  ooxml.gsub(/<a:t([^>]*)>[\s\t\n\r]*/,'<a:t\1>')
 end
 
 def remove_declaration(ooxml)

@@ -3,6 +3,17 @@ require 'powerpoint'
 require 'powerpoint/util'
 include Powerpoint::Util
 
+describe 'Powerpoint utilities' do
+  describe '#remove_whitespace' do
+    it 'removes whitespace at start of paragraphs in OOXML' do
+      input = '<a:t> 
+             Hello world</a:t><a:t dirty="true">   Another paragraph</a:t>'
+      expected = '<a:t>Hello world</a:t><a:t dirty="true">Another paragraph</a:t>'
+      expect(remove_whitespace(input)).to eq(expected)
+    end
+  end
+end
+
 describe 'Powerpoint parsing a sample PPTX file' do
   before(:all) do
 
@@ -20,11 +31,10 @@ describe 'Powerpoint parsing a sample PPTX file' do
 <p>
 <img height="770" src="samples/images/image5.jpeg" width="1543">
 </p>
-<p>
-Work-life <a href="http://www.spicerack.co.uk">balance</a> is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
+<p>  Work-life <a href="http://www.spicerack.co.uk">balance</a> is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
 </p>
 <p>
-More, online media and retail are <b>accessed</b> <i>differently</i> in these arenas. Remote technology for both work and socialising means that consumers are engaging with their devices, and their fellow human beings, in a totally new way.
+    More, online media and retail are <b>accessed</b> <i>differently</i> in these arenas. Remote technology for both work and socialising means that consumers are engaging with their devices, and their fellow human beings, in a totally new way.
 </p>
 <p>
 Work-life balance is redrawn under wider horizons. This is not just a story of more flexible working hours but a story of work encroaching into those times and places formerly reserved for rest: night time, bedrooms, even holidays. To many millennials, work-life balance is in revolution.
