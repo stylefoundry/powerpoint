@@ -119,10 +119,14 @@
             <a:ext cx="4749613" cy="903581"/>
           </a:xfrm>
         </p:spPr>
-        <p:txBody>
+        <p:txBody >
           <a:bodyPr/>
-          <a:lstStyle/>
-            <%= content || html_to_ooxml('&nbsp;') %>
+          <a:lstStyle>
+            <a:lvl1pPr>
+              <a:defRPr sz="1200"/> <!-- 12 pt font -->
+            </a:lvl1pPr>
+          </a:lstStyle>
+          <%= content || html_to_ooxml('&nbsp;') %>
         </p:txBody>
       </p:sp>
       <p:pic>
@@ -143,10 +147,8 @@
         </p:nvPicPr>
         <p:blipFill>
           <a:blip r:embed="rId3" cstate="print"/>
-          <a:srcRect t="12500" b="12500"/>
-          <a:stretch>
-            <a:fillRect/>
-          </a:stretch>
+          <a:srcRect />
+          <a:stretch />
         </p:blipFill>
         <p:spPr bwMode="auto">
           <a:xfrm>

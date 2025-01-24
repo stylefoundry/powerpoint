@@ -72,6 +72,7 @@ module Powerpoint
       result = Htmltoooxml::Document.new().transform_doc_xml(source, false)
       result.gsub!(/\s*<!--(.*?)-->\s*/m, '')
       result = remove_declaration(result)
+      result = remove_whitespace(result)
       result = remove_newlines(result)
     end
 
@@ -92,8 +93,9 @@ module Powerpoint
       end
     end
 
+    # Remove whitespace at start of paragraphs while preserving attributes
     def remove_whitespace(ooxml)
-      ooxml.gsub(/\s+/, ' ').gsub(/>\s+</, '><').strip
+      ooxml.gsub(/<a:t([^>]*)>[\s\t\n\r]*/,'<a:t\1>')
     end
 
     def remove_declaration(ooxml)
