@@ -61,9 +61,8 @@ module Powerpoint
     def add_ff_heading_text_slide(title, content, image_paths, links = [])
       @slides << if image_paths&.any?
         text_content = extract_ooxml_text(content)
-        text_dimensions = text_content ?
-          measure_text(text_content) :
-          { width: 0, height: 0 }
+        # measure_text handles blank text
+        text_dimensions = measure_text(text_content)
         # From text with image slide template
         max_text_width = pt_to_pixle(11570400)
         max_text_height = pt_to_pixle(203200)

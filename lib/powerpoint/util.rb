@@ -111,15 +111,24 @@ module Powerpoint
         ooxml = Nokogiri::XML.fragment(ooxml)
       end
 
-      if ooxml.name == 'text'
-        ooxml.text
-      elsif ooxml.children.any?
-        ooxml.children.filter_map { |child|
-          extract_ooxml_text(child).gsub(/[[:space:]]/, ' ').strip.presence
-        }.join("\n")
-      else
-        ''
+      extract_text = -> (node) do
+        if node.name == 'a:p'
+          text = node.text.gsub(/\u00A0/, ' ').strip
+          if text
+            text
+          else
+            nil
+          end
+        elsif node.children.any?
+          node.children.filter_map { |child|
+            extract_text.call(child)
+          }.join("\n")
+        else
+          ''
+        end
       end
+
+      extract_text.call(ooxml).strip
     end
 
     def measure_text(
@@ -140,12 +149,18 @@ module Powerpoint
       label.font_style = font_style
       label.font_weight = font_weight
       label.gravity = Magick::CenterGravity
-      label.text(0, 0, text)
-      metrics = label.get_type_metrics(text)
-      width = metrics.width
-      height = metrics.height
 
-      { width: width, height: height }
+      text.split(/\n/).reduce({ width: 0, height: 0 }) do |d, line|
+        label.text(0, 0, text)
+        metrics = label.get_type_metrics(text)
+        width = metrics.width
+        height = metrics.height
+
+        {
+          width: [d[:width], width].max,
+          height: d[:height] + height
+        }
+      end
     end
   end
 end
