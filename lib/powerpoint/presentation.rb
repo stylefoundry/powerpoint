@@ -66,7 +66,7 @@ module Powerpoint
           { width: 0, height: 0 }
         # From text with image slide template
         max_text_width = pt_to_pixle(11570400)
-        max_text_height = pt_to_pixle(193899)
+        max_text_height = pt_to_pixle(203200)
         if text_dimensions[:width] > max_text_width || text_dimensions[:height] > max_text_height
           Powerpoint::Slide::FFTrendTextLeftImageRight.new(
             presentation: self,
