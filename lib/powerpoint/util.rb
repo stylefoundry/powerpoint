@@ -105,5 +105,21 @@ module Powerpoint
     def remove_newlines(ooxml)
       ooxml.gsub("\n","")
     end
+
+    def extract_ooxml_text(ooxml)
+      if ooxml.is_a?(String)
+        ooxml = Nokogiri::XML.fragment(ooxml)
+      end
+
+      if ooxml.name == 'text'
+        ooxml.text
+      elsif ooxml.children.any?
+        ooxml.children.filter_map { |child|
+          extract_ooxml_text(child).gsub(/[[:space:]]/, ' ').strip.presence
+        }.join("\n")
+      else
+        ''
+      end
+    end
   end
 end
