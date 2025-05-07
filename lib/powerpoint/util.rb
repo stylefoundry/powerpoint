@@ -121,5 +121,31 @@ module Powerpoint
         ''
       end
     end
+
+    def measure_text(
+      text,
+      font_family: 'Arial',
+      font_size: 14,
+      font_style: Magick::NormalStyle,
+      font_weight: Magick::NormalWeight
+    )
+      unless text && text.length > 0
+        return { width: 0, height: 0 }
+      end
+
+      label = Magick::Draw.new
+      label.font = font_family
+      label.pointsize = font_size
+      label.text_antialias(true)
+      label.font_style = font_style
+      label.font_weight = font_weight
+      label.gravity = Magick::CenterGravity
+      label.text(0, 0, text)
+      metrics = label.get_type_metrics(text)
+      width = metrics.width
+      height = metrics.height
+
+      { width: width, height: height }
+    end
   end
 end

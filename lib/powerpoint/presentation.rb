@@ -60,7 +60,14 @@ module Powerpoint
 
     def add_ff_heading_text_slide(title, content, image_paths, links = [])
       @slides << if image_paths&.any?
-        if extract_ooxml_text(content).length > 0
+        text_content = extract_ooxml_text(content)
+        text_dimensions = text_content ?
+          measure_text(text_content) :
+          { width: 0, height: 0 }
+        # From text with image slide template
+        max_text_width = pt_to_pixle(11570400)
+        max_text_height = pt_to_pixle(193899)
+        if text_dimensions[:width] > max_text_width || text_dimensions[:height] > max_text_height
           Powerpoint::Slide::FFTrendTextLeftImageRight.new(
             presentation: self,
             title: title,
@@ -72,7 +79,8 @@ module Powerpoint
           Powerpoint::Slide::FFTrendTextWithImage.new(
             presentation: self,
             title: title,
-            content: "",
+            # If content is empty, use empty string to ensure it is not nil
+            content: text_content.length > 0 ? content : '',
             image_path: image_paths[0],
             links: links
           )
