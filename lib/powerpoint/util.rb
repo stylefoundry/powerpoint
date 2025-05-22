@@ -111,24 +111,22 @@ module Powerpoint
         ooxml = Nokogiri::XML.fragment(ooxml)
       end
 
-      extract_text = -> (node) do
-        if node.name == 'a:p'
-          text = node.text.gsub(/\u00A0/, ' ').strip
-          if text
-            text
-          else
-            nil
-          end
-        elsif node.children.any?
-          node.children.filter_map { |child|
-            extract_text.call(child)
-          }.join("\n")
-        else
-          ''
-        end
-      end
+      if ooxml.children.any?
+        child_text = ooxml.children.map { |child|
+          str = extract_ooxml_text(child).gsub(/[[:space:]]/, ' ').strip
+          str || ''
+        }
 
-      extract_text.call(ooxml).strip
+        # If paragraph, inline text
+        # Otherwise, join with newlines
+        if ooxml.name == 'a:p'
+          child_text.reject { |str| str.empty? }.join(' ')
+        else
+          child_text.join("\n")
+        end
+      else
+        ooxml.text
+      end
     end
 
     def measure_text(
