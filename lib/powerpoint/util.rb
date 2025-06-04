@@ -105,5 +105,60 @@ module Powerpoint
     def remove_newlines(ooxml)
       ooxml.gsub("\n","")
     end
+
+    def extract_ooxml_text(ooxml)
+      if ooxml.is_a?(String)
+        ooxml = Nokogiri::XML.fragment(ooxml)
+      end
+
+      if ooxml.children.any?
+        child_text = ooxml.children.map { |child|
+          str = extract_ooxml_text(child).gsub(/[[:space:]]/, ' ').strip
+          str || ''
+        }
+
+        # If paragraph, inline text
+        # Otherwise, join with newlines
+        if ooxml.name == 'a:p'
+          child_text.reject { |str| str.empty? }.join(' ')
+        else
+          child_text.join("\n")
+        end
+      else
+        ooxml.text
+      end
+    end
+
+    def measure_text(
+      text,
+      font_family: 'Arial',
+      font_size: 14,
+      font_style: Magick::NormalStyle,
+      font_weight: Magick::NormalWeight
+    )
+      unless text && text.length > 0
+        return { width: 0, height: 0 }
+      end
+
+      label = Magick::Draw.new
+      label.font = font_family
+      label.pointsize = font_size
+      label.text_antialias(true)
+      label.font_style = font_style
+      label.font_weight = font_weight
+      label.gravity = Magick::CenterGravity
+
+      text.split(/\n/).reduce({ width: 0, height: 0 }) do |d, line|
+        label.text(0, 0, text)
+        metrics = label.get_type_metrics(text)
+        width = metrics.width
+        height = metrics.height
+
+        {
+          width: [d[:width], width].max,
+          height: d[:height] + height
+        }
+      end
+    end
   end
 end
