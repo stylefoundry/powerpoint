@@ -27,7 +27,7 @@
       <p:pic>
         <p:nvPicPr>
           <p:cNvPr id="11" name="Picture 10"
-            descr="<%= title ? title.strip.encode(:xml => :text) : nil %>">
+            descr=<%= title ? title.strip.encode(:xml => :attr) : '""' %>>
             <a:extLst>
               <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
                 <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main"
