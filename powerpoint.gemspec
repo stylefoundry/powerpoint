@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["justin.boynton@spicerack.co.uk"]
   spec.description   = %q{A Ruby gem that can create a PowerPoint presentation.}
   spec.summary       = %q{powerpoint is a Ruby gem that can create a PowerPoint presentation based on a standard pptx template.}
-  spec.homepage      = "https://github.com/stylefoundry/powerpoint"
+  spec.homepage      = "https://github.com/Spydr-Digital/powerpoint"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
