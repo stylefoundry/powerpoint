@@ -24,6 +24,7 @@
           <a:chExt cx="0" cy="0" />
         </a:xfrm>
       </p:grpSpPr>
+      # image
       <p:pic>
         <p:nvPicPr>
           <p:cNvPr id="8" name="Picture 2"
@@ -68,8 +69,8 @@
                 max_width: max_width
               )
             %>
-            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
-            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) %>"/>
+            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) + 200000 %>"/>
+            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) - 200000 %>"/>
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst />
@@ -86,6 +87,8 @@
           </a:extLst>
         </p:spPr>
       </p:pic>
+      # image
+      # title
       <p:sp>
         <p:nvSpPr>
           <p:cNvPr id="2" name="Title 1">
@@ -106,7 +109,7 @@
         <p:spPr>
           <a:xfrm>
             <a:off x="403410" y="790573" />
-            <a:ext cx="5398993" cy="1538883" />
+            <a:ext cx="11564752" cy="1025922" />
           </a:xfrm>
         </p:spPr>
         <p:txBody>
@@ -124,6 +127,7 @@
           </a:p>
         </p:txBody>
       </p:sp>
+      # title
       <p:sp>
         <p:nvSpPr>
           <p:cNvPr id="3" name="Slide Number Placeholder 2">
@@ -172,15 +176,19 @@
         </p:nvSpPr>
         <p:spPr>
           <a:xfrm>
-            <a:off x="403410" y="2529841" />
-            <a:ext cx="5400000" cy="3909890" />
+            <a:off x="403410" y="<%= pixle_to_pt(image_position_data.y) + + 200000 %>" />
+            <a:ext cx="5400000" cy="4109890" />
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst />
           </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
         </p:spPr>
+        # text
         <p:txBody>
-          <a:bodyPr vert="horz" wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0"
+          <a:bodyPr vert="horz" wrap="square" lIns="203200" tIns="203200" rIns="203200" bIns="203200" rtlCol="0"
             anchor="t" anchorCtr="0">
             <a:normAutofit />
           </a:bodyPr>
@@ -200,6 +208,7 @@
           </a:lstStyle>
           <%= content || html_to_ooxml('&nbsp;') %>
         </p:txBody>
+        # text
       </p:sp>
     </p:spTree>
     <p:extLst>
