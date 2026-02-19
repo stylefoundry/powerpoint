@@ -56,9 +56,9 @@
           <a:xfrm>
             <%
               min_x = pt_to_pixle(6095999)
-              min_y = pt_to_pixle(780756)
+              min_y = pt_to_pixle(1580756)
               max_width = pt_to_pixle(6096000)
-              max_height = pt_to_pixle(5769356)
+              max_height = pt_to_pixle(5269356)
 
               image_position_data = size_and_position_image(
                 @image_path,
@@ -68,8 +68,8 @@
                 max_width: max_width
               )
             %>
-            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) + 500000 %>"/>
-            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) - 500000 %>"/>
+            <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
+            <a:ext cx="<%= pixle_to_pt(image_position_data.width) %>" cy="<%= pixle_to_pt(image_position_data.height) %>"/>
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst />
@@ -172,7 +172,7 @@
         </p:nvSpPr>
         <p:spPr>
           <a:xfrm>
-            <a:off x="403410" y="<%= pixle_to_pt(image_position_data.y) + 500000 %>" />
+            <a:off x="403410" y="<%= pixle_to_pt(image_position_data.y) %>" />
             <a:ext cx="5400000" cy="4400000" />
           </a:xfrm>
           <a:prstGeom prst="rect">
