@@ -56,16 +56,17 @@
           <a:xfrm>
             <%
               min_x = pt_to_pixle(6095999)
-              min_y = pt_to_pixle(780756)
+              min_y = pt_to_pixle(1580756)
               max_width = pt_to_pixle(6096000)
-              max_height = pt_to_pixle(5769356)
+              max_height = pt_to_pixle(5269356)
 
               image_position_data = size_and_position_image(
                 @image_path,
                 x: min_x,
                 y: min_y,
                 max_height: max_height,
-                max_width: max_width
+                max_width: max_width,
+                v_align: :top
               )
             %>
             <a:off x="<%= pixle_to_pt(image_position_data.x) %>" y="<%= pixle_to_pt(image_position_data.y) %>"/>
@@ -106,7 +107,7 @@
         <p:spPr>
           <a:xfrm>
             <a:off x="403410" y="790573" />
-            <a:ext cx="5398993" cy="1538883" />
+            <a:ext cx="11564752" cy="1025922" />
           </a:xfrm>
         </p:spPr>
         <p:txBody>
@@ -172,15 +173,18 @@
         </p:nvSpPr>
         <p:spPr>
           <a:xfrm>
-            <a:off x="403410" y="2529841" />
-            <a:ext cx="5400000" cy="3909890" />
+            <a:off x="403410" y="<%= pixle_to_pt(image_position_data.y) %>" />
+            <a:ext cx="5400000" cy="4400000" />
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst />
           </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
         </p:spPr>
         <p:txBody>
-          <a:bodyPr vert="horz" wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0"
+          <a:bodyPr vert="horz" wrap="square" lIns="203200" tIns="203200" rIns="203200" bIns="203200" rtlCol="0"
             anchor="t" anchorCtr="0">
             <a:normAutofit />
           </a:bodyPr>
