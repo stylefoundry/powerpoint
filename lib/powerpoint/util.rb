@@ -15,7 +15,7 @@ module Powerpoint
     end
 
     # Get largest dimensions that maintain image aspect ratio and fit inside max
-    # Returns x and y such that element is centered in container
+    # Returns x and y such that element is positioned according to v_align and h_align
     def size_and_position_image(image_path, x:, y:, max_height:, max_width:, v_align: :center, h_align: :center)
       image = Magick::ImageList.new(image_path).first
       image_height = image.rows
@@ -35,18 +35,18 @@ module Powerpoint
       when :center
         y + ((max_height - target_height) / 2.0).floor
       when :top
-        y
+        y.ceil
       when :bottom
-        y + max_height - target_height
+        (y + max_height - target_height).floor
       end
 
       target_x = case h_align
       when :center
         x + ((max_width - target_width) / 2.0).floor
       when :left
-        x
+        x.ceil
       when :right
-        x + max_width - target_width
+        (x + max_width - target_width).floor
       end
 
       Struct.new(:height, :width, :y, :x, keyword_init: true).new(
